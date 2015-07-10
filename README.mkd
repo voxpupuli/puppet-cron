@@ -2,12 +2,12 @@
 
 ## Build Status:
 
-  * **master:** [![master branch status](https://secure.travis-ci.org/torrancew/puppet-cron.png?branch=master)](http://travis-ci.org/torrancew/puppet-cron)
-  * **develop:** [![develop branch status](https://secure.travis-ci.org/torrancew/puppet-cron.png?branch=develop)](http://travis-ci.org/torrancew/puppet-cron)
+  * **master:** [![master branch status](https://secure.travis-ci.org/roman-mueller/puppet-cron.png?branch=master)](http://travis-ci.org/roman-mueller/puppet-cron)
 
 ## Notes:
 
-This module manages cronjobs by placing a file in /etc/cron.d.
+This module manages cronjobs by placing a file in /etc/cron.d.  
+It is a fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron) which seems to be abandoned.  
 It defines the following types:
 
   * cron::job     - basic job skeleton
