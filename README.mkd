@@ -2,7 +2,7 @@
 
 ## Build Status:
 
-  * **master:** [![master branch status](https://secure.travis-ci.org/roman-mueller/puppet-cron.png?branch=master)](http://travis-ci.org/roman-mueller/puppet-cron)
+  * **master:** [![master branch status](https://secure.travis-ci.org/roman-mueller/rmueller-cron.png?branch=master)](http://travis-ci.org/roman-mueller/rmueller-cron)
 
 ## Notes:
 
