@@ -1,0 +1,25 @@
+{
+  "name": "rmueller-cron",
+  "version": "0.1.2",
+  "author": "rmueller",
+  "summary": "Module to manage cron jobs via /etc/cron.d/",
+  "license": "Apache 2.0",
+  "source": "https://github.com/roman-mueller/rmueller-cron",
+  "project_page": "https://github.com/roman-mueller/rmueller-cron",
+  "issues_url": "https://github.com/roman-mueller/rmueller-cron/issues",
+  "tags": ["cron"],
+  "operatingsystem_support": [
+    {
+    "operatingsystem":"RedHat",
+    "operatingsystemrelease":[ "5.0", "6.0", "7.0" ]
+    },
+    {
+    "operatingsystem": "Ubuntu",
+    "operatingsystemrelease": [ "14.04" ]
+    }
+   ],
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
