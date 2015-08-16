@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "author": "rmueller",
   "summary": "Module to manage cron jobs via /etc/cron.d/",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "https://github.com/roman-mueller/rmueller-cron",
   "project_page": "https://github.com/roman-mueller/rmueller-cron",
   "issues_url": "https://github.com/roman-mueller/rmueller-cron/issues",
