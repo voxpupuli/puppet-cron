@@ -12,10 +12,14 @@
 # Sample Usage:
 #   include 'cron'
 #   class { 'cron': }
-
+#
 class cron (
   $package_ensure = 'installed'
 ) {
-  class { '::cron::install': package_ensure => $package_ensure }
+
+  class { '::cron::install':
+    package_ensure => $package_ensure,
+  }
+
 }
 

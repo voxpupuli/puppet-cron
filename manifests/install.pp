@@ -16,6 +16,7 @@
 class cron::install (
   $package_ensure = 'installed'
 ) {
+
   $package_name = $::operatingsystem ? {
     /(RedHat|CentOS|Amazon|OracleLinux)/ => 'cronie',
     'Gentoo'                             => 'sys-process/vixie-cron',
@@ -23,10 +24,10 @@ class cron::install (
     default                              => 'cron',
   }
 
-  package {
-    'cron':
-      ensure => $package_ensure,
-      name   => $package_name;
+  package { 'cron':
+    ensure => $package_ensure,
+    name   => $package_name,
   }
+
 }
 

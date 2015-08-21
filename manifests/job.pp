@@ -34,9 +34,18 @@
 #       environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 #       command     => 'puppet doc --modulepath /etc/puppet/modules >/var/www/puppet_docs.mkd';
 #   }
-define cron::job(
-  $command, $minute = '*', $hour = '*', $date = '*', $month = '*', $weekday = '*',
-  $environment = [], $user = 'root', $mode = '0644', $ensure = 'present'
+#
+define cron::job (
+  $command,
+  $ensure      = 'present',
+  $minute      = '*',
+  $hour        = '*',
+  $date        = '*',
+  $month       = '*',
+  $weekday     = '*',
+  $environment = [],
+  $user        = 'root',
+  $mode        = '0644',
 ) {
 
   case $ensure {
@@ -45,14 +54,14 @@ define cron::job(
     default:   { fail("Invalid value '${ensure}' used for ensure") }
   }
 
-  file {
-    "job_${title}":
-      ensure  => $real_ensure,
-      owner   => 'root',
-      group   => 'root',
-      mode    => $mode,
-      path    => "/etc/cron.d/${title}",
-      content => template( 'cron/job.erb' );
+  file { "job_${title}":
+    ensure  => $real_ensure,
+    owner   => 'root',
+    group   => 'root',
+    mode    => $mode,
+    path    => "/etc/cron.d/${title}",
+    content => template('cron/job.erb'),
   }
+
 }
 

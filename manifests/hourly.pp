@@ -25,22 +25,28 @@
 #       environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 #       command     => 'puppet doc --modulepath /etc/puppet/modules >/var/www/puppet_docs.mkd';
 #   }
-define cron::hourly(
-  $command, $minute = 0, $environment = [],
-  $user = 'root', $mode = '0644', $ensure = 'present'
+#
+define cron::hourly (
+  $command,
+  $ensure      = 'present',
+  $minute      = 0,
+  $environment = [],
+  $user        = 'root',
+  $mode        = '0644',
 ) {
-  cron::job {
-    $title:
-      ensure      => $ensure,
-      minute      => $minute,
-      hour        => '*',
-      date        => '*',
-      month       => '*',
-      weekday     => '*',
-      user        => $user,
-      environment => $environment,
-      mode        => $mode,
-      command     => $command;
+
+  cron::job { $title:
+    ensure      => $ensure,
+    minute      => $minute,
+    hour        => '*',
+    date        => '*',
+    month       => '*',
+    weekday     => '*',
+    user        => $user,
+    environment => $environment,
+    mode        => $mode,
+    command     => $command,
   }
+
 }
 

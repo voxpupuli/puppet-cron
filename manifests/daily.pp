@@ -29,23 +29,29 @@
 #       environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 #       command     => 'mysqldump -u root my_db >/mnt/backups/db/daily/my_db_$(date "+%Y%m%d").sql';
 #   }
+#
+define cron::daily (
+  $command,
+  $ensure      = 'present',
+  $minute      = 0,
+  $hour        = 0,
+  $environment = [],
+  $user        = 'root',
+  $mode        = '0644',
+) {
 
-define cron::daily(
-  $command, $minute = 0, $hour = 0, $environment = [],
-  $user = 'root', $mode = '0644', $ensure = 'present'
-){
-  cron::job {
-    $title:
-      ensure      => $ensure,
-      minute      => $minute,
-      hour        => $hour,
-      date        => '*',
-      month       => '*',
-      weekday     => '*',
-      user        => $user,
-      environment => $environment,
-      mode        => $mode,
-      command     => $command;
+  cron::job { $title:
+    ensure      => $ensure,
+    minute      => $minute,
+    hour        => $hour,
+    date        => '*',
+    month       => '*',
+    weekday     => '*',
+    user        => $user,
+    environment => $environment,
+    mode        => $mode,
+    command     => $command,
   }
+
 }
 

@@ -32,23 +32,30 @@
 #       environment => [ 'MAILTO="admin@example.com"' ],
 #       command     => 'find /tmp -type f -ctime +7 -exec rm -f {} \;';
 #   }
-
-define cron::weekly(
-  $command, $minute = 0, $hour = 0, $weekday = 0, $user = 'root',
-  $mode = '0640', $ensure = 'present', $environment = []
+#
+define cron::weekly (
+  $command,
+  $ensure      = 'present',
+  $minute      = 0,
+  $hour        = 0,
+  $weekday     = 0,
+  $user        = 'root',
+  $mode        = '0640',
+  $environment = [],
 ) {
-  cron::job {
-    $title:
-      ensure      => $ensure,
-      minute      => $minute,
-      hour        => $hour,
-      date        => '*',
-      month       => '*',
-      weekday     => $weekday,
-      user        => $user,
-      environment => $environment,
-      mode        => $mode,
-      command     => $command;
+
+  cron::job { $title:
+    ensure      => $ensure,
+    minute      => $minute,
+    hour        => $hour,
+    date        => '*',
+    month       => '*',
+    weekday     => $weekday,
+    user        => $user,
+    environment => $environment,
+    mode        => $mode,
+    command     => $command,
   }
+
 }
 

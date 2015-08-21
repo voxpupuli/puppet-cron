@@ -32,23 +32,30 @@
 #       environment => [ 'MAILTO="admin@example.com"' ],
 #       command     => 'find /var/log -type f -ctime +30 -exec rm -f {} \;';
 #   }
-
-define cron::monthly(
-  $command, $minute = 0, $hour = 0, $date = 1,
-  $environment = [], $user = 'root', $mode = '0644', $ensure = 'present'
+#
+define cron::monthly (
+  $command,
+  $ensure      = 'present',
+  $minute      = 0,
+  $hour        = 0,
+  $date        = 1,
+  $environment = [],
+  $user        = 'root',
+  $mode        = '0644',
 ) {
-  cron::job {
-    $title:
-      ensure      => $ensure,
-      minute      => $minute,
-      hour        => $hour,
-      date        => $date,
-      month       => '*',
-      weekday     => '*',
-      user        => $user,
-      environment => $environment,
-      mode        => $mode,
-      command     => $command;
+
+  cron::job { $title:
+    ensure      => $ensure,
+    minute      => $minute,
+    hour        => $hour,
+    date        => $date,
+    month       => '*',
+    weekday     => '*',
+    user        => $user,
+    environment => $environment,
+    mode        => $mode,
+    command     => $command,
   }
+
 }
 
