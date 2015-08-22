@@ -1,3 +1,12 @@
+v0.1.2: 2015-08-13
+Changes:
+  * Update to new style of Puppet modules (metadata.json)
+
+v0.1.1: 2015-07-12
+Changes:
+  * Make module Puppet 4 compatible
+  * Fix Travis CI integration
+
 v0.1.0: 2013-08-27
 Changes:
   * Add support for the "ensure" parameter
