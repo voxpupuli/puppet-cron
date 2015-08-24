@@ -1,4 +1,4 @@
-# Type: cron::jobs
+# Type: cron::job::multiple
 #
 # This type creates multiple cron jobs via a single file in /etc/cron.d/
 #
@@ -14,7 +14,7 @@
 #
 # Sample Usage:
 #
-# cron::jobs { 'test':
+# cron::job::multiple { 'test':
 #   jobs => [
 #     {
 #       minute      => '55',
@@ -36,7 +36,7 @@
 # 55 5 * * *  rmueller  /usr/bin/uname
 # * * * * *  root  /usr/bin/sleep 1
 #
-define cron::jobs(
+define cron::job::multiple(
   $jobs,
   $ensure      = 'present',
   $environment = [],

@@ -6,15 +6,16 @@
 
 ## Notes:
 
-This module manages cronjobs by placing a file in /etc/cron.d.  
+This module manages cronjobs by placing a file in `/etc/cron.d`.  
 It is a fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron) which seems to be abandoned.  
 It defines the following types:
 
-  * cron::job     - basic job skeleton
-  * cron::hourly  - wrapper for hourly jobs
-  * cron::daily   - wrapper for daily jobs
-  * cron::weekly  - wrapper for weekly jobs
-  * cron::monthly - wrapper for monthly jobs
+  * cron::job           - basic job resource
+  * cron::job::multiple - basic job resource for multiple jobs per file
+  * cron::hourly        - wrapper for hourly jobs
+  * cron::daily         - wrapper for daily jobs
+  * cron::weekly        - wrapper for weekly jobs
+  * cron::monthly       - wrapper for monthly jobs
 
 ## Installation:
 
@@ -26,13 +27,13 @@ This module can optionally install the cron package if needed - simply:
 
 ## Usage:
 
-*The title of the job (quoted part after the opening '{' ) is completely arbitrary. However, there can only be one cron job by that name.*
+The title of the job (`cron::job { 'title':`) is completely arbitrary. However, there can only be one cron job by that name.
 The file in `/etc/cron.d/` will be created with the `$title` as the file name.  
 Keep that in mind when chosing the name to avoid overwriting exsting system cronjobs and use characters that don't cause problems when used in filenames.
 
 ### cron::job
 
-cron::job creates generic jobs in /etc/cron.d.
+cron::job creates generic jobs in `/etc/cron.d`.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -57,12 +58,64 @@ Example:
       weekday     => '*',
       user        => 'root',
       command     => 'mysqldump -u root mydb',
-      environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"' ];
+      environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
     }
+
+### cron::job::multiple
+
+cron:job::multiple creates a file in `/etc/cron.d` with multiple cron jobs configured in it.  
+It allows specifiying the following parameters:
+
+  * `ensure`      - optional - defaults to "present"
+  * `jobs`        - required - a hash of multiple cron jobs using a simliar structure as cron::job
+  * `environment` - optional - defaults to ""
+  * `mode`        - optional - defaults to "0644"
+
+And parameters of the jobs hash are:
+
+  * `command` - required - the command to execute
+  * `minute`  - optional - defaults to "\*"
+  * `hour`    - optional - defaults to "\*"
+  * `date`    - optional - defaults to "\*"
+  * `month`   - optional - defaults to "\*"
+  * `weekday` - optional - defaults to "\*"
+  * `user`    - optional - defaults to "root"
+
+Example:
+
+```
+cron::job::multiple { 'test':
+  jobs => [
+    {
+      minute      => '55',
+      hour        => '5',
+      date        => '*',
+      month       => '*',
+      weekday     => '*',
+      user        => 'rmueller',
+      command     => '/usr/bin/uname',
+    },
+    {
+      command     => '/usr/bin/sleep 1',
+    },
+  ],
+  environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
+}
+
+```
+
+That will generate the file `/etc/cron.d/test` with essentially this content:
+
+```
+PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+
+55 5 * * *  rmueller  /usr/bin/uname
+* * * * *  root  /usr/bin/sleep 1
+```
 
 ### cron::hourly
 
-cron::hourly creates jobs in /etc/cron.d that run once per hour.
+cron::hourly creates jobs in `/etc/cron.d` that run once per hour.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -73,18 +126,18 @@ It allows specifying the following parameters:
   * `mode`        - optional - defaults to "0644"
 
 Example:
-  This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command "mysqldump -u root mydb" as root on the 20th minute of every hour:
+  This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command `mysqldump -u root mydb` as root on the 20th minute of every hour:
 
     cron::hourly { 'mysqlbackup_hourly':
       minute      => '20',
       user        => 'root',
       command     => 'mysqldump -u root mydb',
-      environment => "MAILTO=root\nPATH='/usr/bin:/bin'";
+      environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
     }
 
 ### cron::daily
 
-cron::daily creates jobs in /etc/cron.d that run once per day.
+cron::daily creates jobs in `/etc/cron.d` that run once per day.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -96,18 +149,18 @@ It allows specifying the following parameters:
   * `mode`        - optional - defaults to "0644"
 
 Example:
-  This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command "mysqldump -u root mydb" as root at 2:40 AM every day, like the above generic example:
+  This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day, like the above generic example:
 
     cron::daily { 'mysqlbackup_daily':
       minute  => '40',
       hour    => '2',
       user    => 'root',
-      command => 'mysqldump -u root mydb';
+      command => 'mysqldump -u root mydb',
     }
 
 ### cron::weekly
 
-cron::weekly creates jobs in /etc/cron.d that run once per week.
+cron::weekly creates jobs in `/etc/cron.d` that run once per week.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -120,19 +173,19 @@ It allows specifying the following parameters:
   * `mode`        - optional - defaults to "0644"
 
 Example:
-  This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command "mysqldump -u root mydb" as root at 4:40 AM every Sunday, like the above generic example:
+  This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command `mysqldump -u root mydb` as root at 4:40 AM every Sunday, like the above generic example:
 
     cron::weekly { 'mysqlbackup_weekly':
       minute  => '40',
       hour    => '4',
       weekday => '0',
       user    => 'root',
-      command => 'mysqldump -u root mydb';
+      command => 'mysqldump -u root mydb',
     }
 
 ### cron::monthly
 
-cron::monthly creates jobs in /etc/cron.d that run once per month.
+cron::monthly creates jobs in `/etc/cron.d` that run once per month.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -145,14 +198,14 @@ It allows specifying the following parameters:
   * `mode`        - optional - defaults to "0644"
 
 Example:
-  This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command "mysqldump -u root mydb" as root at 3:40 AM the 1st of every month, like the above generic example:
+  This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command `mysqldump -u root mydb` as root at 3:40 AM the 1st of every month, like the above generic example:
 
     cron::monthly { 'mysqlbackup_monthly':
       minute  => '40',
       hour    => '3',
       date    => '1',
       user    => 'root',
-      command => 'mysqldump -u root mydb';
+      command => 'mysqldump -u root mydb',
     }
 
 ## Contributors:
