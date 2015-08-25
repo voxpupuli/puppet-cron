@@ -1,39 +1,54 @@
 # Puppet Cron Module
 
-## Build Status:
+[![master branch status](https://secure.travis-ci.org/roman-mueller/rmueller-cron.png?branch=master)](http://travis-ci.org/roman-mueller/rmueller-cron)
 
-  * **master:** [![master branch status](https://secure.travis-ci.org/roman-mueller/rmueller-cron.png?branch=master)](http://travis-ci.org/roman-mueller/rmueller-cron)
-
-## Notes:
+## Notes
 
 This module manages cronjobs by placing a file in `/etc/cron.d`.  
-It is a fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron) which seems to be abandoned.  
+It is a detached fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron) which seems to be abandoned.  
+It is backwards compatible with it and can be used as a drop-in-replacement.  
+This fork is Puppet 4 / future parser compatible.  
+
 It defines the following types:
 
-  * cron::job           - basic job resource
-  * cron::job::multiple - basic job resource for multiple jobs per file
-  * cron::hourly        - wrapper for hourly jobs
-  * cron::daily         - wrapper for daily jobs
-  * cron::weekly        - wrapper for weekly jobs
-  * cron::monthly       - wrapper for monthly jobs
+  * `cron::job`           - basic job resource
+  * `cron::job::multiple` - basic job resource for multiple jobs per file
+  * `cron::hourly`        - wrapper for hourly jobs
+  * `cron::daily`         - wrapper for daily jobs
+  * `cron::weekly`        - wrapper for weekly jobs
+  * `cron::monthly`       - wrapper for monthly jobs
 
-## Installation:
+Additionally there is the `cron` class which can be used to install the correct cron package.
+
+## Installation
 
 As usual use `puppet module install rmueller-cron` to install it.  
 
-This module can optionally install the cron package if needed - simply:
+## Usage
+
+The title of the job (e.g. `cron::job { 'title':`) is completely arbitrary. However, there can only be one cron job by that name.  
+The file in `/etc/cron.d/` will be created with the `$title` as the file name.  
+Keep that in mind when choosing the name to avoid overwriting existing system cronjobs and use characters that don't cause problems when used in filenames.
+
+### cron
+
+This module can optionally install the cron package if needed.  
+Most systems ship with cron already installed, doing this is usually not required. But you can use it via:
 
     include cron
 
-## Usage:
+or:
 
-The title of the job (`cron::job { 'title':`) is completely arbitrary. However, there can only be one cron job by that name.
-The file in `/etc/cron.d/` will be created with the `$title` as the file name.  
-Keep that in mind when chosing the name to avoid overwriting exsting system cronjobs and use characters that don't cause problems when used in filenames.
+    class { 'cron': }
+
+It allows specifiying the following parameter:
+
+   * `package_ensure` - optional - defaults to "installed"
+
 
 ### cron::job
 
-cron::job creates generic jobs in `/etc/cron.d`.
+`cron::job` creates generic jobs in `/etc/cron.d`.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -47,8 +62,8 @@ It allows specifying the following parameters:
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
 
-Example:
-  This would create the file `/etc/cron.d/mysqlbackup` and run the command "mysqldump -u root mydb" as root at 2:40 AM every day:
+Example:  
+This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day:
 
     cron::job { 'mysqlbackup':
       minute      => '40',
@@ -63,11 +78,11 @@ Example:
 
 ### cron::job::multiple
 
-cron:job::multiple creates a file in `/etc/cron.d` with multiple cron jobs configured in it.  
+`cron:job::multiple` creates a file in `/etc/cron.d` with multiple cron jobs configured in it.  
 It allows specifiying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
-  * `jobs`        - required - a hash of multiple cron jobs using a simliar structure as cron::job
+  * `jobs`        - required - a hash of multiple cron jobs using a similar structure as `cron::job`-parameters
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
 
@@ -115,7 +130,7 @@ PATH="/usr/sbin:/usr/bin:/sbin:/bin"
 
 ### cron::hourly
 
-cron::hourly creates jobs in `/etc/cron.d` that run once per hour.
+`cron::hourly` creates jobs in `/etc/cron.d` that run once per hour.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -125,8 +140,8 @@ It allows specifying the following parameters:
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
 
-Example:
-  This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command `mysqldump -u root mydb` as root on the 20th minute of every hour:
+Example:  
+This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command `mysqldump -u root mydb` as root on the 20th minute of every hour:
 
     cron::hourly { 'mysqlbackup_hourly':
       minute      => '20',
@@ -137,7 +152,7 @@ Example:
 
 ### cron::daily
 
-cron::daily creates jobs in `/etc/cron.d` that run once per day.
+`cron::daily` creates jobs in `/etc/cron.d` that run once per day.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -148,8 +163,8 @@ It allows specifying the following parameters:
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
 
-Example:
-  This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day, like the above generic example:
+Example:  
+This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day, like the above generic example:
 
     cron::daily { 'mysqlbackup_daily':
       minute  => '40',
@@ -160,7 +175,7 @@ Example:
 
 ### cron::weekly
 
-cron::weekly creates jobs in `/etc/cron.d` that run once per week.
+`cron::weekly` creates jobs in `/etc/cron.d` that run once per week.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -172,8 +187,8 @@ It allows specifying the following parameters:
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
 
-Example:
-  This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command `mysqldump -u root mydb` as root at 4:40 AM every Sunday, like the above generic example:
+Example:  
+This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command `mysqldump -u root mydb` as root at 4:40 AM every Sunday, like the above generic example:
 
     cron::weekly { 'mysqlbackup_weekly':
       minute  => '40',
@@ -185,7 +200,7 @@ Example:
 
 ### cron::monthly
 
-cron::monthly creates jobs in `/etc/cron.d` that run once per month.
+`cron::monthly` creates jobs in `/etc/cron.d` that run once per month.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -197,8 +212,8 @@ It allows specifying the following parameters:
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
 
-Example:
-  This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command `mysqldump -u root mydb` as root at 3:40 AM the 1st of every month, like the above generic example:
+Example:  
+This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command `mysqldump -u root mydb` as root at 3:40 AM the 1st of every month, like the above generic example:
 
     cron::monthly { 'mysqlbackup_monthly':
       minute  => '40',
@@ -208,7 +223,7 @@ Example:
       command => 'mysqldump -u root mydb',
     }
 
-## Contributors:
+## Contributors
 
   * Kevin Goess (@kgoess)               - Environment variable support + fixes
   * Andy Shinn (@andyshinn)             - RedHat derivatives package name fix 
