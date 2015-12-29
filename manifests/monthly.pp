@@ -11,7 +11,7 @@
 #     Defaults to '0'.
 #   date - The date the cron job should fire on. Can be any valid cron date value.
 #     Defaults to '1'.
-#   environment - An array of environment variable settings.
+#   cron_environment - An array of environment variable settings.
 #     Defaults to an empty set ([]).
 #   user - The user the cron job should be executed as.
 #     Defaults to 'root'.
@@ -29,32 +29,32 @@
 #       minute      => '1',
 #       hour        => '7',
 #       date        => '28',
-#       environment => [ 'MAILTO="admin@example.com"' ],
+#       cron_environment => [ 'MAILTO="admin@example.com"' ],
 #       command     => 'find /var/log -type f -ctime +30 -exec rm -f {} \;';
 #   }
 #
 define cron::monthly (
   $command,
-  $ensure      = 'present',
-  $minute      = 0,
-  $hour        = 0,
-  $date        = 1,
-  $environment = [],
-  $user        = 'root',
-  $mode        = '0644',
+  $ensure           = 'present',
+  $minute           = 0,
+  $hour             = 0,
+  $date             = 1,
+  $cron_environment = [],
+  $user             = 'root',
+  $mode             = '0644',
 ) {
 
   cron::job { $title:
-    ensure      => $ensure,
-    minute      => $minute,
-    hour        => $hour,
-    date        => $date,
-    month       => '*',
-    weekday     => '*',
-    user        => $user,
-    environment => $environment,
-    mode        => $mode,
-    command     => $command,
+    ensure            => $ensure,
+    minute            => $minute,
+    hour              => $hour,
+    date              => $date,
+    month             => '*',
+    weekday           => '*',
+    user              => $user,
+    cron_environment  => $cron_environment,
+    mode              => $mode,
+    command           => $command,
   }
 
 }

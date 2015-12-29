@@ -9,7 +9,7 @@
 #     Defaults to '0'.
 #   hour - The hour the cron job should fire on. Can be any valid cron hour value.
 #     Defaults to '0'.
-#   environment - An array of environment variable settings.
+#   cron_environment - An array of environment variable settings.
 #     Defaults to an empty set ([]).
 #   user - The user the cron job should be executed as.
 #     Defaults to 'root'.
@@ -26,31 +26,31 @@
 #     'mysql backup':
 #       minute      => '1',
 #       hour        => '3',
-#       environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
+#       cron_environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 #       command     => 'mysqldump -u root my_db >/mnt/backups/db/daily/my_db_$(date "+%Y%m%d").sql';
 #   }
 #
 define cron::daily (
   $command,
-  $ensure      = 'present',
-  $minute      = 0,
-  $hour        = 0,
-  $environment = [],
-  $user        = 'root',
-  $mode        = '0644',
+  $ensure           = 'present',
+  $minute           = 0,
+  $hour             = 0,
+  $cron_environment = [],
+  $user             = 'root',
+  $mode             = '0644',
 ) {
 
   cron::job { $title:
-    ensure      => $ensure,
-    minute      => $minute,
-    hour        => $hour,
-    date        => '*',
-    month       => '*',
-    weekday     => '*',
-    user        => $user,
-    environment => $environment,
-    mode        => $mode,
-    command     => $command,
+    ensure            => $ensure,
+    minute            => $minute,
+    hour              => $hour,
+    date              => '*',
+    month             => '*',
+    weekday           => '*',
+    user              => $user,
+    cron_environment  => $cron_environment,
+    mode              => $mode,
+    command           => $command,
   }
 
 }
