@@ -76,6 +76,24 @@ This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqld
       environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
     }
 
+Or define it using YAML:
+
+```yaml
+---
+cron::job:
+  'mysqlbackup':
+    command: 'mysqldump -u root mydb'
+    minute: 0
+    hour: 0
+    date: '*'
+    month: '*'
+    weekday: '*'
+    user: root
+    environment:
+      - 'MAILTO=root'
+      - 'PATH="/usr/bin:/bin"'
+```
+
 ### cron::job::multiple
 
 `cron:job::multiple` creates a file in `/etc/cron.d` with multiple cron jobs configured in it.  
@@ -99,7 +117,7 @@ And parameters of the jobs hash are:
 Example:
 
 ```
-cron::job::multiple { 'test':
+cron::job::multiple { 'test_cron_job_multiple':
   jobs => [
     {
       minute      => '55',
@@ -117,6 +135,30 @@ cron::job::multiple { 'test':
   environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 }
 
+```
+
+YAML definition:
+
+```yaml
+---
+cron::job::multiple:
+  'test_cron_job_multiple':
+    jobs:
+      - {
+          minute: 55,
+          hour: 5,
+          date: '*',
+          month: '*',
+          weekday: '*',
+          user: rmueller,
+          command: '/usr/bin/uname',
+        }
+      - {
+          command: '/usr/bin/sleep 1',
+        }
+
+    environment:
+      - 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"'
 ```
 
 That will generate the file `/etc/cron.d/test` with essentially this content:
@@ -150,6 +192,20 @@ This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command 
       environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
     }
 
+YAML definition:
+
+```yaml
+---
+cron::hourly:
+  'mysqlbackup_hourly':
+    minute: 20
+    user: root
+    command: 'mysqldump -u root mydb'
+    environment:
+      - 'MAILTO=root'
+      - 'PATH="/usr/bin:/bin"'
+```
+
 ### cron::daily
 
 `cron::daily` creates jobs in `/etc/cron.d` that run once per day.
@@ -172,6 +228,19 @@ This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `
       user    => 'root',
       command => 'mysqldump -u root mydb',
     }
+
+YAML definition:
+
+```yaml
+---
+cron::daily:
+  'mysqlbackup_daily':
+    minute: 40
+    hour: 2
+    user: root
+    command: 'mysqldump -u root mydb'
+```
+
 
 ### cron::weekly
 
@@ -198,6 +267,20 @@ This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command 
       command => 'mysqldump -u root mydb',
     }
 
+YAML definition:
+
+```yaml
+---
+cron::weekly:
+  'mysqlbackup_weekly':
+    minute: 40
+    hour: 4
+    weekday: 0
+    user: root
+    command: 'mysqldump -u root mydb'
+```
+
+
 ### cron::monthly
 
 `cron::monthly` creates jobs in `/etc/cron.d` that run once per month.
@@ -222,6 +305,20 @@ This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command
       user    => 'root',
       command => 'mysqldump -u root mydb',
     }
+
+YAML definition:
+
+```yaml
+---
+cron::monthly:
+  'mysqlbackup_monthly':
+    minute: 40
+    hour: 3
+    date: 1
+    user: root
+    command: 'mysqldump -u root mydb'
+```
+
 
 ## Contributors
 
