@@ -21,6 +21,7 @@ class cron::install (
     /(RedHat|CentOS|Amazon|OracleLinux)/ => 'cronie',
     'Gentoo'                             => 'sys-process/vixie-cron',
     'Ubuntu'                             => 'cron',
+    'Debian'                             => 'cron',
     default                              => 'cron',
   }
 
