@@ -12,9 +12,9 @@
 # Sample Usage:
 #   This class should not be used directly under normal circumstances
 #   Instead, use the *cron* class.
-
+#
 class cron::install (
-  $package_ensure = 'installed'
+  $package_ensure = 'installed',
 ) {
 
   $package_name = $::operatingsystem ? {

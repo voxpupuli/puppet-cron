@@ -32,19 +32,27 @@ Keep that in mind when choosing the name to avoid overwriting existing system cr
 
 ### cron
 
-This module can optionally install the cron package if needed.  
-Most systems ship with cron already installed, doing this is usually not required. But you can use it via:
+If you want the class to automatically install the correct cron package you can declare the `cron` class. By default it will then install the right package.  
+If you want to use Hiera to configure your cronjobs, you must declare the `cron` class. 
+
+You can disable the managment of the cron package by setting the `manage_package` parameter to `false`.
+
+This class allows specifiying the following parameter:
+
+   * `manage_package` - optional - defaults to "true"
+   * `package_ensure` - optional - defaults to "installed"
+
+
+Examples:  
 
     include cron
 
 or:
 
-    class { 'cron': }
-
-It allows specifiying the following parameter:
-
-   * `package_ensure` - optional - defaults to "installed"
-
+    class { 'cron': 
+      manage_package => false,
+    }
+    
 
 ### cron::job
 
