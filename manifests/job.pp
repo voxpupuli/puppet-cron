@@ -15,7 +15,7 @@
 #     Defaults to '*'.
 #   weekday - The day of the week the cron job should fire on. Can be any valid cron weekday value.
 #     Defaults to '*'.
-#   environment - An array of environment variable settings.
+#   cron_environment - An array of environment variable settings.
 #     Defaults to an empty set ([]).
 #   mode - The mode to set on the created job file
 #     Defaults to 0644.
@@ -31,21 +31,21 @@
 #   cron::job {
 #     'generate puppetdoc':
 #       minute      => '01',
-#       environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
+#       cron_environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 #       command     => 'puppet doc --modulepath /etc/puppet/modules >/var/www/puppet_docs.mkd';
 #   }
 #
 define cron::job (
   $command,
-  $ensure      = 'present',
-  $minute      = '*',
-  $hour        = '*',
-  $date        = '*',
-  $month       = '*',
-  $weekday     = '*',
-  $environment = [],
-  $user        = 'root',
-  $mode        = '0644',
+  $ensure           = 'present',
+  $minute           = '*',
+  $hour             = '*',
+  $date             = '*',
+  $month            = '*',
+  $weekday          = '*',
+  $cron_environment = [],
+  $user             = 'root',
+  $mode             = '0644',
 ) {
 
   case $ensure {

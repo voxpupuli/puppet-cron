@@ -11,7 +11,7 @@
 #     Defaults to '0'.
 #   weekday - The day of the week the cron job should fire on. Can be any valid cron weekday value.
 #     Defaults to '0'.
-#   environment - An array of environment variable settings.
+#   cron_environment - An array of environment variable settings.
 #     Defaults to an empty set ([]).
 #   user - The user the cron job should be executed as.
 #     Defaults to 'root'.
@@ -29,19 +29,19 @@
 #       minute      => '1',
 #       hour        => '4',
 #       weekday     => '7',
-#       environment => [ 'MAILTO="admin@example.com"' ],
+#       cron_environment => [ 'MAILTO="admin@example.com"' ],
 #       command     => 'find /tmp -type f -ctime +7 -exec rm -f {} \;';
 #   }
 #
 define cron::weekly (
   $command,
-  $ensure      = 'present',
-  $minute      = 0,
-  $hour        = 0,
-  $weekday     = 0,
-  $user        = 'root',
-  $mode        = '0640',
-  $environment = [],
+  $ensure           = 'present',
+  $minute           = 0,
+  $hour             = 0,
+  $weekday          = 0,
+  $user             = 'root',
+  $mode             = '0640',
+  $cron_environment = [],
 ) {
 
   cron::job { $title:
@@ -52,7 +52,7 @@ define cron::weekly (
     month       => '*',
     weekday     => $weekday,
     user        => $user,
-    environment => $environment,
+    cron_environment => $cron_environment,
     mode        => $mode,
     command     => $command,
   }

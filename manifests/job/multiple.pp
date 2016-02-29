@@ -7,7 +7,7 @@
 #     cron::job and using the same defaults for each parameter.
 #   ensure - The state to ensure this resource exists in. Can be absent, present
 #     Defaults to 'present'
-#   environment - An array of environment variable settings.
+#   cron_environment - An array of environment variable settings.
 #     Defaults to an empty set ([]).
 #   mode - The mode to set on the created job file
 #     Defaults to 0644.
@@ -38,9 +38,9 @@
 #
 define cron::job::multiple(
   $jobs,
-  $ensure      = 'present',
-  $environment = [],
-  $mode        = '0644',
+  $ensure           = 'present',
+  $cron_environment = [],
+  $mode             = '0644',
 ) {
 
   case $ensure {

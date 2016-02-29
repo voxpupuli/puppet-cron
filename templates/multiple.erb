@@ -5,7 +5,7 @@
 ## <%= @name %> Cron Job
 
 # Environment Settings
-<% Array(@environment).join("\n").split(%r{\n}).each do |env_var|
+<% Array(@cron_environment).join("\n").split(%r{\n}).each do |env_var|
      if env_var.match(%r{\S+=\S+}) -%>
 <%= env_var %>
 <%   elsif env_var.match(%r{\S}) -%>
