@@ -9,7 +9,10 @@ It is a detached fork of [torrancew/puppet-cron](https://github.com/torrancew/pu
 It is backwards compatible with it and can be used as a drop-in-replacement.  
 This fork is Puppet 4 / future parser compatible.  
 
-It defines the following types:
+You can also configure your cronjobs via Hiera.
+For that you need to declare the `cron` class.
+
+This module defines the following types:
 
   * `cron::job`           - basic job resource
   * `cron::job::multiple` - basic job resource for multiple jobs per file
@@ -17,8 +20,6 @@ It defines the following types:
   * `cron::daily`         - wrapper for daily jobs
   * `cron::weekly`        - wrapper for weekly jobs
   * `cron::monthly`       - wrapper for monthly jobs
-
-Additionally there is the `cron` class which can be used to install the correct cron package.
 
 ## Installation
 
@@ -84,7 +85,7 @@ This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqld
       environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
     }
 
-Or define it using YAML:
+Hiera example:
 
 ```yaml
 ---
@@ -145,7 +146,7 @@ cron::job::multiple { 'test_cron_job_multiple':
 
 ```
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---
@@ -200,7 +201,7 @@ This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command 
       environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
     }
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---
@@ -237,7 +238,7 @@ This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `
       command => 'mysqldump -u root mydb',
     }
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---
@@ -275,7 +276,7 @@ This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command 
       command => 'mysqldump -u root mydb',
     }
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---
@@ -314,7 +315,7 @@ This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command
       command => 'mysqldump -u root mydb',
     }
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---
