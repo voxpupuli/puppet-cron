@@ -17,12 +17,26 @@ class cron::install (
   $package_ensure = 'installed',
 ) {
 
-  $package_name = $::operatingsystem ? {
-    /(RedHat|CentOS|Amazon|OracleLinux)/ => 'cronie',
-    'Gentoo'                             => 'sys-process/vixie-cron',
-    'Ubuntu'                             => 'cron',
-    'Debian'                             => 'cron',
-    default                              => 'cron',
+  case $::operatingsystem {
+    /^(RedHat|CentOS|Amazon|OracleLinux)/: {
+      if versioncmp($::operatingsystemmajrelease, '5') <= 0 {
+        $package_name = 'vixie-cron'
+      } else {
+        $package_name = 'cronie'
+      }
+    }
+    'Gentoo': {
+      $package_name = 'sys-process/vixie-cron'
+    }
+    'Ubuntu': {
+      $package_name = 'cron'
+    }
+    'Debian': {
+      $package_name = 'cron'
+    }
+    default: {
+      $package_name = 'cron'
+    }
   }
 
   package { 'cron':
