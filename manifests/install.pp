@@ -3,7 +3,8 @@
 # This class ensures that the distro-appropriate cron package is installed
 #
 # Parameters:
-#   package_ensure - Can be set to a package version, 'latest', 'installed' or 'present'.
+#   package_ensure - Can be set to a package version, 'latest', 'installed' or
+#   'present'.
 #
 # Actions:
 #

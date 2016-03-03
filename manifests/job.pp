@@ -5,15 +5,20 @@
 # Parameters:
 #   ensure - The state to ensure this resource exists in. Can be absent, present
 #     Defaults to 'present'
-#   minute - The minute the cron job should fire on. Can be any valid cron minute value.
+#   minute - The minute the cron job should fire on. Can be any valid cron
+#   minute value.
 #     Defaults to '*'.
-#   hour - The hour the cron job should fire on. Can be any valid cron hour value.
+#   hour - The hour the cron job should fire on. Can be any valid cron hour
+#   value.
 #     Defaults to '*'.
-#   date - The date the cron job should fire on. Can be any valid cron date value.
+#   date - The date the cron job should fire on. Can be any valid cron date
+#   value.
 #     Defaults to '*'.
-#   month - The month the cron job should fire on. Can be any valid cron month value.
+#   month - The month the cron job should fire on. Can be any valid cron month
+#   value.
 #     Defaults to '*'.
-#   weekday - The day of the week the cron job should fire on. Can be any valid cron weekday value.
+#   weekday - The day of the week the cron job should fire on. Can be any valid
+#   cron weekday value.
 #     Defaults to '*'.
 #   environment - An array of environment variable settings.
 #     Defaults to an empty set ([]).
@@ -28,11 +33,10 @@
 # Requires:
 #
 # Sample Usage:
-#   cron::job {
-#     'generate puppetdoc':
-#       minute      => '01',
-#       environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
-#       command     => 'puppet doc --modulepath /etc/puppet/modules >/var/www/puppet_docs.mkd';
+#   cron::job { 'generate_puppetdoc':
+#     minute      => '01',
+#     environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
+#     command     => 'puppet doc /etc/puppet/modules >/var/www/puppet_docs.mkd',
 #   }
 #
 define cron::job (
