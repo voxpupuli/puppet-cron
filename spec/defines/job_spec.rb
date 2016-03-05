@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'cron::job' do
   let( :title )  { 'mysql_backup' }
 
-  describe 'job with default values' do
+  context 'job with default values' do
     let( :params ) {{ :command => 'mysqldump -u root test_db >some_file' }}
     let( :cron_timestamp ) { get_timestamp( params ) }
 
@@ -22,7 +22,7 @@ describe 'cron::job' do
     end
   end
 
-  describe 'job with custom values' do
+  context 'job with custom values' do
     let( :params ) {{
       :minute      => '45',
       :hour        => '7',
@@ -52,7 +52,7 @@ describe 'cron::job' do
     end
   end
 
-  describe 'job with ensure set to absent' do
+  context 'job with ensure set to absent' do
     let( :params ) {{
       :ensure  => 'absent',
       :command => 'mysqldump -u root test_db >some_file',

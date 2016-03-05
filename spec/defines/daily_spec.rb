@@ -21,5 +21,14 @@ describe 'cron::daily' do
       'command'     => params[:command]
     )
   end
+
+  it do
+    should contain_file( "job_#{title}" ).with(
+      'owner'   => 'root'
+    ).with_content(
+      /\s+59 1 \* \* \*  root  mysqldump -u root test_db >some_file\n/
+    )
+  end
+
 end
 

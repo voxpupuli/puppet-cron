@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'cron::job::multiple' do
   let( :title )  { 'mysql_backup' }
 
-  describe 'multiple job with custom and default values' do
+  context 'multiple job with custom and default values' do
     let( :params ) {{
       :environment => [ 'MAILTO="root"', 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
       :jobs        => [
@@ -41,7 +41,7 @@ describe 'cron::job::multiple' do
     end
   end
 
-  describe 'multiple job with ensure set to absent' do
+  context 'multiple job with ensure set to absent' do
     let( :params ) {{
       :ensure  => 'absent',
       :jobs    => [
