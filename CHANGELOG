@@ -1,3 +1,7 @@
+v0.1.5: 2016-03-06
+Changes:
+  * Fix release on forge
+
 v0.1.4: 2016-03-06
 Changes:
   * Added possibility to add jobs from hiera
