@@ -12,7 +12,11 @@
 #     Defaults to an empty set ([]).
 #   mode - The mode to set on the created job file.
 #     Defaults to 0644.
-#   user - The user the cron job should be executed as. Defaults to 'root'.
+#   user - The user the cron job should be executed as.
+#     Defaults to 'root'.
+#   description - Optional short description, which will be included in the
+#   cron job file.
+#     Defaults to undef.
 #   command - The command to execute.
 #
 # Actions:
@@ -33,6 +37,7 @@ define cron::hourly (
   $environment = [],
   $user        = 'root',
   $mode        = '0644',
+  $description = undef,
 ) {
 
   cron::job { $title:
@@ -46,6 +51,7 @@ define cron::hourly (
     environment => $environment,
     mode        => $mode,
     command     => $command,
+    description => $description,
   }
 
 }

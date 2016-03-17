@@ -26,6 +26,9 @@
 #     Defaults to 0644.
 #   user - The user the cron job should be executed as.
 #     Defaults to 'root'.
+#   description - Optional short description, which will be included in the
+#   cron job file.
+#     Defaults to undef.
 #   command - The command to execute.
 #
 # Actions:
@@ -50,6 +53,7 @@ define cron::job (
   $environment = [],
   $user        = 'root',
   $mode        = '0644',
+  $description = undef,
 ) {
 
   case $ensure {
