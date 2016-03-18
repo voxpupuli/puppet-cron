@@ -20,6 +20,9 @@
 #     Defaults to 'root'.
 #   mode - The mode to set on the created job file
 #     Defaults to 0644.
+#   description - Optional short description, which will be included in the
+#   cron job file.
+#     Defaults to undef.
 #   command - The command to execute.
 #
 # Actions:
@@ -44,6 +47,7 @@ define cron::monthly (
   $environment = [],
   $user        = 'root',
   $mode        = '0644',
+  $description = undef,
 ) {
 
   cron::job { $title:
@@ -57,6 +61,7 @@ define cron::monthly (
     environment => $environment,
     mode        => $mode,
     command     => $command,
+    description => $description,
   }
 
 }

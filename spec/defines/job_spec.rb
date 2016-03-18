@@ -32,6 +32,7 @@ describe 'cron::job' do
       :environment => [ 'MAILTO="root"', 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
       :user        => 'admin',
       :mode        => '0640',
+      :description => 'Mysql backup',
       :command     => 'mysqldump -u root test_db >some_file',
     }}
     let( :cron_timestamp ) { get_timestamp( params ) }
@@ -48,6 +49,8 @@ describe 'cron::job' do
         /\s+#{params[:user]}\s+/
       ).with_content(
         /\s+#{params[:command]}\n/
+      ).with_content(
+        /\n# #{params[:description]}\n/
       )
     end
   end
