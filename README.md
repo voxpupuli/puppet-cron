@@ -70,6 +70,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day:
@@ -83,6 +84,7 @@ This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqld
       user        => 'root',
       command     => 'mysqldump -u root mydb',
       environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
+      description => 'Mysql backup',
     }
 
 Hiera example:
@@ -101,6 +103,7 @@ cron::job:
     environment:
       - 'MAILTO=root'
       - 'PATH="/usr/bin:/bin"'
+    description: 'Mysql backup'
 ```
 
 ### cron::job::multiple
@@ -115,13 +118,14 @@ It allows specifiying the following parameters:
 
 And parameters of the jobs hash are:
 
-  * `command` - required - the command to execute
-  * `minute`  - optional - defaults to "\*"
-  * `hour`    - optional - defaults to "\*"
-  * `date`    - optional - defaults to "\*"
-  * `month`   - optional - defaults to "\*"
-  * `weekday` - optional - defaults to "\*"
-  * `user`    - optional - defaults to "root"
+  * `command`     - required - the command to execute
+  * `minute`      - optional - defaults to "\*"
+  * `hour`        - optional - defaults to "\*"
+  * `date`        - optional - defaults to "\*"
+  * `month`       - optional - defaults to "\*"
+  * `weekday`     - optional - defaults to "\*"
+  * `user`        - optional - defaults to "root"
+  * `description` - optional - defaults to undef
 
 Example:
 
@@ -136,9 +140,11 @@ cron::job::multiple { 'test_cron_job_multiple':
       weekday     => '*',
       user        => 'rmueller',
       command     => '/usr/bin/uname',
+      description => 'print system information',
     },
     {
       command     => '/usr/bin/sleep 1',
+      description => 'Sleeping',
     },
   ],
   environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
@@ -161,9 +167,11 @@ cron::job::multiple:
           weekday: '*',
           user: rmueller,
           command: '/usr/bin/uname',
+          description: 'print system information',
         }
       - {
           command: '/usr/bin/sleep 1',
+          description: 'Sleeping',
         }
 
     environment:
@@ -190,6 +198,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command `mysqldump -u root mydb` as root on the 20th minute of every hour:
@@ -227,6 +236,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day, like the above generic example:
@@ -264,6 +274,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command `mysqldump -u root mydb` as root at 4:40 AM every Sunday, like the above generic example:
@@ -303,6 +314,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command `mysqldump -u root mydb` as root at 3:40 AM the 1st of every month, like the above generic example:
