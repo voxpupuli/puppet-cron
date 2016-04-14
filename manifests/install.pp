@@ -27,7 +27,7 @@ class cron::install (
       }
     }
     'Gentoo': {
-      $package_name = 'sys-process/vixie-cron'
+      $package_name = 'virtual/cron'
     }
     'Ubuntu': {
       $package_name = 'cron'
