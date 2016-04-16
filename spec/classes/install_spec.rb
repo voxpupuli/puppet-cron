@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe 'cron::install' do
   context 'default' do
+    let :facts do
+      {
+        :operatingsystem           => 'Unsupported',
+      }
+    end
     it do
       should contain_package( 'cron' ).with( 'ensure' => 'installed', 'name' => 'cron' )
     end
