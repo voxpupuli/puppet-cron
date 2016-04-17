@@ -52,4 +52,21 @@ describe 'cron' do
       )
     }
   end
+
+  context 'package_name => sys-process/cronie' do
+    let :facts do
+      {
+        :operatingsystem           => 'Gentoo',
+      }
+    end
+    let( :params ) {{ :package_name => 'sys-process/cronie', }}
+
+    it { should contain_class( 'cron::install' ) }
+    it { should contain_package( 'cron' ).with(
+      'name'   => 'sys-process/cronie',
+      'ensure' => 'installed'
+      )
+    }
+  end
+
 end
