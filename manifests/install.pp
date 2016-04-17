@@ -5,6 +5,10 @@
 # Parameters:
 #   package_ensure - Can be set to a package version, 'latest', 'installed' or
 #   'present'.
+#     Default: installed
+#
+#   package_name - Can be used to install a different cron package.
+#     Default: undef
 #
 # Actions:
 #
@@ -16,33 +20,38 @@
 #
 class cron::install (
   $package_ensure = 'installed',
+  $package_name   = undef,
 ) {
 
-  case $::operatingsystem {
-    /^(RedHat|CentOS|Amazon|OracleLinux)/: {
-      if versioncmp($::operatingsystemmajrelease, '5') <= 0 {
-        $package_name = 'vixie-cron'
-      } else {
-        $package_name = 'cronie'
+  if $package_name {
+    $real_package_name = $package_name
+  } else {
+    case $::operatingsystem {
+      /^(RedHat|CentOS|Amazon|OracleLinux)/: {
+        if versioncmp($::operatingsystemmajrelease, '5') <= 0 {
+          $real_package_name = 'vixie-cron'
+        } else {
+          $real_package_name = 'cronie'
+        }
       }
-    }
-    'Gentoo': {
-      $package_name = 'sys-process/vixie-cron'
-    }
-    'Ubuntu': {
-      $package_name = 'cron'
-    }
-    'Debian': {
-      $package_name = 'cron'
-    }
-    default: {
-      $package_name = 'cron'
+      'Gentoo': {
+        $real_package_name = 'virtual/cron'
+      }
+      'Ubuntu': {
+        $real_package_name = 'cron'
+      }
+      'Debian': {
+        $real_package_name = 'cron'
+      }
+      default: {
+        $real_package_name = 'cron'
+      }
     }
   }
 
   package { 'cron':
     ensure => $package_ensure,
-    name   => $package_name,
+    name   => $real_package_name,
   }
 
 }

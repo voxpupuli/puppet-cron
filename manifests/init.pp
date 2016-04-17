@@ -11,6 +11,8 @@
 #     'present'.
 #     Default: installed
 #
+#   package_name - Can be set to install a different cron package.
+#     Default: undef
 #
 # Actions:
 #
@@ -26,11 +28,13 @@
 class cron (
   $manage_package = true,
   $package_ensure = 'installed',
+  $package_name   = undef,
 ) {
 
   if $manage_package {
     class { '::cron::install':
       package_ensure => $package_ensure,
+      package_name   => $package_name,
     }
   }
 

@@ -38,10 +38,15 @@ If you want to use Hiera to configure your cronjobs, you must declare the `cron`
 
 You can disable the managment of the cron package by setting the `manage_package` parameter to `false`.
 
+You can also specify a different cron package name via `package_name`.  
+By default we try to select the right one for your distribution.  
+But in some cases (e.g. Gentoo) you might want to overwrite it here.  
+
 This class allows specifiying the following parameter:
 
    * `manage_package` - optional - defaults to "true"
    * `package_ensure` - optional - defaults to "installed"
+   * `package_name`   - optional - defaults to "undef"
 
 
 Examples:  
