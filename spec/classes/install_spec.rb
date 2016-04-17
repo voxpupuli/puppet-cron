@@ -50,7 +50,7 @@ describe 'cron::install' do
     end
     it { should contain_class( 'cron::install' ) }
     it { should contain_package( 'cron' ).with(
-      'name' => 'sys-process/vixie-cron'
+      'name' => 'virtual/cron'
       )
     }
   end
