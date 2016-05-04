@@ -49,9 +49,8 @@ class cron::install (
     }
   }
 
-  package { 'cron':
+  package { $real_package_name :
     ensure => $package_ensure,
-    name   => $real_package_name,
   }
 
 }
