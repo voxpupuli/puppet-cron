@@ -117,11 +117,11 @@ cron::job:
 It allows specifiying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
-  * `jobs`        - required - a hash of multiple cron jobs using a similar structure as `cron::job`-parameters
+  * `jobs`        - required - an array of hashes of multiple cron jobs using a similar structure as `cron::job`-parameters
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
 
-And parameters of the jobs hash are:
+And the keys of the jobs hash are:
 
   * `command`     - required - the command to execute
   * `minute`      - optional - defaults to "\*"
@@ -183,7 +183,7 @@ cron::job::multiple:
       - 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"'
 ```
 
-That will generate the file `/etc/cron.d/test` with essentially this content:
+That will generate the file `/etc/cron.d/test_cron_job_multiple` with essentially this content:
 
 ```
 PATH="/usr/sbin:/usr/bin:/sbin:/bin"
