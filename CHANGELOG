@@ -1,3 +1,9 @@
+v0.1.7: 2016-06-12
+Changes:
+  * Properly support Gentoo
+  * Documentation fixes
+  * Rspec fixes
+
 v0.1.6: 2016-04-10
 Changes:
   * Added description parameters
