@@ -23,19 +23,11 @@ class cron::install (
   $package_name   = undef,
 ) {
 
-<<<<<<< HEAD
-  $package_name = $::operatingsystem ? {
-    /(RedHat|CentOS|Amazon|OracleLinux|Scientific)/ => 'cronie',
-    'Gentoo'                                        => 'sys-process/vixie-cron',
-    'Ubuntu'                                        => 'cron',
-    'Debian'                                        => 'cron',
-    default                                         => 'cron',
-=======
   if $package_name {
     $real_package_name = $package_name
   } else {
     case $::operatingsystem {
-      /^(RedHat|CentOS|Amazon|OracleLinux)/: {
+      /^(RedHat|CentOS|Amazon|OracleLinux|Scientific)/: {
         if versioncmp($::operatingsystemmajrelease, '5') <= 0 {
           $real_package_name = 'vixie-cron'
         } else {
@@ -55,7 +47,6 @@ class cron::install (
         $real_package_name = 'cron'
       }
     }
->>>>>>> refs/remotes/roman-mueller/master
   }
 
   package { 'cron':
@@ -64,4 +55,3 @@ class cron::install (
   }
 
 }
-
