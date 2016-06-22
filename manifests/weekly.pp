@@ -5,11 +5,14 @@
 # Parameters:
 #   ensure - The state to ensure this resource exists in. Can be absent, present
 #     Defaults to 'present'
-#   minute - The minute the cron job should fire on. Can be any valid cron minute value.
+#   minute - The minute the cron job should fire on. Can be any valid cron
+#   minute value.
 #     Defaults to '0'.
-#   hour - The hour the cron job should fire on. Can be any valid cron hour value.
+#   hour - The hour the cron job should fire on. Can be any valid cron hour
+#   value.
 #     Defaults to '0'.
-#   weekday - The day of the week the cron job should fire on. Can be any valid cron weekday value.
+#   weekday - The day of the week the cron job should fire on. Can be any valid
+#   cron weekday value.
 #     Defaults to '0'.
 #   environment - An array of environment variable settings.
 #     Defaults to an empty set ([]).
@@ -17,6 +20,9 @@
 #     Defaults to 'root'.
 #   mode - The mode to set on the created job file
 #     Defaults to '0640'.
+#   description - Optional short description, which will be included in the
+#   cron job file.
+#     Defaults to undef.
 #   command - The command to execute.
 #
 # Actions:
@@ -24,13 +30,12 @@
 # Requires:
 #
 # Sample Usage:
-#   cron::weekly {
-#     'delete old temp files':
-#       minute      => '1',
-#       hour        => '4',
-#       weekday     => '7',
-#       environment => [ 'MAILTO="admin@example.com"' ],
-#       command     => 'find /tmp -type f -ctime +7 -exec rm -f {} \;';
+#   cron::weekly { 'delete_old_temp_files':
+#     minute      => '1',
+#     hour        => '4',
+#     weekday     => '7',
+#     environment => [ 'MAILTO="admin@example.com"' ],
+#     command     => 'find /tmp -type f -ctime +7 -delete',
 #   }
 #
 define cron::weekly (
@@ -42,6 +47,7 @@ define cron::weekly (
   $user        = 'root',
   $mode        = '0640',
   $environment = [],
+  $description = undef,
 ) {
 
   cron::job { $title:
@@ -55,6 +61,7 @@ define cron::weekly (
     environment => $environment,
     mode        => $mode,
     command     => $command,
+    description => $description,
   }
 
 }

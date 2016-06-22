@@ -35,5 +35,9 @@
   <%- if job['user'].nil? -%>
     <%- job['user'] = 'root' -%>
   <%- end -%>
+<% if job.has_key?('description') -%>
+
+# <%= job['description'] %>
+<% end -%>
 <%= job['minute'] %> <%= job['hour'] %> <%= job['date'] %> <%= job['month'] %> <%= job['weekday'] %>  <%= job['user'] %>  <%= job['command'] %>
 <% end -%>

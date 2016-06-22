@@ -1,3 +1,26 @@
+v0.1.7: 2016-06-12
+Changes:
+  * Properly support Gentoo
+  * Documentation fixes
+  * Rspec fixes
+
+v0.1.6: 2016-04-10
+Changes:
+  * Added description parameters
+
+v0.1.5: 2016-03-06
+Changes:
+  * Fix release on forge
+
+v0.1.4: 2016-03-06
+Changes:
+  * Added possibility to add jobs from hiera
+  * Added Debian as supported operating system
+  * Allow declaration of cron class without managing the cron package
+  * Properly detect RHEL 5 based cron packages
+  * Fix puppet-lint warnings
+  * Add more tests
+
 v0.1.3: 2015-09-20
 Changes:
   * Support for multiple cron jobs in a single file added (cron::job::multiple)

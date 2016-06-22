@@ -9,7 +9,10 @@ It is a detached fork of [torrancew/puppet-cron](https://github.com/torrancew/pu
 It is backwards compatible with it and can be used as a drop-in-replacement.  
 This fork is Puppet 4 / future parser compatible.  
 
-It defines the following types:
+You can also configure your cronjobs via Hiera.
+For that you need to declare the `cron` class.
+
+This module defines the following types:
 
   * `cron::job`           - basic job resource
   * `cron::job::multiple` - basic job resource for multiple jobs per file
@@ -17,8 +20,6 @@ It defines the following types:
   * `cron::daily`         - wrapper for daily jobs
   * `cron::weekly`        - wrapper for weekly jobs
   * `cron::monthly`       - wrapper for monthly jobs
-
-Additionally there is the `cron` class which can be used to install the correct cron package.
 
 ## Installation
 
@@ -32,19 +33,32 @@ Keep that in mind when choosing the name to avoid overwriting existing system cr
 
 ### cron
 
-This module can optionally install the cron package if needed.  
-Most systems ship with cron already installed, doing this is usually not required. But you can use it via:
+If you want the class to automatically install the correct cron package you can declare the `cron` class. By default it will then install the right package.  
+If you want to use Hiera to configure your cronjobs, you must declare the `cron` class. 
+
+You can disable the managment of the cron package by setting the `manage_package` parameter to `false`.
+
+You can also specify a different cron package name via `package_name`.  
+By default we try to select the right one for your distribution.  
+But in some cases (e.g. Gentoo) you might want to overwrite it here.  
+
+This class allows specifiying the following parameter:
+
+   * `manage_package` - optional - defaults to "true"
+   * `package_ensure` - optional - defaults to "installed"
+   * `package_name`   - optional - defaults to "undef"
+
+
+Examples:  
 
     include cron
 
 or:
 
-    class { 'cron': }
-
-It allows specifiying the following parameter:
-
-   * `package_ensure` - optional - defaults to "installed"
-
+    class { 'cron': 
+      manage_package => false,
+    }
+    
 
 ### cron::job
 
@@ -61,6 +75,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day:
@@ -74,9 +89,10 @@ This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqld
       user        => 'root',
       command     => 'mysqldump -u root mydb',
       environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
+      description => 'Mysql backup',
     }
 
-Or define it using YAML:
+Hiera example:
 
 ```yaml
 ---
@@ -92,6 +108,7 @@ cron::job:
     environment:
       - 'MAILTO=root'
       - 'PATH="/usr/bin:/bin"'
+    description: 'Mysql backup'
 ```
 
 ### cron::job::multiple
@@ -100,19 +117,20 @@ cron::job:
 It allows specifiying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
-  * `jobs`        - required - a hash of multiple cron jobs using a similar structure as `cron::job`-parameters
+  * `jobs`        - required - an array of hashes of multiple cron jobs using a similar structure as `cron::job`-parameters
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
 
-And parameters of the jobs hash are:
+And the keys of the jobs hash are:
 
-  * `command` - required - the command to execute
-  * `minute`  - optional - defaults to "\*"
-  * `hour`    - optional - defaults to "\*"
-  * `date`    - optional - defaults to "\*"
-  * `month`   - optional - defaults to "\*"
-  * `weekday` - optional - defaults to "\*"
-  * `user`    - optional - defaults to "root"
+  * `command`     - required - the command to execute
+  * `minute`      - optional - defaults to "\*"
+  * `hour`        - optional - defaults to "\*"
+  * `date`        - optional - defaults to "\*"
+  * `month`       - optional - defaults to "\*"
+  * `weekday`     - optional - defaults to "\*"
+  * `user`        - optional - defaults to "root"
+  * `description` - optional - defaults to undef
 
 Example:
 
@@ -127,9 +145,11 @@ cron::job::multiple { 'test_cron_job_multiple':
       weekday     => '*',
       user        => 'rmueller',
       command     => '/usr/bin/uname',
+      description => 'print system information',
     },
     {
       command     => '/usr/bin/sleep 1',
+      description => 'Sleeping',
     },
   ],
   environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
@@ -137,7 +157,7 @@ cron::job::multiple { 'test_cron_job_multiple':
 
 ```
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---
@@ -152,16 +172,18 @@ cron::job::multiple:
           weekday: '*',
           user: rmueller,
           command: '/usr/bin/uname',
+          description: 'print system information',
         }
       - {
           command: '/usr/bin/sleep 1',
+          description: 'Sleeping',
         }
 
     environment:
       - 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"'
 ```
 
-That will generate the file `/etc/cron.d/test` with essentially this content:
+That will generate the file `/etc/cron.d/test_cron_job_multiple` with essentially this content:
 
 ```
 PATH="/usr/sbin:/usr/bin:/sbin:/bin"
@@ -181,6 +203,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command `mysqldump -u root mydb` as root on the 20th minute of every hour:
@@ -192,7 +215,7 @@ This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command 
       environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
     }
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---
@@ -218,6 +241,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day, like the above generic example:
@@ -229,7 +253,7 @@ This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `
       command => 'mysqldump -u root mydb',
     }
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---
@@ -255,6 +279,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command `mysqldump -u root mydb` as root at 4:40 AM every Sunday, like the above generic example:
@@ -267,7 +292,7 @@ This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command 
       command => 'mysqldump -u root mydb',
     }
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---
@@ -294,6 +319,7 @@ It allows specifying the following parameters:
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
+  * `description` - optional - defaults to undef
 
 Example:  
 This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command `mysqldump -u root mydb` as root at 3:40 AM the 1st of every month, like the above generic example:
@@ -306,7 +332,7 @@ This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command
       command => 'mysqldump -u root mydb',
     }
 
-YAML definition:
+Hiera example:
 
 ```yaml
 ---

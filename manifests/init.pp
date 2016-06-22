@@ -1,9 +1,18 @@
 # Class: cron
 #
-# This class wraps *cron::instalL* for ease of use
+# This class wraps *cron::install* for ease of use
 #
 # Parameters:
-#   package_ensure - Can be set to a package version, 'latest', 'installed' or 'present'.
+#   manage_package - Can be set to disable package installation.
+#     Set to true to manage it, false to not manage it.
+#     Default: true
+#
+#   package_ensure - Can be set to a package version, 'latest', 'installed' or
+#     'present'.
+#     Default: installed
+#
+#   package_name - Can be set to install a different cron package.
+#     Default: undef
 #
 # Actions:
 #
@@ -11,14 +20,22 @@
 #
 # Sample Usage:
 #   include 'cron'
-#   class { 'cron': }
+# or:
+#   class { 'cron':
+#     manage_package => false,
+# }
 #
 class cron (
-  $package_ensure = 'installed'
+  $manage_package = true,
+  $package_ensure = 'installed',
+  $package_name   = undef,
 ) {
 
-  class { '::cron::install':
-    package_ensure => $package_ensure,
+  if $manage_package {
+    class { '::cron::install':
+      package_ensure => $package_ensure,
+      package_name   => $package_name,
+    }
   }
 
   # Create jobs from hiera
