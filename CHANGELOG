@@ -1,3 +1,7 @@
+v0.1.8: 2016-06-26
+Changes:
+  * Added support for Scientific Linux
+
 v0.1.7: 2016-06-12
 Changes:
   * Properly support Gentoo
