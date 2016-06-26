@@ -43,7 +43,7 @@ class cron (
   if $cron_job {
     create_resources('cron::job',$cron_job)
   }
-  
+
   $cron_job_multiple=hiera_hash('cron::job::multiple', undef)
   if $cron_job_multiple {
     create_resources('cron::job::multiple',$cron_job_multiple)
