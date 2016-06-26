@@ -18,6 +18,10 @@
       "operatingsystemrelease":[ "5", "6", "7" ]
     },
     {
+      "operatingsystem":"Scientific",
+      "operatingsystemrelease":[ "5", "6" ]
+    },
+    {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [ "14.04" ]
     },

@@ -27,7 +27,7 @@ class cron::install (
     $real_package_name = $package_name
   } else {
     case $::operatingsystem {
-      /^(RedHat|CentOS|Amazon|OracleLinux)/: {
+      /^(RedHat|CentOS|Amazon|OracleLinux|Scientific)/: {
         if versioncmp($::operatingsystemmajrelease, '5') <= 0 {
           $real_package_name = 'vixie-cron'
         } else {
@@ -55,4 +55,3 @@ class cron::install (
   }
 
 }
-
