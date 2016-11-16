@@ -4,10 +4,10 @@
 
 ## Notes
 
-This module manages cronjobs by placing a file in `/etc/cron.d`.  
-It is a detached fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron) which seems to be abandoned.  
-It is backwards compatible with it and can be used as a drop-in-replacement.  
-This fork is Puppet 4 / future parser compatible.  
+This module manages cronjobs by placing a file in `/etc/cron.d`.
+It is a detached fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron) which seems to be abandoned.
+It is backwards compatible with it and can be used as a drop-in-replacement.
+This fork is Puppet 4 / future parser compatible.
 
 You can also configure your cronjobs via Hiera.
 For that you need to declare the `cron` class.
@@ -23,42 +23,46 @@ This module defines the following types:
 
 ## Installation
 
-As usual use `puppet module install rmueller-cron` to install it.  
+As usual use `puppet module install rmueller-cron` to install it.
 
 ## Usage
 
-The title of the job (e.g. `cron::job { 'title':`) is completely arbitrary. However, there can only be one cron job by that name.  
-The file in `/etc/cron.d/` will be created with the `$title` as the file name.  
+The title of the job (e.g. `cron::job { 'title':`) is completely arbitrary. However, there can only be one cron job by that name.
+The file in `/etc/cron.d/` will be created with the `$title` as the file name.
 Keep that in mind when choosing the name to avoid overwriting existing system cronjobs and use characters that don't cause problems when used in filenames.
 
 ### cron
 
-If you want the class to automatically install the correct cron package you can declare the `cron` class. By default it will then install the right package.  
-If you want to use Hiera to configure your cronjobs, you must declare the `cron` class. 
+If you want the class to automatically install the correct cron package you can declare the `cron` class. By default it will then install the right package.
+If you want to use Hiera to configure your cronjobs, you must declare the `cron` class.
 
 You can disable the managment of the cron package by setting the `manage_package` parameter to `false`.
 
-You can also specify a different cron package name via `package_name`.  
-By default we try to select the right one for your distribution.  
-But in some cases (e.g. Gentoo) you might want to overwrite it here.  
+You can also specify a different cron package name via `package_name`.
+By default we try to select the right one for your distribution.
+But in some cases (e.g. Gentoo) you might want to overwrite it here.
 
 This class allows specifiying the following parameter:
 
    * `manage_package` - optional - defaults to "true"
    * `package_ensure` - optional - defaults to "installed"
-   * `package_name`   - optional - defaults to "undef"
+   * `package_name`   - optional - defaults to OS specific default package name
+   * `service_name`   - optional - defaults to OS soecific default service name
+   * `manage_service`   - optional - defaults to "true"
+   * `service_enable`   - optional - defaults to "true"
+   * `service_ensure`   - optional - defaults to "running"
 
 
-Examples:  
+Examples:
 
     include cron
 
 or:
 
-    class { 'cron': 
+    class { 'cron':
       manage_package => false,
     }
-    
+
 
 ### cron::job
 
@@ -77,7 +81,7 @@ It allows specifying the following parameters:
   * `mode`        - optional - defaults to "0644"
   * `description` - optional - defaults to undef
 
-Example:  
+Example:
 This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day:
 
     cron::job { 'mysqlbackup':
@@ -113,7 +117,7 @@ cron::job:
 
 ### cron::job::multiple
 
-`cron:job::multiple` creates a file in `/etc/cron.d` with multiple cron jobs configured in it.  
+`cron:job::multiple` creates a file in `/etc/cron.d` with multiple cron jobs configured in it.
 It allows specifiying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -205,7 +209,7 @@ It allows specifying the following parameters:
   * `mode`        - optional - defaults to "0644"
   * `description` - optional - defaults to undef
 
-Example:  
+Example:
 This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command `mysqldump -u root mydb` as root on the 20th minute of every hour:
 
     cron::hourly { 'mysqlbackup_hourly':
@@ -243,7 +247,7 @@ It allows specifying the following parameters:
   * `mode`        - optional - defaults to "0644"
   * `description` - optional - defaults to undef
 
-Example:  
+Example:
 This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day, like the above generic example:
 
     cron::daily { 'mysqlbackup_daily':
@@ -281,7 +285,7 @@ It allows specifying the following parameters:
   * `mode`        - optional - defaults to "0644"
   * `description` - optional - defaults to undef
 
-Example:  
+Example:
 This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command `mysqldump -u root mydb` as root at 4:40 AM every Sunday, like the above generic example:
 
     cron::weekly { 'mysqlbackup_weekly':
@@ -321,7 +325,7 @@ It allows specifying the following parameters:
   * `mode`        - optional - defaults to "0644"
   * `description` - optional - defaults to undef
 
-Example:  
+Example:
 This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command `mysqldump -u root mydb` as root at 3:40 AM the 1st of every month, like the above generic example:
 
     cron::monthly { 'mysqlbackup_monthly':
@@ -349,7 +353,7 @@ cron::monthly:
 ## Contributors
 
   * Kevin Goess (@kgoess)               - Environment variable support + fixes
-  * Andy Shinn (@andyshinn)             - RedHat derivatives package name fix 
+  * Andy Shinn (@andyshinn)             - RedHat derivatives package name fix
   * Chris Weyl (@RsrchBoy)              - Fixed Puppet 3.2 deprecation warnings
   * Mathew Archibald (@mattyindustries) - Fixed file ownership issues
   * The Community                       - Continued improvement of this module via bugs and patches

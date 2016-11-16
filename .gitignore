@@ -5,3 +5,4 @@
 /.travis/*
 /spec/fixtures/*
 
+Gemfile.lock

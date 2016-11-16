@@ -19,7 +19,7 @@ describe 'cron' do
     let( :params ) {{ :manage_package => false,
                       :package_ensure => 'cron', }}
 
-    it { is_expected.to_not contain_class( 'cron::install' ) }
+    it { should contain_class( 'cron::install' ) }
     it { is_expected.to_not contain_package( 'cron' ) }
   end
 
@@ -69,4 +69,64 @@ describe 'cron' do
     }
   end
 
+  context 'manage_service => false' do
+    let :facts do
+      {
+        :operatingsystem           => 'Unsupported',
+      }
+    end
+    let( :params ) {{ :manage_service => false }}
+
+    it { should contain_class( 'cron::service' ) }
+    it { is_expected.to_not contain_service( 'cron' ) }
+  end
+
+  context 'manage_service => true' do
+    let :facts do
+      {
+        :operatingsystem           => 'Unsupported',
+      }
+    end
+    let( :params ) {{ :manage_service => true }}
+
+    it { should contain_class( 'cron::service' ) }
+    it { should contain_service( 'cron' ) }
+  end
+
+  context 'service_ensure => stopped' do
+    let :facts do
+      {
+        :operatingsystem           => 'Unsupported',
+      }
+    end
+    let( :params ) {{ :manage_service => true,
+                      :service_ensure => 'stopped' }}
+
+    it { should contain_class( 'cron::service' ) }
+    it { should contain_service( 'cron' ).with(
+      'name'   => 'cron',
+      'ensure' => 'stopped',
+      'enable' => true
+      )
+    }
+  end
+
+  context 'service_ensure => stopped' do
+    let :facts do
+      {
+        :operatingsystem           => 'Unsupported',
+      }
+    end
+    let( :params ) {{ :manage_service => true,
+                      :service_ensure => 'stopped',
+                      :service_enable => false }}
+
+    it { should contain_class( 'cron::service' ) }
+    it { should contain_service( 'cron' ).with(
+      'name'   => 'cron',
+      'ensure' => 'stopped',
+      'enable' => false
+      )
+    }
+  end
 end

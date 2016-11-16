@@ -1,9 +1,10 @@
 require 'spec_helper'
 
-describe 'cron::install' do
+describe 'cron::service' do
   let(:pre_condition) do
     "include ::cron"
   end
+
   context 'default' do
     let :facts do
       {
@@ -11,7 +12,11 @@ describe 'cron::install' do
       }
     end
     it do
-      should contain_package( 'cron' ).with( 'ensure' => 'installed', 'name' => 'cron' )
+      should contain_service( 'cron' ).with(
+        'ensure' => 'running',
+        'name' => 'cron',
+        'enable' => 'true'
+      )
     end
   end
 
@@ -23,9 +28,8 @@ describe 'cron::install' do
         :operatingsystemmajrelease => '5',
       }
     end
-    it { should contain_class( 'cron::install' ) }
-    it { should contain_package( 'cron' ).with(
-      'name' => 'vixie-cron'
+    it { should contain_service( 'crond' ).with(
+      'name' => 'crond'
       )
     }
   end
@@ -38,9 +42,8 @@ describe 'cron::install' do
         :operatingsystemmajrelease => '6',
       }
     end
-    it { should contain_class( 'cron::install' ) }
-    it { should contain_package( 'cron' ).with(
-      'name' => 'cronie'
+    it { should contain_service( 'crond' ).with(
+      'name' => 'crond'
       )
     }
   end
@@ -51,9 +54,8 @@ describe 'cron::install' do
         :operatingsystem           => 'Gentoo',
       }
     end
-    it { should contain_class( 'cron::install' ) }
-    it { should contain_package( 'cron' ).with(
-      'name' => 'virtual/cron'
+    it { should contain_service( 'cron' ).with(
+      'name' => 'cron'
       )
     }
   end
@@ -64,8 +66,7 @@ describe 'cron::install' do
         :operatingsystem           => 'Ubuntu',
       }
     end
-    it { should contain_class( 'cron::install' ) }
-    it { should contain_package( 'cron' ).with(
+    it { should contain_service( 'cron' ).with(
       'name' => 'cron'
       )
     }
@@ -77,12 +78,9 @@ describe 'cron::install' do
         :operatingsystem           => 'Debian',
       }
     end
-    it { should contain_class( 'cron::install' ) }
-    it { should contain_package( 'cron' ).with(
+    it { should contain_service( 'cron' ).with(
       'name' => 'cron'
       )
     }
   end
-
 end
-
