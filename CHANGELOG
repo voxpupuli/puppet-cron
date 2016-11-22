@@ -1,3 +1,9 @@
+v0.2.0: 2016-11-22
+Changes:
+  * BREAK: Added cron service managment
+  The cron service is now managed by this module and by default the service will be started
+  * Rspec fixes
+
 v0.1.8: 2016-06-26
 Changes:
   * Added support for Scientific Linux
