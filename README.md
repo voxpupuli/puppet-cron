@@ -28,7 +28,7 @@ As usual use `puppet module install rmueller-cron` to install it.
 ## Usage
 
 The title of the job (e.g. `cron::job { 'title':`) is completely arbitrary. However, there can only be one cron job by that name.
-The file in `/etc/cron.d/` will be created with the `$title` as the file name.
+The file in `/etc/cron.d/` will be created with `job_$title` as the file name.
 Keep that in mind when choosing the name to avoid overwriting existing system cronjobs and use characters that don't cause problems when used in filenames.
 
 ### cron
