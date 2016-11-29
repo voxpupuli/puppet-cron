@@ -69,17 +69,18 @@ or:
 `cron::job` creates generic jobs in `/etc/cron.d`.
 It allows specifying the following parameters:
 
-  * `ensure`      - optional - defaults to "present"
-  * `command`     - required - the command to execute, including path
-  * `minute`      - optional - defaults to "\*"
-  * `hour`        - optional - defaults to "\*"
-  * `date`        - optional - defaults to "\*"
-  * `month`       - optional - defaults to "\*"
-  * `weekday`     - optional - defaults to "\*"
-  * `user`        - optional - defaults to "root"
-  * `environment` - optional - defaults to ""
-  * `mode`        - optional - defaults to "0644"
-  * `description` - optional - defaults to undef
+  * `ensure`           - optional - defaults to "present"
+  * `command`          - required - the command to execute, including path
+  * `minute`           - optional - defaults to "\*"
+  * `hour`             - optional - defaults to "\*"
+  * `date`             - optional - defaults to "\*"
+  * `month`            - optional - defaults to "\*"
+  * `weekday`          - optional - defaults to "\*"
+  * `user`             - optional - defaults to "root"
+  * `environment`      - optional - defaults to ""
+  * `mode`             - optional - defaults to "0644"
+  * `description`      - optional - defaults to undef
+  * `cronjob_contents` - optional - defaults to undef
 
 Example:
 This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day:
@@ -113,6 +114,50 @@ cron::job:
       - 'MAILTO=root'
       - 'PATH="/usr/bin:/bin"'
     description: 'Mysql backup'
+```
+
+Perhaps the cron job is a multi-line script. This can be tackled by setting the `cronjob_contents`:
+
+    cron::job { 'mysqlbackup':
+      minute           => '40',
+      hour             => '2',
+      date             => '*',
+      month            => '*',
+      weekday          => '*',
+      user             => 'root',
+      command          => '/root/custommysqlbackupscript.sh',
+      environment      => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
+      description      => 'Mysql backup',
+      cronjob_contents => '
+        mount /mysqlbackups
+        mysqldump -u root mydb
+        mount -o unmount /mysqlbackups
+        echo "backups done!" >> /var/log/backups.log
+        '
+    }
+
+Hiera example:
+
+```yaml
+---
+cron::job:
+  'mysqlbackup':
+    command: '/root/custommysqlbackupscript.sh'
+    minute: 0
+    hour: 0
+    date: '*'
+    month: '*'
+    weekday: '*'
+    user: root
+    environment:
+      - 'MAILTO=root'
+      - 'PATH="/usr/bin:/bin"'
+    description: 'Mysql backup'
+    cronjob_contents: |
+      mount /mysqlbackups
+      mysqldump -u root mydb
+      mount -o unmount /mysqlbackups
+      echo "backups done!" >> /var/log/backups.log      
 ```
 
 ### cron::job::multiple
