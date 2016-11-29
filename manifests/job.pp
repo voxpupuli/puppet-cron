@@ -80,9 +80,9 @@ define cron::job (
     }
 
     file { "$cronjob_dir/$cronjob_file":
-      ensure   => present,
-      mode     => '0744',
-      contents => $cronjob_contents,
+      ensure  => present,
+      mode    => '0744',
+      content => $cronjob_contents,
       }
   }
 
