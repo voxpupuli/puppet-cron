@@ -56,7 +56,7 @@ define cron::job (
   $description      = undef,
   $cronjob_contents = undef,
   $cronjob_dir      = undef,
-  $cronjob_file     = undef,
+  $cronjob_file     = $command,
 ) {
 
   case $ensure {
