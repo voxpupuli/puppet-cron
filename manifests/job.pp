@@ -44,16 +44,19 @@
 #
 define cron::job (
   $command,
-  $ensure      = 'present',
-  $minute      = '*',
-  $hour        = '*',
-  $date        = '*',
-  $month       = '*',
-  $weekday     = '*',
-  $environment = [],
-  $user        = 'root',
-  $mode        = '0644',
-  $description = undef,
+  $ensure           = 'present',
+  $minute           = '*',
+  $hour             = '*',
+  $date             = '*',
+  $month            = '*',
+  $weekday          = '*',
+  $environment      = [],
+  $user             = 'root',
+  $mode             = '0644',
+  $description      = undef,
+  $cronjob_contents = undef,
+  $cronjob_dir      = undef,
+  $cronjob_file     = undef,
 ) {
 
   case $ensure {
@@ -69,6 +72,18 @@ define cron::job (
     mode    => $mode,
     path    => "/etc/cron.d/${title}",
     content => template('cron/job.erb'),
+  }
+
+  if $cronjob_contents {
+    file { "$cronjob_dir":
+      ensure => directory,
+    }
+
+    file { "$cronjob_dir/$cronjob_file":
+      ensure   => present,
+      mode     => '0744',
+      contents => $cronjob_contents,
+      }
   }
 
 }

@@ -34,13 +34,16 @@
 #   }
 #
 class cron (
-  $manage_package = true,
-  $manage_service = true,
-  $service_ensure = 'running',
-  $service_enable = true,
-  $service_name   = $::cron::params::service_name,
-  $package_ensure = 'installed',
-  $package_name   = $::cron::params::package_name,
+  $cronjob_contents = $::cron::params::cronjob_contents,
+  $cronjob_dir      = $::cron::params::cronjob_dir,
+  $cronjob_file     = $::cron::params::cronjob_file,
+  $manage_package   = true,
+  $manage_service   = true,
+  $service_ensure   = 'running',
+  $service_enable   = true,
+  $service_name     = $::cron::params::service_name,
+  $package_ensure   = 'installed',
+  $package_name     = $::cron::params::package_name,
 ) inherits cron::params {
 
   validate_bool($manage_package, $manage_service, $service_enable)
