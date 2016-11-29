@@ -56,6 +56,7 @@ define cron::job (
   $description      = undef,
   $cronjob_contents = undef,
   $cronjob_file     = $command,
+  $cronjob_mode     = $mode,
 ) {
 
   case $ensure {
@@ -75,8 +76,9 @@ define cron::job (
 
   if $cronjob_contents {
     file { "$cronjob_file":
-      ensure  => present,
-      mode    => '0744',
+      ensure  => $real_ensure,
+      user    => $user,
+      mode    => $cronjob_mode,
       content => $cronjob_contents,
       }
   }

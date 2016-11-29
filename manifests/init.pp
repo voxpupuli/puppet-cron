@@ -35,6 +35,7 @@
 #
 class cron (
   $cronjob_contents = $::cron::params::cronjob_contents,
+  $cronjob_mode     = '0644',
   $cronjob_file     = $::cron::params::cronjob_file,
   $manage_package   = true,
   $manage_service   = true,
