@@ -55,7 +55,6 @@ define cron::job (
   $mode             = '0644',
   $description      = undef,
   $cronjob_contents = undef,
-  $cronjob_dir      = undef,
   $cronjob_file     = $command,
 ) {
 
@@ -75,11 +74,7 @@ define cron::job (
   }
 
   if $cronjob_contents {
-    file { "$cronjob_dir":
-      ensure => directory,
-    }
-
-    file { "$cronjob_dir/$cronjob_file":
+    file { "$cronjob_file":
       ensure  => present,
       mode    => '0744',
       content => $cronjob_contents,

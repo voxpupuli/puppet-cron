@@ -35,7 +35,6 @@
 #
 class cron (
   $cronjob_contents = $::cron::params::cronjob_contents,
-  $cronjob_dir      = $::cron::params::cronjob_dir,
   $cronjob_file     = $::cron::params::cronjob_file,
   $manage_package   = true,
   $manage_service   = true,

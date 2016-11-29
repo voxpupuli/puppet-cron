@@ -70,7 +70,7 @@ or:
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
-  * `command`     - required - the command to execute
+  * `command`     - required - the command to execute, including path
   * `minute`      - optional - defaults to "\*"
   * `hour`        - optional - defaults to "\*"
   * `date`        - optional - defaults to "\*"
