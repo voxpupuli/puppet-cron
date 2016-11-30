@@ -82,6 +82,7 @@ It allows specifying the following parameters:
   * `description`      - optional - defaults to undef
   * `cronjob_contents` - optional - defaults to undef
   * `cronjob_file`     - optional - defaults to `command` but provided so something like `mysqlbackup && $cronjob_file` will work
+  * `cronjob_mode`     - optional - defaults to `$mode`, set `$cronjob_file` to `/bin/bash /home/whom/cron.sh` when using defaults
 
 Example:
 This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day:
