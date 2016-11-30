@@ -12,24 +12,34 @@ class cron::params {
       $service_name = 'crond'
     }
     'Gentoo': {
-      $package_name = 'virtual/cron'
-      $service_name = 'cron'
+      $package_name     = 'virtual/cron'
+      $service_name     = 'cron'
+      $cronjob_contents = undef
+      $cronjob_file     = undef
     }
     'Ubuntu': {
-      $package_name = 'cron'
-      $service_name = 'cron'
+      $package_name     = 'cron'
+      $service_name     = 'cron'
+      $cronjob_contents = undef
+      $cronjob_file     = undef
     }
     'Debian': {
-      $package_name = 'cron'
-      $service_name = 'cron'
+      $package_name     = 'cron'
+      $service_name     = 'cron'
+      $cronjob_contents = undef
+      $cronjob_file     = undef
     }
     'SLES': {
-      $package_name = 'cron'
-      $service_name = 'cron'
+      $package_name     = 'cron'
+      $service_name     = 'cron'
+      $cronjob_contents = undef
+      $cronjob_file     = undef
     }
     default: {
-      $package_name = 'cron'
-      $service_name = 'cron'
+      $package_name     = 'cron'
+      $service_name     = 'cron'
+      $cronjob_contents = undef
+      $cronjob_file     = undef
     }
   }
 }
