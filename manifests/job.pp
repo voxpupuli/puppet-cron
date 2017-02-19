@@ -62,6 +62,16 @@ define cron::job (
     default:   { fail("Invalid value '${ensure}' used for ensure") }
   }
 
+  if $command =~ /^mk-job .*$/ {
+    file { "/var/lib/check_mk_agent/job/${user}":
+      ensure => directory,
+      path   => "/var/lib/check_mk_agent/job/${user}",
+      owner  => $user,
+      group  => $user,
+      mode   => '0755';
+    }
+  }
+
   file { "job_${title}":
     ensure  => $real_ensure,
     owner   => 'root',
@@ -72,4 +82,3 @@ define cron::job (
   }
 
 }
-
