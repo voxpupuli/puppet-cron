@@ -63,13 +63,14 @@ define cron::job (
   }
 
   if $command =~ /^mk-job .*$/ {
-    file { "/var/lib/check_mk_agent/job/${user}":
-      ensure => directory,
-      path   => "/var/lib/check_mk_agent/job/${user}",
-      owner  => $user,
-      group  => $user,
-      mode   => '0755';
-    }
+    ensure_resource('file', "/var/lib/check_mk_agent/job/${user}", {
+      ensure  => directory,
+      require => Class['check_mk::agent'],
+      path    => "/var/lib/check_mk_agent/job/${user}",
+      mode    => '0750',
+      owner   => $user,
+      group   => $user,
+    })
   }
 
   file { "job_${title}":
