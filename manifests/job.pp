@@ -66,6 +66,7 @@ define cron::job (
   if $check_mk_job == true {
     ensure_resource('file', "/var/lib/check_mk_agent/job/${user}", {
       ensure  => directory,
+      require => Class['check_mk::agent'],
       path    => "/var/lib/check_mk_agent/job/${user}",
       mode    => '0750',
       owner   => $user,

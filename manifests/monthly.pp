@@ -40,29 +40,30 @@
 #
 define cron::monthly (
   $command,
-  $ensure      = 'present',
-  $minute      = 0,
-  $hour        = 0,
-  $date        = 1,
-  $environment = [],
-  $user        = 'root',
-  $mode        = '0644',
-  $description = undef,
+  $ensure       = 'present',
+  $minute       = 0,
+  $hour         = 0,
+  $date         = 1,
+  $environment  = [],
+  $user         = 'root',
+  $mode         = '0644',
+  $description  = undef,
+  $check_mk_job = false,
 ) {
 
   cron::job { $title:
-    ensure      => $ensure,
-    minute      => $minute,
-    hour        => $hour,
-    date        => $date,
-    month       => '*',
-    weekday     => '*',
-    user        => $user,
-    environment => $environment,
-    mode        => $mode,
-    command     => $command,
-    description => $description,
+    ensure       => $ensure,
+    minute       => $minute,
+    hour         => $hour,
+    date         => $date,
+    month        => '*',
+    weekday      => '*',
+    user         => $user,
+    environment  => $environment,
+    mode         => $mode,
+    command      => $command,
+    description  => $description,
+    check_mk_job => $check_mk_job,
   }
 
 }
-

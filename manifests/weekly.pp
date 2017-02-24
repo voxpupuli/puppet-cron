@@ -40,29 +40,30 @@
 #
 define cron::weekly (
   $command,
-  $ensure      = 'present',
-  $minute      = 0,
-  $hour        = 0,
-  $weekday     = 0,
-  $user        = 'root',
-  $mode        = '0640',
-  $environment = [],
-  $description = undef,
+  $ensure       = 'present',
+  $minute       = 0,
+  $hour         = 0,
+  $weekday      = 0,
+  $user         = 'root',
+  $mode         = '0640',
+  $environment  = [],
+  $description  = undef,
+  $check_mk_job = false,
 ) {
 
   cron::job { $title:
-    ensure      => $ensure,
-    minute      => $minute,
-    hour        => $hour,
-    date        => '*',
-    month       => '*',
-    weekday     => $weekday,
-    user        => $user,
-    environment => $environment,
-    mode        => $mode,
-    command     => $command,
-    description => $description,
+    ensure       => $ensure,
+    minute       => $minute,
+    hour         => $hour,
+    date         => '*',
+    month        => '*',
+    weekday      => $weekday,
+    user         => $user,
+    environment  => $environment,
+    mode         => $mode,
+    command      => $command,
+    description  => $description,
+    check_mk_job => $check_mk_job,
   }
 
 }
-
