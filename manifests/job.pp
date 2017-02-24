@@ -44,16 +44,17 @@
 #
 define cron::job (
   $command,
-  $ensure      = 'present',
-  $minute      = '*',
-  $hour        = '*',
-  $date        = '*',
-  $month       = '*',
-  $weekday     = '*',
-  $environment = [],
-  $user        = 'root',
-  $mode        = '0644',
-  $description = undef,
+  $ensure       = 'present',
+  $minute       = '*',
+  $hour         = '*',
+  $date         = '*',
+  $month        = '*',
+  $weekday      = '*',
+  $environment  = [],
+  $user         = 'root',
+  $mode         = '0644',
+  $check_mk_job = false,
+  $description  = undef,
 ) {
 
   case $ensure {
@@ -62,10 +63,9 @@ define cron::job (
     default:   { fail("Invalid value '${ensure}' used for ensure") }
   }
 
-  if $command =~ /^mk-job .*$/ {
+  if $check_mk_job == true {
     ensure_resource('file', "/var/lib/check_mk_agent/job/${user}", {
       ensure  => directory,
-      require => Class['check_mk::agent'],
       path    => "/var/lib/check_mk_agent/job/${user}",
       mode    => '0750',
       owner   => $user,
