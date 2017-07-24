@@ -50,6 +50,7 @@ define cron::job (
   $date        = '*',
   $month       = '*',
   $weekday     = '*',
+  $special     = undef,
   $environment = [],
   $user        = 'root',
   $mode        = '0644',

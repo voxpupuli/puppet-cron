@@ -28,13 +28,18 @@
 #     {
 #       command     => '/usr/bin/sleep 1',
 #     },
+#     {
+#       command     => '/usr/bin/sleep 10',
+#       special     => 'reboot',
+#     },
 #   ],
 #   environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 # }
 # 
-# This will generate those two cron jobs in `/etc/cron.d/test`:
+# This will generate those three cron jobs in `/etc/cron.d/test`:
 # 55 5 * * *  rmueller  /usr/bin/uname
 # * * * * *  root  /usr/bin/sleep 1
+# @reboot root /usr/bin/sleep 10
 #
 define cron::job::multiple(
   $jobs,

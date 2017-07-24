@@ -17,5 +17,8 @@
 <% if @description -%>
 # <%= @description %>
 <% end -%>
+<%- if @special.nil? -%>
 <%= @minute %> <%= @hour %> <%= @date %> <%= @month %> <%= @weekday %>  <%= @user %>  <%= @command %>
-
+<%  else -%>
+@<%= @special %>  <%= @user %>  <%= @command %>
+<%  end -%>
