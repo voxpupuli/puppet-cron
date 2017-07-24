@@ -157,10 +157,10 @@ cron::job::multiple { 'test_cron_job_multiple':
       command     => '/usr/bin/sleep 1',
       description => 'Sleeping',
     },
-	{
-	  command     => '/usr/bin/sleep 10',
-	  special     => 'reboot',
-	},
+    {
+      command     => '/usr/bin/sleep 10',
+      special     => 'reboot',
+    },
   ],
   environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 }
