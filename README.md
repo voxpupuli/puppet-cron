@@ -76,6 +76,7 @@ It allows specifying the following parameters:
   * `date`        - optional - defaults to "\*"
   * `month`       - optional - defaults to "\*"
   * `weekday`     - optional - defaults to "\*"
+  * `special`     - optional - defaults to undef
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
   * `mode`        - optional - defaults to "0644"
@@ -133,6 +134,7 @@ And the keys of the jobs hash are:
   * `date`        - optional - defaults to "\*"
   * `month`       - optional - defaults to "\*"
   * `weekday`     - optional - defaults to "\*"
+  * `special`     - optional - defaults to undef
   * `user`        - optional - defaults to "root"
   * `description` - optional - defaults to undef
 
@@ -155,6 +157,10 @@ cron::job::multiple { 'test_cron_job_multiple':
       command     => '/usr/bin/sleep 1',
       description => 'Sleeping',
     },
+	{
+	  command     => '/usr/bin/sleep 10',
+	  special     => 'reboot',
+	},
   ],
   environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 }
@@ -182,6 +188,10 @@ cron::job::multiple:
           command: '/usr/bin/sleep 1',
           description: 'Sleeping',
         }
+      - {
+          command: '/usr/bin/sleep 10',
+          special: 'reboot',
+        }
 
     environment:
       - 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"'
@@ -194,6 +204,7 @@ PATH="/usr/sbin:/usr/bin:/sbin:/bin"
 
 55 5 * * *  rmueller  /usr/bin/uname
 * * * * *  root  /usr/bin/sleep 1
+@reboot  root  /usr/bin/sleep 10
 ```
 
 ### cron::hourly
