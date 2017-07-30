@@ -17,5 +17,4 @@
 <% if @description -%>
 # <%= @description %>
 <% end -%>
-<%= @minute %> <%= @hour %> <%= @date %> <%= @month %> <%= @weekday %>  <%= @user %>  <%= @command %>
-
+<%= @minute %> <%= @hour %> <%= @date %> <%= @month %> <%= @weekday %>  <%= @user %><% if @check_mk_job == true -%> mk-job <%= @title %><% end -%> <%= @command %>
