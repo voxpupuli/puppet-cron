@@ -39,5 +39,9 @@
 
 # <%= job['description'] %>
 <% end -%>
+<%- if job['special'].nil? -%>
 <%= job['minute'] %> <%= job['hour'] %> <%= job['date'] %> <%= job['month'] %> <%= job['weekday'] %>  <%= job['user'] %>  <%= job['command'] %>
+<%  else -%>
+@<%= job['special'] %>  <%= job['user'] %>  <%= job['command'] %>
+<%  end -%>
 <% end -%>
