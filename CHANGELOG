@@ -1,3 +1,8 @@
+v0.2.1: 2017-07-30
+Changes:
+  * Added support for special time options
+  * Rspec fixes
+
 v0.2.0: 2016-11-22
 Changes:
   * BREAK: Added cron service managment
