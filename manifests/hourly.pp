@@ -31,7 +31,7 @@
 #   }
 #
 define cron::hourly (
-  $command,
+  $command     = undef,
   $ensure      = 'present',
   $minute      = 0,
   $environment = [],
