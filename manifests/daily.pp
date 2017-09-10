@@ -35,14 +35,14 @@
 #   }
 #
 define cron::daily (
-  $command     = undef,
-  $ensure      = 'present',
-  $minute      = 0,
-  $hour        = 0,
-  $environment = [],
-  $user        = 'root',
-  $mode        = '0644',
-  $description = undef,
+  Optional[String[1]]        $command     = undef,
+  Enum['absent','present']   $ensure      = 'present',
+  Variant[Integer,String[1]] $minute      = 0,
+  Variant[Integer,String[1]] $hour        = 0,
+  Array[String]              $environment = [],
+  String[1]                  $user        = 'root',
+  String[4,4]                $mode        = '0644',
+  Optional[String]           $description = undef,
 ) {
 
   cron::job { $title:

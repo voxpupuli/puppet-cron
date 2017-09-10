@@ -43,18 +43,18 @@
 #   }
 #
 define cron::job (
-  $command     = undef,
-  $ensure      = 'present',
-  $minute      = '*',
-  $hour        = '*',
-  $date        = '*',
-  $month       = '*',
-  $weekday     = '*',
-  $special     = undef,
-  $environment = [],
-  $user        = 'root',
-  $mode        = '0644',
-  $description = undef,
+  Optional[String[1]]        $command     = undef,
+  Enum['absent','present']   $ensure      = 'present',
+  Variant[Integer,String[1]] $minute      = '*',
+  Variant[Integer,String[1]] $hour        = '*',
+  Variant[Integer,String[1]] $date        = '*',
+  Variant[Integer,String[1]] $month       = '*',
+  Variant[Integer,String[1]] $weekday     = '*',
+  Optional[String[1]]        $special     = undef,
+  Array[String]              $environment = [],
+  String[1]                  $user        = 'root',
+  String[4,4]                $mode        = '0644',
+  Optional[String]           $description = undef,
 ) {
 
   case $ensure {
@@ -64,7 +64,7 @@ define cron::job (
         path   => "/etc/cron.d/${title}",
       }
     }
-    'present': {
+    default: {
       file { "job_${title}":
         ensure  => 'file',
         owner   => 'root',
@@ -73,9 +73,6 @@ define cron::job (
         path    => "/etc/cron.d/${title}",
         content => template('cron/job.erb'),
       }
-    }
-    default: {
-      fail("Invalid value '${ensure}' used for ensure.")
     }
   }
 }

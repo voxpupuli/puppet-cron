@@ -34,16 +34,26 @@
 #   }
 #
 class cron (
-  $manage_package = true,
-  $manage_service = true,
-  $service_ensure = 'running',
-  $service_enable = true,
-  $service_name   = $::cron::params::service_name,
-  $package_ensure = 'installed',
-  $package_name   = $::cron::params::package_name,
+  Boolean        $manage_package = true,
+  Boolean        $manage_service = true,
+  Variant[
+    Boolean,
+    Enum[
+      'running',
+      'stopped',
+    ]
+  ]              $service_ensure = 'running',
+  Variant[
+    Boolean,
+    Enum[
+      'manual',
+      'mask',
+    ]
+  ]              $service_enable = true,
+  String[1]      $service_name   = $::cron::params::service_name,
+  String[1]      $package_ensure = 'installed',
+  String[1]      $package_name   = $::cron::params::package_name,
 ) inherits cron::params {
-
-  validate_bool($manage_package, $manage_service, $service_enable)
 
   include ::cron::install
   include ::cron::service
