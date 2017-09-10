@@ -58,7 +58,6 @@ describe 'cron::job' do
   context 'job with ensure set to absent' do
     let( :params ) {{
       :ensure  => 'absent',
-      :command => 'mysqldump -u root test_db >some_file',
     }}
 
     it do

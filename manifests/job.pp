@@ -43,7 +43,7 @@
 #   }
 #
 define cron::job (
-  $command,
+  $command     = undef,
   $ensure      = 'present',
   $minute      = '*',
   $hour        = '*',
@@ -58,19 +58,23 @@ define cron::job (
 ) {
 
   case $ensure {
-    'present': { $real_ensure = file }
-    'absent':  { $real_ensure = absent }
-    default:   { fail("Invalid value '${ensure}' used for ensure") }
+    'absent':  {
+      file { "job_${title}":
+        ensure  => 'absent',
+      }
+    }
+    'present': {
+      file { "job_${title}":
+        ensure  => 'file',
+        owner   => 'root',
+        group   => 'root',
+        mode    => $mode,
+        path    => "/etc/cron.d/${title}",
+        content => template('cron/job.erb'),
+      }
+    }
+    default: {
+      fail("Invalid value '${ensure}' used for ensure.")
+    }
   }
-
-  file { "job_${title}":
-    ensure  => $real_ensure,
-    owner   => 'root',
-    group   => 'root',
-    mode    => $mode,
-    path    => "/etc/cron.d/${title}",
-    content => template('cron/job.erb'),
-  }
-
 }
-
