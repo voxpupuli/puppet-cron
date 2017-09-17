@@ -39,7 +39,7 @@
 #   }
 #
 define cron::weekly (
-  $command,
+  $command     = undef,
   $ensure      = 'present',
   $minute      = 0,
   $hour        = 0,
