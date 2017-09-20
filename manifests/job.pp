@@ -60,7 +60,8 @@ define cron::job (
   case $ensure {
     'absent':  {
       file { "job_${title}":
-        ensure  => 'absent',
+        ensure => 'absent',
+        path   => "/etc/cron.d/${title}",
       }
     }
     'present': {
