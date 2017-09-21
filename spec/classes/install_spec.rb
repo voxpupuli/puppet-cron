@@ -4,6 +4,7 @@ describe 'cron::install' do
   let(:pre_condition) do
     "include ::cron"
   end
+
   context 'default' do
     let :facts do
       {
@@ -18,9 +19,12 @@ describe 'cron::install' do
   context 'CentOS 5' do
     let :facts do
       {
-        :osfamily                  => 'RedHat',
-        :operatingsystem           => 'CentOS',
-        :operatingsystemmajrelease => '5',
+        :os => {
+          :family => 'RedHat',
+          :release => {
+            :major => '5'
+          }
+        },
       }
     end
     it { should contain_class( 'cron::install' ) }
@@ -33,9 +37,12 @@ describe 'cron::install' do
   context 'CentOS 6' do
     let :facts do
       {
-        :osfamily                  => 'RedHat',
-        :operatingsystem           => 'CentOS',
-        :operatingsystemmajrelease => '6',
+        :os => {
+          :family => 'RedHat',
+          :release => {
+            :major => '6'
+          }
+        },
       }
     end
     it { should contain_class( 'cron::install' ) }
@@ -48,7 +55,7 @@ describe 'cron::install' do
   context 'Gentoo' do
     let :facts do
       {
-        :operatingsystem           => 'Gentoo',
+        :os => { :family => 'Gentoo' }
       }
     end
     it { should contain_class( 'cron::install' ) }
@@ -58,23 +65,10 @@ describe 'cron::install' do
     }
   end
 
-  context 'Ubuntu' do
-    let :facts do
-      {
-        :operatingsystem           => 'Ubuntu',
-      }
-    end
-    it { should contain_class( 'cron::install' ) }
-    it { should contain_package( 'cron' ).with(
-      'name' => 'cron'
-      )
-    }
-  end
-
   context 'Debian' do
     let :facts do
       {
-        :operatingsystem           => 'Debian',
+        :os => { :family => 'debian' }
       }
     end
     it { should contain_class( 'cron::install' ) }

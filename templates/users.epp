@@ -1,0 +1,6 @@
+# Managed by Puppet
+
+<% | Array[String] $users | %>
+<% $users.each | $user | { -%>
+<%= $user %>
+<% } -%>
