@@ -8,7 +8,7 @@ describe 'cron::service' do
   context 'default' do
     let :facts do
       {
-        :operatingsystem           => 'Unsupported',
+        :os => { :family => 'Unsupported' }
       }
     end
     it do
@@ -23,9 +23,10 @@ describe 'cron::service' do
   context 'CentOS 5' do
     let :facts do
       {
-        :osfamily                  => 'RedHat',
-        :operatingsystem           => 'CentOS',
-        :operatingsystemmajrelease => '5',
+        :os => {
+          :family => 'RedHat',
+          :release => { :major => '5' }
+        }
       }
     end
     it { should contain_service( 'crond' ).with(
@@ -37,9 +38,10 @@ describe 'cron::service' do
   context 'CentOS 6' do
     let :facts do
       {
-        :osfamily                  => 'RedHat',
-        :operatingsystem           => 'CentOS',
-        :operatingsystemmajrelease => '6',
+        :os => {
+          :family => 'RedHat',
+          :release => { :major => '6' }
+        }
       }
     end
     it { should contain_service( 'crond' ).with(
@@ -51,19 +53,7 @@ describe 'cron::service' do
   context 'Gentoo' do
     let :facts do
       {
-        :operatingsystem           => 'Gentoo',
-      }
-    end
-    it { should contain_service( 'cron' ).with(
-      'name' => 'cron'
-      )
-    }
-  end
-
-  context 'Ubuntu' do
-    let :facts do
-      {
-        :operatingsystem           => 'Ubuntu',
+        :os => { :family => 'Gentoo' }
       }
     end
     it { should contain_service( 'cron' ).with(
@@ -75,7 +65,7 @@ describe 'cron::service' do
   context 'Debian' do
     let :facts do
       {
-        :operatingsystem           => 'Debian',
+        :os => { :family => 'Debian' }
       }
     end
     it { should contain_service( 'cron' ).with(

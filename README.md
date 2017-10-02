@@ -51,6 +51,10 @@ This class allows specifiying the following parameter:
    * `manage_service`   - optional - defaults to "true"
    * `service_enable`   - optional - defaults to "true"
    * `service_ensure`   - optional - defaults to "running"
+   * `manage_users_allow` - optional - defaults to false, whether to manange `/etc/cron.allow`
+   * `manage_users_deny` - optional - defaults to false, whether to manange `/etc/cron.deny`
+   * `users_allow` - optional - An array of users to add to `/etc/cron.allow`
+   * `users_deny` - optional - An array of users to add to `/etc/cron.deny`
 
 
 Examples:

@@ -14,7 +14,6 @@ describe 'cron::job::multiple' do
           'month'      => '7',
           'weekday'    => '*',
           'user'       => 'admin',
-          'mode'       => '0640',
           'command'    => 'mysqldump -u root test_db >some_file',
         },
         {

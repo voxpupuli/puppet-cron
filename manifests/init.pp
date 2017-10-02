@@ -34,53 +34,98 @@
 #   }
 #
 class cron (
-  $manage_package = true,
-  $manage_service = true,
-  $service_ensure = 'running',
-  $service_enable = true,
-  $service_name   = $::cron::params::service_name,
-  $package_ensure = 'installed',
-  $package_name   = $::cron::params::package_name,
-) inherits cron::params {
+  String[1]      $service_name,
+  String[1]      $package_name,
+  Boolean        $manage_package = true,
+  Boolean        $manage_service = true,
+  Variant[
+    Boolean,
+    Enum[
+      'running',
+      'stopped',
+    ]
+  ]              $service_ensure = 'running',
+  Variant[
+    Boolean,
+    Enum[
+      'manual',
+      'mask',
+    ]
+  ]              $service_enable = true,
+  String[1]      $package_ensure = 'installed',
+  Array[String]  $users_allow    = [],
+  Array[String]  $users_deny     = [],
+  Boolean        $manage_users_allow = false,
+  Boolean        $manage_users_deny  = false,
+) {
 
-  validate_bool($manage_package, $manage_service, $service_enable)
+  contain '::cron::install'
+  contain '::cron::service'
 
-  include ::cron::install
-  include ::cron::service
+  Class['cron::install'] -> Class['cron::service']
 
-  anchor { 'cron::start': }
-  -> Class['cron::install']
-  -> Class['cron::service']
-  -> anchor { 'cron::end': }
+  # Manage cron.allow and cron.deny
+  if $manage_users_allow {
+    file { '/etc/cron.allow':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      content => epp('cron/users.epp', { 'users' => $users_allow }),
+    }
+  }
+
+  if $manage_users_deny {
+    file { '/etc/cron.deny':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      content => epp('cron/users.epp', { 'users' => $users_deny }),
+    }
+  }
+
 
   # Create jobs from hiera
-  $cron_job = hiera_hash('cron::job', undef)
-  if $cron_job {
-    create_resources('cron::job',$cron_job)
+
+  $cron_job = lookup('cron::job', Optional[Hash], 'hash', {})
+  $cron_job.each | String $t, Hash $params | {
+    cron::job { $t:
+      * => $params
+    }
   }
 
-  $cron_job_multiple = hiera_hash('cron::job::multiple', undef)
-  if $cron_job_multiple {
-    create_resources('cron::job::multiple', $cron_job_multiple)
+  $cron_job_multiple = lookup('cron::job::multiple', Optional[Hash], 'hash', {})
+  $cron_job_multiple.each | String $t, Hash $params | {
+    cron::job::multiple { $t:
+      * => $params
+    }
   }
 
-  $cron_job_hourly = hiera_hash('cron::hourly', undef)
-  if $cron_job_hourly {
-    create_resources('cron::hourly', $cron_job_hourly)
+  $cron_job_hourly = lookup('cron::job::hourly', Optional[Hash], 'hash', {})
+  $cron_job_hourly.each | String $t, Hash $params | {
+    cron::job::hourly { $t:
+      * => $params
+    }
   }
 
-  $cron_job_daily = hiera_hash('cron::daily', undef)
-  if $cron_job_daily {
-    create_resources('cron::daily', $cron_job_daily)
+  $cron_job_daily = lookup('cron::job::daily', Optional[Hash], 'hash', {})
+  $cron_job_daily.each | String $t, Hash $params | {
+    cron::job::daily { $t:
+      * => $params
+    }
   }
 
-  $cron_job_weekly = hiera_hash('cron::weekly', undef)
-  if $cron_job_weekly {
-    create_resources('cron::weekly', $cron_job_weekly)
+  $cron_job_weekly = lookup('cron::job::weekly', Optional[Hash], 'hash', {})
+  $cron_job_weekly.each | String $t, Hash $params | {
+    cron::job::weekly { $t:
+      * => $params
+    }
   }
 
-  $cron_job_monthly = hiera_hash('cron::monthly', undef)
-  if $cron_job_monthly {
-    create_resources('cron::monthly', $cron_job_monthly)
+  $cron_job_monthly = lookup('cron::job::monthly', Optional[Hash], 'hash', {})
+  $cron_job_monthly.each | String $t, Hash $params | {
+    cron::job::monthly { $t:
+      * => $params
+    }
   }
+
 }

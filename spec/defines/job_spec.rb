@@ -31,7 +31,7 @@ describe 'cron::job' do
       :weekday     => '*',
       :environment => [ 'MAILTO="root"', 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
       :user        => 'admin',
-      :mode        => '0640',
+      :mode        => '0644',
       :description => 'Mysql backup',
       :command     => 'mysqldump -u root test_db >some_file',
     }}

@@ -42,25 +42,38 @@
 # @reboot root /usr/bin/sleep 10
 #
 define cron::job::multiple(
-  $jobs,
-  $ensure      = 'present',
-  $environment = [],
-  $mode        = '0644',
+  Array[Struct[{
+    Optional['command']     => String[1],
+    Optional['minute']      => Variant[Integer,String[1]],
+    Optional['hour']        => Variant[Integer,String[1]],
+    Optional['date']        => Variant[Integer,String[1]],
+    Optional['month']       => Variant[Integer,String[1]],
+    Optional['weekday']     => Variant[Integer,String[1]],
+    Optional['special']     => String[1],
+    Optional['environment'] => Array[String],
+    Optional['user']        => String[1],
+    Optional['description'] => String,
+  }]]                      $jobs,
+  Enum['absent','present'] $ensure      = 'present',
+  Array[String]            $environment = [],
+  String[4,4]              $mode        = '0644',
 ) {
-
   case $ensure {
-    'present': { $real_ensure = file }
-    'absent':  { $real_ensure = absent }
-    default:   { fail("Invalid value '${ensure}' used for ensure") }
+    'absent': {
+      file { "job_${title}":
+        ensure => absent,
+        path   => "/etc/cron.d/${title}",
+      }
+    }
+    default:  {
+      file { "job_${title}":
+        ensure  => $ensure,
+        owner   => 'root',
+        group   => 'root',
+        mode    => $mode,
+        path    => "/etc/cron.d/${title}",
+        content => template('cron/multiple.erb'),
+      }
+    }
   }
-
-  file { "job_${title}":
-    ensure  => $real_ensure,
-    owner   => 'root',
-    group   => 'root',
-    mode    => $mode,
-    path    => "/etc/cron.d/${title}",
-    content => template('cron/multiple.erb'),
-  }
-
 }
