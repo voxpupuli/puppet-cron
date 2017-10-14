@@ -1,3 +1,14 @@
+v1.0.0: 2017-10-14
+Changes:
+  * BREAK: Requires Puppet version >=4.9.1
+  * Added type-hinting to all manifest parameters
+  * Added management of /etc/cron.allow and /etc/cron.deny
+  * Replaced hiera_hash() with lookup() calls
+  * Replaced params.pp with in-module data (Hiera 5)
+  * Replaced create_resources with iterators
+  * Replaced anchor pattern with contain
+  * Made the cron::job command attribute optional
+
 v0.2.1: 2017-07-30
 Changes:
   * Added support for special time options
