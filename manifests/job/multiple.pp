@@ -44,19 +44,19 @@
 define cron::job::multiple(
   Array[Struct[{
     Optional['command']     => String[1],
-    Optional['minute']      => Variant[Integer,String[1]],
-    Optional['hour']        => Variant[Integer,String[1]],
-    Optional['date']        => Variant[Integer,String[1]],
-    Optional['month']       => Variant[Integer,String[1]],
-    Optional['weekday']     => Variant[Integer,String[1]],
-    Optional['special']     => String[1],
-    Optional['environment'] => Array[String],
-    Optional['user']        => String[1],
+    Optional['minute']      => Cron::Minute,
+    Optional['hour']        => Cron::Hour,
+    Optional['date']        => Cron::Date,
+    Optional['month']       => Cron::Month,
+    Optional['weekday']     => Cron::Weekday,
+    Optional['special']     => Cron::Special,
+    Optional['environment'] => Cron::Environment,
+    Optional['user']        => Cron::User,
     Optional['description'] => String,
-  }]]                      $jobs,
-  Enum['absent','present'] $ensure      = 'present',
-  Array[String]            $environment = [],
-  String[4,4]              $mode        = '0644',
+  }]]               $jobs,
+  Cron::Job_ensure  $ensure      = 'present',
+  Cron::Environment $environment = [],
+  Cron::Mode        $mode        = '0644',
 ) {
   case $ensure {
     'absent': {

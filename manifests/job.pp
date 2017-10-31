@@ -43,19 +43,21 @@
 #   }
 #
 define cron::job (
-  Optional[String[1]]        $command     = undef,
-  Enum['absent','present']   $ensure      = 'present',
-  Variant[Integer,String[1]] $minute      = '*',
-  Variant[Integer,String[1]] $hour        = '*',
-  Variant[Integer,String[1]] $date        = '*',
-  Variant[Integer,String[1]] $month       = '*',
-  Variant[Integer,String[1]] $weekday     = '*',
-  Optional[String[1]]        $special     = undef,
-  Array[String]              $environment = [],
-  String[1]                  $user        = 'root',
-  String[4,4]                $mode        = '0644',
-  Optional[String]           $description = undef,
+  Optional[String[1]] $command     = undef,
+  Cron::Job_ensure    $ensure      = 'present',
+  Cron::Minute        $minute      = '*',
+  Cron::Hour          $hour        = '*',
+  Cron::Date          $date        = '*',
+  Cron::Month         $month       = '*',
+  Cron::Weekday       $weekday     = '*',
+  Cron::Special       $special     = undef,
+  Cron::Environment   $environment = [],
+  Cron::User          $user        = 'root',
+  Cron::Mode          $mode        = '0644',
+  Optional[String]    $description = undef,
 ) {
+
+  assert_type(Cron::Jobname, $title)
 
   case $ensure {
     'absent':  {
