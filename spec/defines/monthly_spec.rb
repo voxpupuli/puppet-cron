@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'cron::monthly' do
+describe 'cron::job::monthly' do
   let( :title )  { 'mysql_backup' }
   let( :params ) {{
     :minute      => '59',

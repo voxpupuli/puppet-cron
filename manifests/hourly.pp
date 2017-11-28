@@ -1,4 +1,4 @@
-# Type: cron::hourly
+# Type: cron::job::hourly
 #
 # This type creates an hourly cron job via a file in /etc/cron.d
 #
@@ -24,13 +24,13 @@
 # Requires:
 #
 # Sample Usage:
-#   cron::hourly { 'generate_puppetdoc':
+#   cron::job::hourly { 'generate_puppetdoc':
 #     minute      => '1',
 #     environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 #     command     => 'puppet doc >/var/www/puppet_docs.mkd',
 #   }
 #
-define cron::hourly (
+define cron::job::hourly (
   Optional[String[1]]        $command     = undef,
   Enum['absent','present']   $ensure      = 'present',
   Variant[Integer,String[1]] $minute      = 0,

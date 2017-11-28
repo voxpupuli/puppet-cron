@@ -1,4 +1,4 @@
-# Type: cron::monthly
+# Type: cron::job::monthly
 #
 # This type creates a monthly cron job via a file in /etc/cron.d
 #
@@ -30,7 +30,7 @@
 # Requires:
 #
 # Sample Usage:
-#   cron::monthly { 'delete_old_log_files':
+#   cron::job::monthly { 'delete_old_log_files':
 #     minute      => '1',
 #     hour        => '7',
 #     date        => '28',
@@ -38,7 +38,7 @@
 #     command     => 'find /var/log -type f -ctime +30 -delete',
 #   }
 #
-define cron::monthly (
+define cron::job::monthly (
   Optional[String[1]]        $command     = undef,
   Enum['absent','present']   $ensure      = 'present',
   Variant[Integer,String[1]] $minute      = 0,
