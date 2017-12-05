@@ -1,14 +1,16 @@
 require 'spec_helper'
 
 describe 'cron::hourly' do
-  let( :title )  { 'mysql_backup' }
-  let( :params ) {{
-    :minute  => '59',
-    :command => 'mysqldump -u root test_db >some_file'
-  }}
+  let(:title)  { 'mysql_backup' }
+  let(:params) do
+    {
+      minute: '59',
+      command: 'mysqldump -u root test_db >some_file'
+    }
+  end
 
   it do
-    should contain_cron__job( title ).with(
+    is_expected.to contain_cron__job(title).with(
       'minute'      => params[:minute],
       'hour'        => '*',
       'date'        => '*',
@@ -22,12 +24,10 @@ describe 'cron::hourly' do
   end
 
   it do
-    should contain_file( "job_#{title}" ).with(
-      'owner'   => 'root'
+    is_expected.to contain_file("job_#{title}").with(
+      'owner' => 'root'
     ).with_content(
-      /\s+59 \* \* \* \*  root  mysqldump -u root test_db >some_file\n/
+      %r{\s+59 \* \* \* \*  root  mysqldump -u root test_db >some_file\n}
     )
   end
-
 end
-
