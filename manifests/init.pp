@@ -89,42 +89,42 @@ class cron (
   $cron_job = lookup('cron::job', Optional[Hash], 'hash', {})
   $cron_job.each | String $t, Hash $params | {
     cron::job { $t:
-      * => $params
+      * => $params,
     }
   }
 
   $cron_job_multiple = lookup('cron::job::multiple', Optional[Hash], 'hash', {})
   $cron_job_multiple.each | String $t, Hash $params | {
     cron::job::multiple { $t:
-      * => $params
+      * => $params,
     }
   }
 
   $cron_job_hourly = lookup('cron::job::hourly', Optional[Hash], 'hash', {})
   $cron_job_hourly.each | String $t, Hash $params | {
     cron::job::hourly { $t:
-      * => $params
+      * => $params,
     }
   }
 
   $cron_job_daily = lookup('cron::job::daily', Optional[Hash], 'hash', {})
   $cron_job_daily.each | String $t, Hash $params | {
     cron::job::daily { $t:
-      * => $params
+      * => $params,
     }
   }
 
   $cron_job_weekly = lookup('cron::job::weekly', Optional[Hash], 'hash', {})
   $cron_job_weekly.each | String $t, Hash $params | {
     cron::job::weekly { $t:
-      * => $params
+      * => $params,
     }
   }
 
   $cron_job_monthly = lookup('cron::job::monthly', Optional[Hash], 'hash', {})
   $cron_job_monthly.each | String $t, Hash $params | {
     cron::job::monthly { $t:
-      * => $params
+      * => $params,
     }
   }
 
