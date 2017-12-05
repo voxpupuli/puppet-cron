@@ -8,7 +8,8 @@ describe 'cron::service' do
   context 'default' do
     let :facts do
       {
-        os: { family: 'Unsupported' }
+        os: { family: 'Unsupported' },
+        operatingsystem: 'Unsupported'
       }
     end
 
