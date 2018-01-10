@@ -11,6 +11,12 @@
 # @param manage_users_deny If the /etc/cron.deny should be managed.
 # @param allow_deny_mode Specify the cron.allow/deny file mode.
 # @param merge The `lookup()` merge method to use with cron job hiera lookups.
+# @param manage_crontab Whether to manage /etc/crontab
+# @param crontab_shell The value for SHELL in /etc/crontab
+# @param crontab_path The value for PATH in /etc/crontab
+# @param crontab_mailto The value for MAILTO in /etc/crontab
+# @param crontab_home The value for HOME in /etc/crontab
+# @param crontab_run_parts Define sadditional cron::run_parts resources
 # @example
 #  include cron
 # @example
@@ -31,6 +37,12 @@ class cron (
   Boolean              $manage_users_deny  = false,
   Cron::Mode           $allow_deny_mode    = '0644',
   Enum['deep', 'first', 'hash', 'unique'] $merge = 'hash',
+  Boolean              $manage_crontab     = false,
+  String               $crontab_shell      = '/bin/bash',
+  String               $crontab_path       = '/sbin:/bin:/usr/sbin:/usr/bin',
+  String               $crontab_mailto     = 'root',
+  Optional[String]     $crontab_home     = undef,
+  Cron::Run_parts      $crontab_run_parts = {},
 ) {
   contain 'cron::install'
   contain 'cron::service'
@@ -55,6 +67,32 @@ class cron (
       owner   => 'root',
       group   => 0,
       content => epp('cron/users.epp', { 'users' => $users_deny }),
+    }
+  }
+
+  if $manage_crontab {
+    # Template uses:
+    # - $crontab_shell
+    # - $crontab_path
+    # - $crontab_mailto
+    # - $crontab_home
+    # - $crontab_run_parts
+    file { '/etc/crontab':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('cron/crontab.erb'),
+    }
+
+    $crontab_run_parts.each |String $r, Hash $r_params| {
+      file { "/etc/cron.${r}":
+        ensure => directory,
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755',
+        before => File['/etc/crontab'],
+      }
     }
   }
 
