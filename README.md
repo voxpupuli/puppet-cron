@@ -1,16 +1,20 @@
 # Puppet Cron Module
 
-[![master branch status](https://secure.travis-ci.org/roman-mueller/rmueller-cron.png?branch=master)](http://travis-ci.org/roman-mueller/rmueller-cron)
+[![License](https://img.shields.io/github/license/voxpupuli/puppet-cron.svg)](https://github.com/voxpupuli/puppet-archive/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-cron.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-archive)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/cron.svg)](https://forge.puppetlabs.com/puppet/archive)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/cron.svg)](https://forge.puppetlabs.com/puppet/archive)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/cron.svg)](https://forge.puppetlabs.com/puppet/archive)
 
 ## Notes
 
 This module manages cronjobs by placing files in `/etc/cron.d`.
-It is a detached fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron) which seems to be abandoned.
-This fork is Puppet 4 / future parser compatible.
+rmueller-cron was a detached fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron)
+After v1.0.0, the module was migrated to Vox Pupuli where it is now maintained and released under the [puppet](https://forge.puppet.com/puppet) namespace.
 
 The current version (starting with v1.0.0) of this module requires Puppet 4.9.1 or greater.  
 If you are using an older version of Puppet you can pin the version to v0.2.1 which was still compatible with much older Puppet versions.  
-You can browse the documentation of that version in the v0.2.x branch [here](https://github.com/roman-mueller/rmueller-cron/tree/v0.2.x).  
+You can browse the documentation of that version in the v0.2.x branch [here](https://github.com/voxpupuli/puppet-cron/tree/v0.2.x).
 
 This module supports configuration of cronjobs via Hiera as well.
 For that you need to declare the `cron` class.
@@ -26,7 +30,7 @@ This module defines the following types:
 
 ## Installation
 
-As usual use `puppet module install rmueller-cron` to install it.
+As usual use `puppet module install puppet-cron` to install it.
 
 ## Usage
 
@@ -39,36 +43,40 @@ Keep that in mind when choosing the name to avoid overwriting existing system cr
 If you want the class to automatically install the correct cron package you can declare the `cron` class. By default it will then install the right package.
 If you want to use Hiera to configure your cronjobs, you must declare the `cron` class.
 
-You can disable the managment of the cron package by setting the `manage_package` parameter to `false`.
+You can disable the management of the cron package by setting the `manage_package` parameter to `false`.
 
 You can also specify a different cron package name via `package_name`.
 By default we try to select the right one for your distribution.
 But in some cases (e.g. Gentoo) you might want to overwrite it here.
 
-This class allows specifiying the following parameter:
+This class allows specifying the following parameter:
 
    * `manage_package` - optional - defaults to "true"
    * `package_ensure` - optional - defaults to "installed"
    * `package_name`   - optional - defaults to OS specific default package name
-   * `service_name`   - optional - defaults to OS soecific default service name
+   * `service_name`   - optional - defaults to OS specific default service name
    * `manage_service`   - optional - defaults to "true"
    * `service_enable`   - optional - defaults to "true"
    * `service_ensure`   - optional - defaults to "running"
-   * `manage_users_allow` - optional - defaults to false, whether to manange `/etc/cron.allow`
-   * `manage_users_deny` - optional - defaults to false, whether to manange `/etc/cron.deny`
+   * `manage_users_allow` - optional - defaults to false, whether to manage `/etc/cron.allow`
+   * `manage_users_deny` - optional - defaults to false, whether to manage `/etc/cron.deny`
    * `users_allow` - optional - An array of users to add to `/etc/cron.allow`
    * `users_deny` - optional - An array of users to add to `/etc/cron.deny`
 
 
 Examples:
 
-    include cron
+```puppet
+  include cron
+```
 
 or:
 
-    class { 'cron':
-      manage_package => false,
-    }
+```puppet
+  class { 'cron':
+    manage_package => false,
+  }
+```
 
 
 ### cron::job
@@ -92,17 +100,19 @@ It allows specifying the following parameters:
 Example:
 This would create the file `/etc/cron.d/mysqlbackup` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day:
 
-    cron::job { 'mysqlbackup':
-      minute      => '40',
-      hour        => '2',
-      date        => '*',
-      month       => '*',
-      weekday     => '*',
-      user        => 'root',
-      command     => 'mysqldump -u root mydb',
-      environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
-      description => 'Mysql backup',
-    }
+```puppet
+  cron::job { 'mysqlbackup':
+    minute      => '40',
+    hour        => '2',
+    date        => '*',
+    month       => '*',
+    weekday     => '*',
+    user        => 'root',
+    command     => 'mysqldump -u root mydb',
+    environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
+    description => 'Mysql backup',
+  }
+```
 
 Hiera example:
 
@@ -126,7 +136,7 @@ cron::job:
 ### cron::job::multiple
 
 `cron:job::multiple` creates a file in `/etc/cron.d` with multiple cron jobs configured in it.
-It allows specifiying the following parameters:
+It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
   * `jobs`        - required - an array of hashes of multiple cron jobs using a similar structure as `cron::job`-parameters
@@ -147,7 +157,7 @@ And the keys of the jobs hash are:
 
 Example:
 
-```
+```puppet
 cron::job::multiple { 'test_cron_job_multiple':
   jobs => [
     {
@@ -230,12 +240,14 @@ It allows specifying the following parameters:
 Example:
 This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command `mysqldump -u root mydb` as root on the 20th minute of every hour:
 
-    cron::hourly { 'mysqlbackup_hourly':
-      minute      => '20',
-      user        => 'root',
-      command     => 'mysqldump -u root mydb',
-      environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
-    }
+```puppet
+  cron::hourly { 'mysqlbackup_hourly':
+    minute      => '20',
+    user        => 'root',
+    command     => 'mysqldump -u root mydb',
+    environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"', ],
+  }
+```
 
 Hiera example:
 
@@ -268,12 +280,14 @@ It allows specifying the following parameters:
 Example:
 This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day, like the above generic example:
 
-    cron::daily { 'mysqlbackup_daily':
-      minute  => '40',
-      hour    => '2',
-      user    => 'root',
-      command => 'mysqldump -u root mydb',
-    }
+```puppet
+  cron::daily { 'mysqlbackup_daily':
+    minute  => '40',
+    hour    => '2',
+    user    => 'root',
+    command => 'mysqldump -u root mydb',
+  }
+```
 
 Hiera example:
 
@@ -306,13 +320,15 @@ It allows specifying the following parameters:
 Example:
 This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command `mysqldump -u root mydb` as root at 4:40 AM every Sunday, like the above generic example:
 
-    cron::weekly { 'mysqlbackup_weekly':
-      minute  => '40',
-      hour    => '4',
-      weekday => '0',
-      user    => 'root',
-      command => 'mysqldump -u root mydb',
-    }
+```puppet
+  cron::weekly { 'mysqlbackup_weekly':
+    minute  => '40',
+    hour    => '4',
+    weekday => '0',
+    user    => 'root',
+    command => 'mysqldump -u root mydb',
+  }
+```
 
 Hiera example:
 
@@ -346,13 +362,15 @@ It allows specifying the following parameters:
 Example:
 This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command `mysqldump -u root mydb` as root at 3:40 AM the 1st of every month, like the above generic example:
 
-    cron::monthly { 'mysqlbackup_monthly':
-      minute  => '40',
-      hour    => '3',
-      date    => '1',
-      user    => 'root',
-      command => 'mysqldump -u root mydb',
-    }
+```puppet
+  cron::monthly { 'mysqlbackup_monthly':
+    minute  => '40',
+    hour    => '3',
+    date    => '1',
+    user    => 'root',
+    command => 'mysqldump -u root mydb',
+  }
+```
 
 Hiera example:
 
