@@ -23,10 +23,10 @@ This module defines the following types:
 
   * `cron::job`           - basic job resource
   * `cron::job::multiple` - basic job resource for multiple jobs per file
-  * `cron::hourly`        - wrapper for hourly jobs
-  * `cron::daily`         - wrapper for daily jobs
-  * `cron::weekly`        - wrapper for weekly jobs
-  * `cron::monthly`       - wrapper for monthly jobs
+  * `cron::job::hourly`        - wrapper for hourly jobs
+  * `cron::job::daily`         - wrapper for daily jobs
+  * `cron::job::weekly`        - wrapper for weekly jobs
+  * `cron::job::monthly`       - wrapper for monthly jobs
 
 ## Installation
 
@@ -224,9 +224,9 @@ PATH="/usr/sbin:/usr/bin:/sbin:/bin"
 @reboot  root  /usr/bin/sleep 10
 ```
 
-### cron::hourly
+### cron::job::hourly
 
-`cron::hourly` creates jobs in `/etc/cron.d` that run once per hour.
+`cron::job::hourly` creates jobs in `/etc/cron.d` that run once per hour.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -241,7 +241,7 @@ Example:
 This would create the file `/etc/cron.d/mysqlbackup_hourly` and run the command `mysqldump -u root mydb` as root on the 20th minute of every hour:
 
 ```puppet
-  cron::hourly { 'mysqlbackup_hourly':
+  cron::job::hourly { 'mysqlbackup_hourly':
     minute      => '20',
     user        => 'root',
     command     => 'mysqldump -u root mydb',
@@ -253,7 +253,7 @@ Hiera example:
 
 ```yaml
 ---
-cron::hourly:
+cron::job::hourly:
   'mysqlbackup_hourly':
     minute: 20
     user: root
@@ -263,9 +263,9 @@ cron::hourly:
       - 'PATH="/usr/bin:/bin"'
 ```
 
-### cron::daily
+### cron::job::daily
 
-`cron::daily` creates jobs in `/etc/cron.d` that run once per day.
+`cron::job::daily` creates jobs in `/etc/cron.d` that run once per day.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -281,7 +281,7 @@ Example:
 This would create the file `/etc/cron.d/mysqlbackup_daily` and run the command `mysqldump -u root mydb` as root at 2:40 AM every day, like the above generic example:
 
 ```puppet
-  cron::daily { 'mysqlbackup_daily':
+  cron::job::daily { 'mysqlbackup_daily':
     minute  => '40',
     hour    => '2',
     user    => 'root',
@@ -293,7 +293,7 @@ Hiera example:
 
 ```yaml
 ---
-cron::daily:
+cron::job::daily:
   'mysqlbackup_daily':
     minute: 40
     hour: 2
@@ -302,9 +302,9 @@ cron::daily:
 ```
 
 
-### cron::weekly
+### cron::job::weekly
 
-`cron::weekly` creates jobs in `/etc/cron.d` that run once per week.
+`cron::job::weekly` creates jobs in `/etc/cron.d` that run once per week.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -321,7 +321,7 @@ Example:
 This would create the file `/etc/cron.d/mysqlbackup_weekly` and run the command `mysqldump -u root mydb` as root at 4:40 AM every Sunday, like the above generic example:
 
 ```puppet
-  cron::weekly { 'mysqlbackup_weekly':
+  cron::job::weekly { 'mysqlbackup_weekly':
     minute  => '40',
     hour    => '4',
     weekday => '0',
@@ -334,7 +334,7 @@ Hiera example:
 
 ```yaml
 ---
-cron::weekly:
+cron::job::weekly:
   'mysqlbackup_weekly':
     minute: 40
     hour: 4
@@ -344,9 +344,9 @@ cron::weekly:
 ```
 
 
-### cron::monthly
+### cron::job::monthly
 
-`cron::monthly` creates jobs in `/etc/cron.d` that run once per month.
+`cron::job::monthly` creates jobs in `/etc/cron.d` that run once per month.
 It allows specifying the following parameters:
 
   * `ensure`      - optional - defaults to "present"
@@ -363,7 +363,7 @@ Example:
 This would create the file `/etc/cron.d/mysqlbackup_monthly` and run the command `mysqldump -u root mydb` as root at 3:40 AM the 1st of every month, like the above generic example:
 
 ```puppet
-  cron::monthly { 'mysqlbackup_monthly':
+  cron::job::monthly { 'mysqlbackup_monthly':
     minute  => '40',
     hour    => '3',
     date    => '1',
@@ -376,7 +376,7 @@ Hiera example:
 
 ```yaml
 ---
-cron::monthly:
+cron::job::monthly:
   'mysqlbackup_monthly':
     minute: 40
     hour: 3

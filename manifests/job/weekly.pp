@@ -1,4 +1,4 @@
-# Type: cron::weekly
+# Type: cron::job::weekly
 #
 # This type creates a cron job via a file in /etc/cron.d
 #
@@ -30,7 +30,7 @@
 # Requires:
 #
 # Sample Usage:
-#   cron::weekly { 'delete_old_temp_files':
+#   cron::job::weekly { 'delete_old_temp_files':
 #     minute      => '1',
 #     hour        => '4',
 #     weekday     => '7',
@@ -38,7 +38,7 @@
 #     command     => 'find /tmp -type f -ctime +7 -delete',
 #   }
 #
-define cron::weekly (
+define cron::job::weekly (
   Optional[String[1]]        $command     = undef,
   Enum['absent','present']   $ensure      = 'present',
   Variant[Integer,String[1]] $minute      = 0,

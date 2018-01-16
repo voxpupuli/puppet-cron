@@ -1,4 +1,4 @@
-# Type: cron::daily
+# Type: cron::job::daily
 #
 # This type creates a daily cron job via a file in /etc/cron.d
 #
@@ -27,14 +27,14 @@
 # Requires:
 #
 # Sample Usage:
-#   cron::daily { 'mysql_backup':
+#   cron::job::daily { 'mysql_backup':
 #     minute      => '1',
 #     hour        => '3',
 #     environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],
 #     command     => 'mysqldump -u root my_db >/backups/my_db.sql',
 #   }
 #
-define cron::daily (
+define cron::job::daily (
   Optional[String[1]]        $command     = undef,
   Enum['absent','present']   $ensure      = 'present',
   Variant[Integer,String[1]] $minute      = 0,
