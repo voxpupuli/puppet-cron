@@ -1,12 +1,12 @@
 {
-  "name": "rmueller-cron",
-  "version": "1.0.0",
-  "author": "rmueller",
+  "name": "puppet-cron",
+  "version": "1.1.0-rc0",
+  "author": "Vox Pupuli",
   "summary": "Module to manage cron jobs via /etc/cron.d/",
   "license": "Apache-2.0",
-  "source": "https://github.com/roman-mueller/rmueller-cron",
-  "project_page": "https://github.com/roman-mueller/rmueller-cron",
-  "issues_url": "https://github.com/roman-mueller/rmueller-cron/issues",
+  "source": "https://github.com/voxpupuli/puppet-cron",
+  "project_page": "https://github.com/voxpupuli/puppet-cron",
+  "issues_url": "https://github.com/voxpupuli/puppet-cron/issues",
   "tags": ["cron"],
   "operatingsystem_support": [
     {
@@ -48,4 +48,3 @@
   "dependencies": [
   ]
 }
-
