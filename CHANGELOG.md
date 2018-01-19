@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.1.1](https://github.com/voxpupuli/puppet-cron/tree/v1.1.1) (2018-01-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v1.1.0...v1.1.1)
+
+**Merged pull requests:**
+
+- Fix README.md links [\#42](https://github.com/voxpupuli/puppet-cron/pull/42) ([alexjfisher](https://github.com/alexjfisher))
+
 ## [v1.1.0](https://github.com/voxpupuli/puppet-cron/tree/v1.1.0) (2018-01-19)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v1.0.0...v1.1.0)
