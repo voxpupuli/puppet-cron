@@ -1,33 +1,50 @@
 {
   "name": "puppet-cron",
-  "version": "1.1.0",
+  "version": "1.1.1-rc0",
   "author": "Vox Pupuli",
   "summary": "Module to manage cron jobs via /etc/cron.d/",
   "license": "Apache-2.0",
   "source": "https://github.com/voxpupuli/puppet-cron",
   "project_page": "https://github.com/voxpupuli/puppet-cron",
   "issues_url": "https://github.com/voxpupuli/puppet-cron/issues",
-  "tags": ["cron"],
+  "tags": [
+    "cron"
+  ],
   "operatingsystem_support": [
     {
-      "operatingsystem":"RedHat",
-      "operatingsystemrelease":[ "5", "6", "7" ]
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
     },
     {
-      "operatingsystem":"CentOS",
-      "operatingsystemrelease":[ "5", "6", "7" ]
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
     },
     {
-      "operatingsystem":"Scientific",
-      "operatingsystemrelease":[ "5", "6" ]
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
     },
     {
       "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [ "14.04" ]
+      "operatingsystemrelease": [
+        "14.04"
+      ]
     },
     {
       "operatingsystem": "Debian",
-      "operatingsystemrelease": [ "8" ]
+      "operatingsystemrelease": [
+        "8"
+      ]
     },
     {
       "operatingsystem": "Gentoo"
@@ -38,7 +55,7 @@
         "12"
       ]
     }
-   ],
+  ],
   "requirements": [
     {
       "name": "puppet",
@@ -46,5 +63,6 @@
     }
   ],
   "dependencies": [
+
   ]
 }
