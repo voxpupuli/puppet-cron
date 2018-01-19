@@ -1,10 +1,10 @@
 # Puppet Cron Module
 
-[![License](https://img.shields.io/github/license/voxpupuli/puppet-cron.svg)](https://github.com/voxpupuli/puppet-archive/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-cron.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-archive)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/cron.svg)](https://forge.puppetlabs.com/puppet/archive)
-[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/cron.svg)](https://forge.puppetlabs.com/puppet/archive)
-[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/cron.svg)](https://forge.puppetlabs.com/puppet/archive)
+[![License](https://img.shields.io/github/license/voxpupuli/puppet-cron.svg)](https://github.com/voxpupuli/puppet-cron/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-cron.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-cron)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/cron.svg)](https://forge.puppetlabs.com/puppet/cron)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/cron.svg)](https://forge.puppetlabs.com/puppet/cron)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/cron.svg)](https://forge.puppetlabs.com/puppet/cron)
 
 ## Notes
 
