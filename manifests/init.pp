@@ -34,29 +34,17 @@
 #   }
 #
 class cron (
-  String[1]      $service_name,
-  String[1]      $package_name,
-  Boolean        $manage_package = true,
-  Boolean        $manage_service = true,
-  Variant[
-    Boolean,
-    Enum[
-      'running',
-      'stopped',
-    ]
-  ]              $service_ensure = 'running',
-  Variant[
-    Boolean,
-    Enum[
-      'manual',
-      'mask',
-    ]
-  ]              $service_enable = true,
-  String[1]      $package_ensure = 'installed',
-  Array[String]  $users_allow    = [],
-  Array[String]  $users_deny     = [],
-  Boolean        $manage_users_allow = false,
-  Boolean        $manage_users_deny  = false,
+  String[1]            $service_name,
+  String[1]            $package_name,
+  Boolean              $manage_package     = true,
+  Boolean              $manage_service     = true,
+  Cron::Service_ensure $service_ensure     = 'running',
+  Cron::Service_enable $service_enable     = true,
+  Cron::Package_ensure $package_ensure     = 'installed',
+  Array[Cron::User]    $users_allow        = [],
+  Array[Cron::User]    $users_deny         = [],
+  Boolean              $manage_users_allow = false,
+  Boolean              $manage_users_deny  = false,
 ) {
 
   contain '::cron::install'

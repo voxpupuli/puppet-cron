@@ -1,4 +1,4 @@
-<% | Array[String] $users | %>
+<% | Array[Cron::User] $users | %>
 
 # Managed by Puppet
 

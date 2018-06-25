@@ -39,15 +39,15 @@
 #   }
 #
 define cron::weekly (
-  Optional[String[1]]        $command     = undef,
-  Enum['absent','present']   $ensure      = 'present',
-  Variant[Integer,String[1]] $minute      = 0,
-  Variant[Integer,String[1]] $hour        = 0,
-  Variant[Integer,String[1]] $weekday     = 0,
-  String[1]                  $user        = 'root',
-  String[4,4]                $mode        = '0644',
-  Array[String]              $environment = [],
-  Optional[String]           $description = undef,
+  Optional[String[1]] $command     = undef,
+  Cron::Job_ensure    $ensure      = 'present',
+  Cron::Minute        $minute      = 0,
+  Cron::Hour          $hour        = 0,
+  Cron::Weekday       $weekday     = 0,
+  Cron::User          $user        = 'root',
+  Cron::Mode          $mode        = '0644',
+  Cron::Environment   $environment = [],
+  Optional[String]    $description = undef,
 ) {
 
   cron::job { $title:
