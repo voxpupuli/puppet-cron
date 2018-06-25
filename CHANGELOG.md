@@ -4,12 +4,32 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.2.0](https://github.com/voxpupuli/puppet-cron/tree/v1.2.0) (2018-06-25)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v1.1.1...v1.2.0)
+
+**Fixed bugs:**
+
+- Code in init.pp doesn't match defined types [\#31](https://github.com/voxpupuli/puppet-cron/issues/31)
+
+**Closed issues:**
+
+- Make first release under voxpupuli's 'puppet' namespace [\#36](https://github.com/voxpupuli/puppet-cron/issues/36)
+- Add defined types for parameter validation. [\#30](https://github.com/voxpupuli/puppet-cron/issues/30)
+
+**Merged pull requests:**
+
+- Remove docker nodesets [\#47](https://github.com/voxpupuli/puppet-cron/pull/47) ([bastelfreak](https://github.com/bastelfreak))
+- bump puppet version dependency to \>= 4.10.0 \< 6.0.0 [\#46](https://github.com/voxpupuli/puppet-cron/pull/46) ([bastelfreak](https://github.com/bastelfreak))
+- Add types for parameter validation. [\#29](https://github.com/voxpupuli/puppet-cron/pull/29) ([pillarsdotnet](https://github.com/pillarsdotnet))
+
 ## [v1.1.1](https://github.com/voxpupuli/puppet-cron/tree/v1.1.1) (2018-01-19)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v1.1.0...v1.1.1)
 
 **Merged pull requests:**
 
+- Release 1.1.1 [\#43](https://github.com/voxpupuli/puppet-cron/pull/43) ([alexjfisher](https://github.com/alexjfisher))
 - Fix README.md links [\#42](https://github.com/voxpupuli/puppet-cron/pull/42) ([alexjfisher](https://github.com/alexjfisher))
 
 ## [v1.1.0](https://github.com/voxpupuli/puppet-cron/tree/v1.1.0) (2018-01-19)
