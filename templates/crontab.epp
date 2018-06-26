@@ -2,12 +2,12 @@
 # This file is managed by Puppet, and is refreshed regularly.                  #
 # Edit at your own peril!                                                      #
 ################################################################################
-SHELL=<%= @crontab_shell %>
-PATH=<%= @crontab_path %>
-MAILTO=<%= @crontab_mailto %>
-<%- if @crontab_home %>
-HOME=<%= @crontab_home %>
-<%- end -%>
+SHELL=<%= $cron::crontab_shell %>
+PATH=<%= $cron::crontab_path %>
+MAILTO=<%= $cron::crontab_mailto %>
+<%- if $cron::crontab_home { -%>
+HOME=<%= $cron::crontab_home %>
+<%- } -%>
 
 # For details see man 4 crontabs
 
@@ -20,6 +20,6 @@ HOME=<%= @crontab_home %>
 # |  |  |  |  |
 # *  *  *  *  * user-name  command to be executed
 
-<%- @crontab_run_parts.each do |name, r| -%>
-<%= r['minute'] || '*' %> <%= r['hour'] || '*' %> <%= r['dayofmonth'] || '*' %> <%= r['month'] || '*' %> <%= r['dayofweek'] || '*' %> <%= r['user'] %> run-parts /etc/cron.<%= name %>
-<%- end -%>
+<%- $cron::crontab_run_parts.each |$name, $r| { -%>
+<% if $r['minute'] { %><%= $r['minute'] %><% } else { %>*<% } %> <% if $r['hour'] { %><%= $r['hour'] %><% } else { %>*<% } %> <% if $r['dayofmonth'] { %><%= $r['dayofmonth'] %><% } else { %>*<% } %> <% if $r['month'] { %><%= $r['month'] %><% } else { %>*<% } %> <% if $r['dayofweek'] { %><%= $r['dayofweek'] %><% } else { %>*<% } %> <%= $r['user'] %> run-parts /etc/cron.<%= $name %>
+<%- } -%>
