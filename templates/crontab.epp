@@ -21,5 +21,32 @@ HOME=<%= $cron::crontab_home %>
 # *  *  *  *  * user-name  command to be executed
 
 <%- $cron::crontab_run_parts.each |$name, $r| { -%>
-<% if $r['minute'] { %><%= $r['minute'] %><% } else { %>*<% } %> <% if $r['hour'] { %><%= $r['hour'] %><% } else { %>*<% } %> <% if $r['dayofmonth'] { %><%= $r['dayofmonth'] %><% } else { %>*<% } %> <% if $r['month'] { %><%= $r['month'] %><% } else { %>*<% } %> <% if $r['dayofweek'] { %><%= $r['dayofweek'] %><% } else { %>*<% } %> <%= $r['user'] %> run-parts /etc/cron.<%= $name %>
+<%-
+if $r['minute'] {
+  $minute = $r['minute']
+} else {
+  $minute = '*'
+}
+if $r['hour'] {
+  $hour = $r['hour']
+} else {
+  $hour = '*'
+}
+if $r['dayofmonth'] {
+  $dayofmonth = $r['dayofmonth']
+} else {
+  $dayofmonth = '*'
+}
+if $r['month'] {
+  $month = $r['month']
+} else {
+  $month = '*'
+}
+if $r['dayofweek'] {
+  $dayofweek = $r['dayofweek']
+} else {
+  $dayofweek = '*'
+}
+-%>
+<%= $minute %> <%= $hour %> <%= $dayofmonth %> <%= $month %> <%= $dayofweek %> <%= $r['user'] %> run-parts /etc/cron.<%= $name %>
 <%- } -%>
