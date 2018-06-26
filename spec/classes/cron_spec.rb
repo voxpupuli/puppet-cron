@@ -165,8 +165,8 @@ describe 'cron' do
             {
               manage_crontab: true,
               crontab_run_parts: {
-                '5min' => { 'user' => 'root', 'minute' => '*/5' },
-                '30min' => { 'user' => 'root', 'minute' => '*/30' }
+                '5min' => { 'user' => 'root', 'minute' => '*/5', 'hour' => '*' },
+                '30min' => { 'user' => 'root', 'minute' => '*/30', 'hour' => '*' }
               }
             }
           end

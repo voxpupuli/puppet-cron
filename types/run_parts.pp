@@ -1,11 +1,11 @@
 type Cron::Run_parts = Hash[
-  String,
+  Cron::Jobname,
   Struct[{
-    NotUndef['user']       => String,
-    Optional['minute']     => String,
-    Optional['hour']       => String,
-    Optional['dayofmonth'] => String,
-    Optional['month']      => String,
-    Optional['dayofweek']  => String,
+    NotUndef['user']       => Cron::User,
+    Optional['minute']     => Cron::Minute,
+    Optional['hour']       => Cron::Hour,
+    Optional['dayofmonth'] => Cron::Date,
+    Optional['month']      => Cron::Month,
+    Optional['dayofweek']  => Cron::Weekday,
   }]
 ]
