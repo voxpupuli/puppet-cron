@@ -41,8 +41,8 @@ class cron (
   String               $crontab_shell      = '/bin/bash',
   String               $crontab_path       = '/sbin:/bin:/usr/sbin:/usr/bin',
   String               $crontab_mailto     = 'root',
-  Optional[String]     $crontab_home     = undef,
-  Cron::Run_parts      $crontab_run_parts = {},
+  Optional[String]     $crontab_home       = undef,
+  Cron::Run_parts      $crontab_run_parts  = {},
 ) {
   contain 'cron::install'
   contain 'cron::service'
