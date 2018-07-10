@@ -60,7 +60,7 @@ describe 'cron::job' do
     'bad weekday range end' => { weekday: '2-8', should_accept: false },
     'bad weekday range skip' => { weekday: '1-5/0', should_accept: false },
     'day name in list' => { weekday: '1,Wed,6', should_accept: false },
-    'day name in range' => { weekday: 'Mon-Fri', should_accept: false },
+    'day name in range' => { weekday: 'Mon-Fri', should_accept: false }
   }
   let(:title) { 'mysql_backup' }
 
@@ -131,18 +131,18 @@ describe 'cron::job' do
   end
 
   # Multiple test cases for variations on time field values
-  params_cases.each do |desc,p|
+  params_cases.each do |desc, p|
     context "job with #{desc}" do
-      let(:params) { p.reject { |k,v| k == :should_accept } .update({ command: '/bin/true' }) }
+      let(:params) { p.reject { |k, _v| k == :should_accept } .update(command: '/bin/true') }
       let(:cron_timestamp) { get_timestamp(params) }
 
       if p[:should_accept]
-        it do 
+        it do
           is_expected.to compile
           is_expected.to contain_file("job_#{title}").with_content(%r{\n#{cron_timestamp}\s+})
         end
       else
-        it { is_expected.to compile.and_raise_error(/.*/) }
+        it { is_expected.to compile.and_raise_error(%r{.*}) }
       end
     end
   end
