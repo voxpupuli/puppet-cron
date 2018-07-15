@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.3.0](https://github.com/voxpupuli/puppet-cron/tree/v1.3.0) (2018-07-15)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v1.2.0...v1.3.0)
+
+**Implemented enhancements:**
+
+- Update data types to allow comma-delimited lists [\#50](https://github.com/voxpupuli/puppet-cron/pull/50) ([jcbollinger](https://github.com/jcbollinger))
+
 ## [v1.2.0](https://github.com/voxpupuli/puppet-cron/tree/v1.2.0) (2018-06-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v1.1.1...v1.2.0)
