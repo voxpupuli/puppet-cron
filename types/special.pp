@@ -5,8 +5,9 @@ type Cron::Special = Optional[
        '@hourly',
        '@midnight',
        '@monthly',
-       '@reboot',
        '@weekly',
        '@yearly',
+       '@startup',
+       '@reboot',
   ]
 ]
