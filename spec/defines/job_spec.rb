@@ -146,4 +146,18 @@ describe 'cron::job' do
       end
     end
   end
+
+  context 'job with special parameter set' do
+    let(:params) do
+      {
+        command: '/usr/bin/sleep 10',
+        special: 'reboot'
+      }
+    end
+
+    it do
+      is_expected.to compile
+      is_expected.to contain_file("job_#{title}").with_content(%r{^@reboot root /usr/bin/sleep 10$})
+    end
+  end
 end
