@@ -47,8 +47,8 @@ class cron (
   Boolean              $manage_users_deny  = false,
 ) {
 
-  contain '::cron::install'
-  contain '::cron::service'
+  contain 'cron::install'
+  contain 'cron::service'
 
   Class['cron::install'] -> Class['cron::service']
 
