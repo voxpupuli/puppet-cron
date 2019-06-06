@@ -60,7 +60,9 @@ describe 'cron::job' do
     'bad weekday range end' => { weekday: '2-8', should_accept: false },
     'bad weekday range skip' => { weekday: '1-5/0', should_accept: false },
     'day name in list' => { weekday: '1,Wed,6', should_accept: false },
-    'day name in range' => { weekday: 'Mon-Fri', should_accept: false }
+    'day name in range' => { weekday: 'Mon-Fri', should_accept: false },
+    'user with dots in name' => { user: 'admin.master', minute: '*', should_accept: true},
+    'user with underscore in name' => { user: 'admin_master', minute: '*', should_accept: true}
   }
   let(:title) { 'mysql_backup' }
 
