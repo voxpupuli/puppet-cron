@@ -62,7 +62,8 @@ describe 'cron::job' do
     'day name in list' => { weekday: '1,Wed,6', should_accept: false },
     'day name in range' => { weekday: 'Mon-Fri', should_accept: false },
     'user with dots in name' => { user: 'admin.master', minute: '*', should_accept: true},
-    'user with slash in name' => { user: 'admin/master', minute: '*', should_accept: false}
+    'user with slash in name' => { user: 'admin/master', minute: '*', should_accept: false},
+    'user with backslash in name' => { user: 'admin\master', minute: '*', should_accept: false}
   }
   let(:title) { 'mysql_backup' }
 
