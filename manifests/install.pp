@@ -6,10 +6,10 @@
 # Instead, use the *cron* class.
 #
 class cron::install {
-  if $::cron::manage_package {
+  if $cron::manage_package {
     package { 'cron':
-      ensure => $::cron::package_ensure,
-      name   => $::cron::package_name,
+      ensure => $cron::package_ensure,
+      name   => $cron::package_name,
     }
   }
 }

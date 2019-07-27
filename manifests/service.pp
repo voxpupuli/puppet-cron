@@ -6,10 +6,10 @@
 # Instead, use the *cron* class.
 #
 class cron::service {
-  if $::cron::manage_service {
-    service { $::cron::service_name:
-      ensure => $::cron::service_ensure,
-      enable => $::cron::service_enable,
+  if $cron::manage_service {
+    service { $cron::service_name:
+      ensure => $cron::service_ensure,
+      enable => $cron::service_enable,
     }
   }
 }
