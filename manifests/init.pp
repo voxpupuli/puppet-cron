@@ -9,6 +9,7 @@
 # @param users_deny A list of users which are prohibited from create, edit, display, or remove crontab files. Only used if manage_users_deny == true.
 # @param manage_users_allow If the /etc/cron.allow should be managed.
 # @param manage_users_deny If the /etc/cron.deny should be managed.
+# @param merge The `lookup()` merge method to use with cron job hiera lookups.
 # @example
 #  include cron
 # @example
@@ -27,6 +28,7 @@ class cron (
   Array[Cron::User]    $users_deny         = [],
   Boolean              $manage_users_allow = false,
   Boolean              $manage_users_deny  = false,
+  Enum['deep', 'first', 'hash', 'unique'] $merge = 'hash',
 ) {
   contain 'cron::install'
   contain 'cron::service'
@@ -56,42 +58,42 @@ class cron (
 
   # Create jobs from hiera
 
-  $cron_job = lookup('cron::job', Optional[Hash], 'hash', {})
+  $cron_job = lookup('cron::job', Optional[Hash], $merge, {})
   $cron_job.each | String $t, Hash $params | {
     cron::job { $t:
       * => $params,
     }
   }
 
-  $cron_job_multiple = lookup('cron::job::multiple', Optional[Hash], 'hash', {})
+  $cron_job_multiple = lookup('cron::job::multiple', Optional[Hash], $merge, {})
   $cron_job_multiple.each | String $t, Hash $params | {
     cron::job::multiple { $t:
       * => $params,
     }
   }
 
-  $cron_hourly = lookup('cron::hourly', Optional[Hash], 'hash', {})
+  $cron_hourly = lookup('cron::hourly', Optional[Hash], $merge, {})
   $cron_hourly.each | String $t, Hash $params | {
     cron::hourly { $t:
       * => $params,
     }
   }
 
-  $cron_daily = lookup('cron::daily', Optional[Hash], 'hash', {})
+  $cron_daily = lookup('cron::daily', Optional[Hash], $merge, {})
   $cron_daily.each | String $t, Hash $params | {
     cron::daily { $t:
       * => $params,
     }
   }
 
-  $cron_weekly = lookup('cron::weekly', Optional[Hash], 'hash', {})
+  $cron_weekly = lookup('cron::weekly', Optional[Hash], $merge, {})
   $cron_weekly.each | String $t, Hash $params | {
     cron::weekly { $t:
       * => $params,
     }
   }
 
-  $cron_monthly = lookup('cron::monthly', Optional[Hash], 'hash', {})
+  $cron_monthly = lookup('cron::monthly', Optional[Hash], $merge, {})
   $cron_monthly.each | String $t, Hash $params | {
     cron::monthly { $t:
       * => $params,

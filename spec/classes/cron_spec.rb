@@ -144,4 +144,15 @@ describe 'cron' do
       )
     }
   end
+
+  context 'merge => deep' do
+    let(:params) do
+      {
+        merge: 'deep',
+      }
+    end
+
+    it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_class('cron').with_merge('deep') }
+  end
 end

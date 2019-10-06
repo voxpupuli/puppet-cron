@@ -78,6 +78,7 @@ The following parameters are available in the `cron` class:
 * [`users_deny`](#users_deny)
 * [`manage_users_allow`](#manage_users_allow)
 * [`manage_users_deny`](#manage_users_deny)
+* [`merge`](#merge)
 * [`package_ensure`](#package_ensure)
 
 ##### <a name="service_name"></a>`service_name`
@@ -155,6 +156,14 @@ Data type: `Boolean`
 If the /etc/cron.deny should be managed.
 
 Default value: ``false``
+
+##### <a name="merge"></a>`merge`
+
+Data type: `Enum['deep', 'first', 'hash', 'unique']`
+
+The `lookup()` merge method to use with cron job hiera lookups.
+
+Default value: `'hash'`
 
 ##### <a name="package_ensure"></a>`package_ensure`
 
