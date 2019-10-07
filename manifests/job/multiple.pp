@@ -10,7 +10,7 @@
 #   environment - An array of environment variable settings.
 #     Defaults to an empty set ([]).
 #   mode - The mode to set on the created job file
-#     Defaults to 0644.
+#     Defaults to 0600.
 #
 # Sample Usage:
 #
@@ -56,7 +56,7 @@ define cron::job::multiple(
   }]]               $jobs,
   Cron::Job_ensure  $ensure      = 'present',
   Cron::Environment $environment = [],
-  Cron::Mode        $mode        = '0644',
+  Cron::Mode        $mode        = '0600',
 ) {
   case $ensure {
     'absent': {

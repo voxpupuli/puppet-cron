@@ -19,7 +19,7 @@
 #   user - The user the cron job should be executed as.
 #     Defaults to 'root'.
 #   mode - The mode to set on the created job file
-#     Defaults to '0640'.
+#     Defaults to '0600'.
 #   description - Optional short description, which will be included in the
 #   cron job file.
 #     Defaults to undef.
@@ -45,7 +45,7 @@ define cron::weekly (
   Cron::Hour          $hour        = 0,
   Cron::Weekday       $weekday     = 0,
   Cron::User          $user        = 'root',
-  Cron::Mode          $mode        = '0644',
+  Cron::Mode          $mode        = '0600',
   Cron::Environment   $environment = [],
   Optional[String]    $description = undef,
 ) {

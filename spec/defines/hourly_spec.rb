@@ -18,7 +18,7 @@ describe 'cron::hourly' do
       'weekday'     => '*',
       'user'        => params[:user] || 'root',
       'environment' => params[:environment] || [],
-      'mode'        => params[:mode] || '0644',
+      'mode'        => params[:mode] || '0600',
       'command'     => params[:command]
     )
   end
