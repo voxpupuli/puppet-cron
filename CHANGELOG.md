@@ -4,9 +4,32 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.0.0](https://github.com/voxpupuli/puppet-cron/tree/v2.0.0) (2020-01-13)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v1.3.1...v2.0.0)
+
+**Breaking changes:**
+
+- drop Ubuntu support [\#76](https://github.com/voxpupuli/puppet-cron/pull/76) ([bastelfreak](https://github.com/bastelfreak))
+- modulesync 2.7.0 and drop puppet 4 [\#70](https://github.com/voxpupuli/puppet-cron/pull/70) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Changes the defaults of the cronjob-files from 644 to 600 [\#75](https://github.com/voxpupuli/puppet-cron/pull/75) ([ralfbosz](https://github.com/ralfbosz))
+- allow dots in cron::user data type [\#71](https://github.com/voxpupuli/puppet-cron/pull/71) ([rwaffen](https://github.com/rwaffen))
+
+**Fixed bugs:**
+
+- If you attempt to use anything below \*/3 the regex fails [\#66](https://github.com/voxpupuli/puppet-cron/pull/66) ([elmobp](https://github.com/elmobp))
+- Fix `job::cron` `special` parameter [\#64](https://github.com/voxpupuli/puppet-cron/pull/64) ([alexjfisher](https://github.com/alexjfisher))
+
 ## [v1.3.1](https://github.com/voxpupuli/puppet-cron/tree/v1.3.1) (2018-10-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v1.3.0...v1.3.1)
+
+**Closed issues:**
+
+- Special parameter is now set incorrectly with two @ [\#59](https://github.com/voxpupuli/puppet-cron/issues/59)
 
 **Merged pull requests:**
 
@@ -19,6 +42,10 @@ These should not affect the functionality of the module.
 **Implemented enhancements:**
 
 - Update data types to allow comma-delimited lists [\#50](https://github.com/voxpupuli/puppet-cron/pull/50) ([jcbollinger](https://github.com/jcbollinger))
+
+**Fixed bugs:**
+
+- Comma character in hour/minute parameters [\#49](https://github.com/voxpupuli/puppet-cron/issues/49)
 
 ## [v1.2.0](https://github.com/voxpupuli/puppet-cron/tree/v1.2.0) (2018-06-25)
 
