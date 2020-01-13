@@ -11,7 +11,7 @@
 #   environment - An array of environment variable settings.
 #     Defaults to an empty set ([]).
 #   mode - The mode to set on the created job file.
-#     Defaults to 0644.
+#     Defaults to 0600.
 #   user - The user the cron job should be executed as.
 #     Defaults to 'root'.
 #   description - Optional short description, which will be included in the
@@ -36,7 +36,7 @@ define cron::hourly (
   Cron::Minute        $minute      = 0,
   Cron::Environment   $environment = [],
   Cron::User          $user        = 'root',
-  Cron::Mode          $mode        = '0644',
+  Cron::Mode          $mode        = '0600',
   Optional[String]    $description = undef,
 ) {
 

@@ -94,7 +94,7 @@ It allows specifying the following parameters:
   * `special`     - optional - defaults to undef
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
-  * `mode`        - optional - defaults to "0644"
+  * `mode`        - optional - defaults to "0600"
   * `description` - optional - defaults to undef
 
 Example:
@@ -141,7 +141,7 @@ It allows specifying the following parameters:
   * `ensure`      - optional - defaults to "present"
   * `jobs`        - required - an array of hashes of multiple cron jobs using a similar structure as `cron::job`-parameters
   * `environment` - optional - defaults to ""
-  * `mode`        - optional - defaults to "0644"
+  * `mode`        - optional - defaults to "0600"
 
 And the keys of the jobs hash are:
 
@@ -234,7 +234,7 @@ It allows specifying the following parameters:
   * `minute`      - optional - defaults to "0"
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
-  * `mode`        - optional - defaults to "0644"
+  * `mode`        - optional - defaults to "0600"
   * `description` - optional - defaults to undef
 
 Example:
@@ -274,7 +274,7 @@ It allows specifying the following parameters:
   * `hour`        - optional - defaults to "0"
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
-  * `mode`        - optional - defaults to "0644"
+  * `mode`        - optional - defaults to "0600"
   * `description` - optional - defaults to undef
 
 Example:
@@ -314,7 +314,7 @@ It allows specifying the following parameters:
   * `weekday`     - optional - defaults to "0"
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
-  * `mode`        - optional - defaults to "0644"
+  * `mode`        - optional - defaults to "0600"
   * `description` - optional - defaults to undef
 
 Example:
@@ -356,7 +356,7 @@ It allows specifying the following parameters:
   * `date`        - optional - defaults to "1"
   * `user`        - optional - defaults to "root"
   * `environment` - optional - defaults to ""
-  * `mode`        - optional - defaults to "0644"
+  * `mode`        - optional - defaults to "0600"
   * `description` - optional - defaults to undef
 
 Example:

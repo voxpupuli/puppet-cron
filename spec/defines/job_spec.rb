@@ -76,7 +76,7 @@ describe 'cron::job' do
         'ensure'  => 'file',
         'owner'   => 'root',
         'group'   => 'root',
-        'mode'    => '0644',
+        'mode'    => '0600',
         'path'    => "/etc/cron.d/#{title}"
       ).with_content(
         %r{\n#{cron_timestamp}\s+}
@@ -96,7 +96,7 @@ describe 'cron::job' do
         weekday: '*',
         environment: ['MAILTO="root"', 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"'],
         user: 'admin',
-        mode: '0644',
+        mode: '0600',
         description: 'Mysql backup',
         command: 'mysqldump -u root test_db >some_file'
       }
