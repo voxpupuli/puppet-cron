@@ -56,6 +56,7 @@ class cron (
   if $manage_users_allow {
     file { '/etc/cron.allow':
       ensure  => file,
+      mode    => '0644',
       owner   => 'root',
       group   => 'root',
       content => epp('cron/users.epp', { 'users' => $users_allow }),
@@ -65,6 +66,7 @@ class cron (
   if $manage_users_deny {
     file { '/etc/cron.deny':
       ensure  => file,
+      mode    => '0644',
       owner   => 'root',
       group   => 'root',
       content => epp('cron/users.epp', { 'users' => $users_deny }),
