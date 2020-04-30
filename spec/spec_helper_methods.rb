@@ -1,6 +1,6 @@
 def get_timestamp(params = {})
   stamp = ''
-  %i[minute hour date month weekday].each do |k|
+  [:minute, :hour, :date, :month, :weekday].each do |k|
     stamp << "#{params[k] || '*'} "
   end
   stamp.strip
