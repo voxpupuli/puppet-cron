@@ -49,7 +49,6 @@ define cron::monthly (
   Cron::Mode          $mode        = '0600',
   Optional[String]    $description = undef,
 ) {
-
   cron::job { $title:
     ensure      => $ensure,
     minute      => $minute,
@@ -63,6 +62,4 @@ define cron::monthly (
     command     => $command,
     description => $description,
   }
-
 }
-

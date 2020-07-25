@@ -39,7 +39,6 @@ define cron::hourly (
   Cron::Mode          $mode        = '0600',
   Optional[String]    $description = undef,
 ) {
-
   cron::job { $title:
     ensure      => $ensure,
     minute      => $minute,
@@ -53,6 +52,4 @@ define cron::hourly (
     command     => $command,
     description => $description,
   }
-
 }
-

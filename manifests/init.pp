@@ -46,7 +46,6 @@ class cron (
   Boolean              $manage_users_allow = false,
   Boolean              $manage_users_deny  = false,
 ) {
-
   contain 'cron::install'
   contain 'cron::service'
 
@@ -72,7 +71,6 @@ class cron (
       content => epp('cron/users.epp', { 'users' => $users_deny }),
     }
   }
-
 
   # Create jobs from hiera
 
@@ -117,5 +115,4 @@ class cron (
       * => $params,
     }
   }
-
 }
