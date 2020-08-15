@@ -49,7 +49,6 @@ define cron::weekly (
   Cron::Environment   $environment = [],
   Optional[String]    $description = undef,
 ) {
-
   cron::job { $title:
     ensure      => $ensure,
     minute      => $minute,
@@ -63,6 +62,4 @@ define cron::weekly (
     command     => $command,
     description => $description,
   }
-
 }
-

@@ -56,7 +56,6 @@ define cron::job (
   Cron::Mode          $mode        = '0600',
   Optional[String]    $description = undef,
 ) {
-
   assert_type(Cron::Jobname, $title)
 
   case $ensure {
