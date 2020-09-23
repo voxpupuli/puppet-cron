@@ -57,7 +57,7 @@ class cron (
       ensure  => file,
       mode    => '0644',
       owner   => 'root',
-      group   => 'root',
+      group   => 0,
       content => epp('cron/users.epp', { 'users' => $users_allow }),
     }
   }
@@ -67,7 +67,7 @@ class cron (
       ensure  => file,
       mode    => '0644',
       owner   => 'root',
-      group   => 'root',
+      group   => 0,
       content => epp('cron/users.epp', { 'users' => $users_deny }),
     }
   }

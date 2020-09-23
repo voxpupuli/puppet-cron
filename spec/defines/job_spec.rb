@@ -75,7 +75,7 @@ describe 'cron::job' do
       is_expected.to contain_file("job_#{title}").with(
         'ensure'  => 'file',
         'owner'   => 'root',
-        'group'   => 'root',
+        'group'   => 0,
         'mode'    => '0600',
         'path'    => "/etc/cron.d/#{title}"
       ).with_content(

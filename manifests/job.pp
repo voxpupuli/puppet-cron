@@ -69,7 +69,7 @@ define cron::job (
       file { "job_${title}":
         ensure  => 'file',
         owner   => 'root',
-        group   => 'root',
+        group   => 0,
         mode    => $mode,
         path    => "/etc/cron.d/${title}",
         content => template('cron/job.erb'),
