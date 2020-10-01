@@ -1,3 +1,4 @@
+# @summary Valid element of $crontab_run_parts parameter to Class['cron'].
 type Cron::Run_parts = Hash[
   Cron::Jobname,
   Struct[{

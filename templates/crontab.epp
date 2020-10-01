@@ -22,31 +22,11 @@ HOME=<%= $cron::crontab_home %>
 
 <%- $cron::crontab_run_parts.each |$name, $r| { -%>
 <%-
-if $r['minute'] {
-  $minute = $r['minute']
-} else {
-  $minute = '*'
-}
-if $r['hour'] {
-  $hour = $r['hour']
-} else {
-  $hour = '*'
-}
-if $r['dayofmonth'] {
-  $dayofmonth = $r['dayofmonth']
-} else {
-  $dayofmonth = '*'
-}
-if $r['month'] {
-  $month = $r['month']
-} else {
-  $month = '*'
-}
-if $r['dayofweek'] {
-  $dayofweek = $r['dayofweek']
-} else {
-  $dayofweek = '*'
-}
+$minute = pick($r['minute'], '*')
+$hour = pick($r['hour'], '*')
+$dayofmonth = pick($r['dayofmonth'], '*')
+$month = pick($r['month'], '*')
+$dayofweek = pick($r['dayofweek'], '*')
 -%>
 <%= $minute %> <%= $hour %> <%= $dayofmonth %> <%= $month %> <%= $dayofweek %> <%= $r['user'] %> run-parts /etc/cron.<%= $name %>
 <%- } -%>
