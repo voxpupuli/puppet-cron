@@ -1,43 +1,21 @@
-# Type: cron::monthly
-#
-# This type creates a monthly cron job via a file in /etc/cron.d
-#
-# Parameters:
-#   ensure - The state to ensure this resource exists in. Can be absent, present
-#     Defaults to 'present'
-#   minute - The minute the cron job should fire on. Can be any valid cron
-#   minute value.
-#     Defaults to '0'.
-#   hour - The hour the cron job should fire on. Can be any valid cron hour
-#   value.
-#     Defaults to '0'.
-#   date - The date the cron job should fire on. Can be any valid cron date
-#   value.
-#     Defaults to '1'.
-#   environment - An array of environment variable settings.
-#     Defaults to an empty set ([]).
-#   user - The user the cron job should be executed as.
-#     Defaults to 'root'.
-#   mode - The mode to set on the created job file
-#     Defaults to 0600.
-#   description - Optional short description, which will be included in the
-#   cron job file.
-#     Defaults to undef.
-#   command - The command to execute.
-#
-# Actions:
-#
-# Requires:
-#
-# Sample Usage:
-#   cron::monthly { 'delete_old_log_files':
-#     minute      => '1',
-#     hour        => '7',
-#     date        => '28',
-#     environment => [ 'MAILTO="admin@example.com"' ],
-#     command     => 'find /var/log -type f -ctime +30 -delete',
-#   }
-#
+# @summary This type creates a monthly cron job via a file in /etc/cron.d
+# @param command The command to execute.
+# @param ensure The state to ensure this resource exists in. Can be absent, present.
+# @param minute The minute the cron job should fire on. Can be any valid cron value.
+# @param hour The hour the cron job should fire on. Can be any valid cron hour value.
+# @param date The date the cron job should fire on. Can be any valid cron date value.
+# @param environment An array of environment variable settings.
+# @param user The user the cron job should be executed as.
+# @param mode The mode to set on the created job file.
+# @param description Optional short description, which will be included in the cron job file.
+# @example
+#  cron::monthly { 'delete_old_log_files':
+#    minute      => '1',
+#    hour        => '7',
+#    date        => '28',
+#    environment => [ 'MAILTO="admin@example.com"' ],
+#    command     => 'find /var/log -type f -ctime +30 -delete',
+#  }
 define cron::monthly (
   Optional[String[1]] $command     = undef,
   Cron::Job_ensure    $ensure      = 'present',
