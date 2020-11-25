@@ -130,7 +130,7 @@ describe 'cron' do
           is_expected.to contain_file('/etc/crontab').with(
             'ensure' => 'file',
             'owner'  => 'root',
-            'group'  => 'root',
+            'group'  => '0',
             'mode'   => '0644'
           )
         }
@@ -183,7 +183,7 @@ describe 'cron' do
             is_expected.to contain_file('/etc/cron.5min').with(
               'ensure' => 'directory',
               'owner'  => 'root',
-              'group'  => 'root',
+              'group'  => '0',
               'mode'   => '0755'
             )
           }
@@ -192,7 +192,7 @@ describe 'cron' do
             is_expected.to contain_file('/etc/cron.30min').with(
               'ensure' => 'directory',
               'owner'  => 'root',
-              'group'  => 'root',
+              'group'  => '0',
               'mode'   => '0755'
             )
           }
