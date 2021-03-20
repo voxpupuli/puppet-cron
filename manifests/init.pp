@@ -1,38 +1,20 @@
-# Class: cron
-#
-# This class wraps *cron::install* for ease of use
-#
-# Parameters:
-#   manage_package - Can be set to disable package installation.
-#     Set to true to manage it, false to not manage it.
-#     Default: true
-#
-#   package_ensure - Can be set to a package version, 'latest', 'installed' or
-#     'present'.
-#     Default: installed
-#
-#   package_name - Can be set to install a different cron package.
-#     Default: see params.pp
-#
-#   service_name - Can be set to define a different cron service name.
-#     Default: see params.pp
-#
-#   manage_service - Defines if puppet should manage the service.
-#     Default: true
-#
-#   service_enable - Defines if the service should be enabled at boot.
-#     Default: true
-
-#   service_ensure - Defines if the service should be running.
-#     Default: running
-#
-# Sample Usage:
-#   include 'cron'
-# or:
-#   class { 'cron':
-#     manage_package => false,
-#   }
-#
+# @summary This class wraps *cron::install* for ease of use
+# @param service_name Can be set to define a different cron service name.
+# @param package_name Can be set to install a different cron package.
+# @param manage_package Can be set to disable package installation.
+# @param manage_service Defines if puppet should manage the service.
+# @param service_ensure Defines if the service should be running.
+# @param service_enable Defines if the service should be enabled at boot.
+# @param users_allow A list of users which are exclusively able to create, edit, display, or remove crontab files. Only used if manage_users_allow == true.
+# @param users_deny A list of users which are prohibited from create, edit, display, or remove crontab files. Only used if manage_users_deny == true.
+# @param manage_users_allow If the /etc/cron.allow should be managed.
+# @param manage_users_deny If the /etc/cron.deny should be managed.
+# @example
+#  include cron
+# @example
+#  class { 'cron':
+#    manage_package => false,
+#  }
 class cron (
   String[1]            $service_name,
   String[1]            $package_name,
