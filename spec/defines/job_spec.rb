@@ -17,7 +17,7 @@ describe 'cron::job' do
     'skip hours' => { hour: '*/3', should_accept: true },
     'integer hours' => { hour: 13, should_accept: true },
     'simple hours list' => { hour: '1,2,12,23', should_accept: true },
-    'complex hours list' => { hour: '1-2,3-6/3,12', should_accept: true },
+    'complex hours list' => { hour: '1-2,3-6/2,12', should_accept: true },
     'too-large hour' => { hour: 24, should_accept: false },
     'too-small hour' => { hour: -1, should_accept: false },
     'wildcard in hour list' => { hour: '*,3', should_accept: false },
