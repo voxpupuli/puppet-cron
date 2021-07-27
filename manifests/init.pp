@@ -28,6 +28,7 @@ class cron (
   Array[Cron::User]    $users_deny         = [],
   Boolean              $manage_users_allow = false,
   Boolean              $manage_users_deny  = false,
+  String               $mode               = '0640',
   Enum['deep', 'first', 'hash', 'unique'] $merge = 'hash',
 ) {
   contain 'cron::install'
@@ -39,7 +40,7 @@ class cron (
   if $manage_users_allow {
     file { '/etc/cron.allow':
       ensure  => file,
-      mode    => '0644',
+      mode    => $mode,
       owner   => 'root',
       group   => 0,
       content => epp('cron/users.epp', { 'users' => $users_allow }),
@@ -49,7 +50,7 @@ class cron (
   if $manage_users_deny {
     file { '/etc/cron.deny':
       ensure  => file,
-      mode    => '0644',
+      mode    => $mode,
       owner   => 'root',
       group   => 0,
       content => epp('cron/users.epp', { 'users' => $users_deny }),
