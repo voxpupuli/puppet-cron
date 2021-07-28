@@ -9,6 +9,7 @@
 # @param users_deny A list of users which are prohibited from create, edit, display, or remove crontab files. Only used if manage_users_deny == true.
 # @param manage_users_allow If the /etc/cron.allow should be managed.
 # @param manage_users_deny If the /etc/cron.deny should be managed.
+# @param allow_deny_mode Specify the cron.allow/deny file mode.
 # @param merge The `lookup()` merge method to use with cron job hiera lookups.
 # @example
 #  include cron
@@ -28,7 +29,7 @@ class cron (
   Array[Cron::User]    $users_deny         = [],
   Boolean              $manage_users_allow = false,
   Boolean              $manage_users_deny  = false,
-  String               $mode               = '0640',
+  Cron::Mode           $allow_deny_mode    = '0644',
   Enum['deep', 'first', 'hash', 'unique'] $merge = 'hash',
 ) {
   contain 'cron::install'
@@ -40,7 +41,7 @@ class cron (
   if $manage_users_allow {
     file { '/etc/cron.allow':
       ensure  => file,
-      mode    => $mode,
+      mode    => $allow_deny_mode,
       owner   => 'root',
       group   => 0,
       content => epp('cron/users.epp', { 'users' => $users_allow }),
@@ -50,7 +51,7 @@ class cron (
   if $manage_users_deny {
     file { '/etc/cron.deny':
       ensure  => file,
-      mode    => $mode,
+      mode    => $allow_deny_mode,
       owner   => 'root',
       group   => 0,
       content => epp('cron/users.epp', { 'users' => $users_deny }),

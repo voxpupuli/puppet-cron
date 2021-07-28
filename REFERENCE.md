@@ -50,13 +50,13 @@ This class wraps *cron::install* for ease of use
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include cron
 ```
 
-##### 
+#####
 
 ```puppet
 class { 'cron':
@@ -78,6 +78,7 @@ The following parameters are available in the `cron` class:
 * [`users_deny`](#users_deny)
 * [`manage_users_allow`](#manage_users_allow)
 * [`manage_users_deny`](#manage_users_deny)
+* [`allow_deny_mode`](#allow_deny_mode)
 * [`merge`](#merge)
 * [`package_ensure`](#package_ensure)
 
@@ -157,6 +158,14 @@ If the /etc/cron.deny should be managed.
 
 Default value: ``false``
 
+##### <a name="allow_deny_mode"></a>`allow_deny_mode`
+
+Data type: `Cron::Mode`
+
+Specify the cron.allow/deny file mode
+
+Default value: ``0644``
+
 ##### <a name="merge"></a>`merge`
 
 Data type: `Enum['deep', 'first', 'hash', 'unique']`
@@ -189,7 +198,7 @@ This type creates a daily cron job via a file in /etc/cron.d
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 cron::daily { 'mysql_backup':
@@ -283,7 +292,7 @@ This type creates an hourly cron job via a file in /etc/cron.d
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 cron::hourly { 'generate_puppetdoc':
@@ -367,7 +376,7 @@ This type creates a cron job via a file in /etc/cron.d
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 cron::job { 'generate_puppetdoc':
@@ -496,7 +505,7 @@ This type creates multiple cron jobs via a single file in /etc/cron.d/
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 cron::job::multiple { 'test':
@@ -578,7 +587,7 @@ This type creates a monthly cron job via a file in /etc/cron.d
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 cron::monthly { 'delete_old_log_files':
@@ -682,7 +691,7 @@ This type creates a cron job via a file in /etc/cron.d
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 cron::weekly { 'delete_old_temp_files':
