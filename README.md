@@ -63,6 +63,14 @@ or:
   }
 ```
 
+Add custom crontab run-parts
+
+```puppet
+class { 'cron':
+  manage_crontab    => true,
+  crontab_run_parts => {'5min' => { 'user' => 'root', 'minute' => '*/5' }},
+}
+```
 
 ### cron::job
 

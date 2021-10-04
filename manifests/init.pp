@@ -11,6 +11,12 @@
 # @param manage_users_deny If the /etc/cron.deny should be managed.
 # @param allow_deny_mode Specify the cron.allow/deny file mode.
 # @param merge The `lookup()` merge method to use with cron job hiera lookups.
+# @param manage_crontab Whether to manage /etc/crontab
+# @param crontab_shell The value for SHELL in /etc/crontab
+# @param crontab_path The value for PATH in /etc/crontab
+# @param crontab_mailto The value for MAILTO in /etc/crontab
+# @param crontab_home The value for HOME in /etc/crontab
+# @param crontab_run_parts Define sadditional cron::run_parts resources
 # @example
 #  include cron
 # @example
@@ -20,17 +26,23 @@
 class cron (
   String[1]            $service_name,
   String[1]            $package_name,
-  Boolean              $manage_package     = true,
-  Boolean              $manage_service     = true,
-  Cron::Service_ensure $service_ensure     = 'running',
-  Cron::Service_enable $service_enable     = true,
-  Cron::Package_ensure $package_ensure     = 'installed',
-  Array[Cron::User]    $users_allow        = [],
-  Array[Cron::User]    $users_deny         = [],
-  Boolean              $manage_users_allow = false,
-  Boolean              $manage_users_deny  = false,
-  Cron::Mode           $allow_deny_mode    = '0644',
+  Boolean              $manage_package          = true,
+  Boolean              $manage_service          = true,
+  Cron::Service_ensure $service_ensure          = 'running',
+  Cron::Service_enable $service_enable          = true,
+  Cron::Package_ensure $package_ensure          = 'installed',
+  Array[Cron::User]    $users_allow             = [],
+  Array[Cron::User]    $users_deny              = [],
+  Boolean              $manage_users_allow      = false,
+  Boolean              $manage_users_deny       = false,
+  Cron::Mode           $allow_deny_mode         = '0644',
   Enum['deep', 'first', 'hash', 'unique'] $merge = 'hash',
+  Boolean              $manage_crontab          = false,
+  Stdlib::Absolutepath $crontab_shell           = '/bin/bash',
+  String[1]            $crontab_path            = '/sbin:/bin:/usr/sbin:/usr/bin',
+  String[1]            $crontab_mailto          = 'root',
+  Optional[Stdlib::Absolutepath] $crontab_home  = undef,
+  Cron::Run_parts      $crontab_run_parts       = {},
 ) {
   contain 'cron::install'
   contain 'cron::service'
@@ -55,6 +67,32 @@ class cron (
       owner   => 'root',
       group   => 0,
       content => epp('cron/users.epp', { 'users' => $users_deny }),
+    }
+  }
+
+  if $manage_crontab {
+    # Template uses:
+    # - $crontab_shell
+    # - $crontab_path
+    # - $crontab_mailto
+    # - $crontab_home
+    # - $crontab_run_parts
+    file { '/etc/crontab':
+      ensure  => file,
+      owner   => 'root',
+      group   => 0,
+      mode    => '0644',
+      content => epp('cron/crontab.epp'),
+    }
+
+    $crontab_run_parts.each |String $r, Hash $r_params| {
+      file { "/etc/cron.${r}":
+        ensure => directory,
+        owner  => 'root',
+        group  => 0,
+        mode   => '0755',
+        before => File['/etc/crontab'],
+      }
     }
   }
 
