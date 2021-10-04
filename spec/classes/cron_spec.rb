@@ -7,10 +7,7 @@ describe 'cron' do
         facts
       end
 
-      if facts[:os]['family'] == 'RedHat' && facts[:os]['release']['major'].to_i == 5
-        package_name = 'vixie-cron'
-        service_name = 'crond'
-      elsif facts[:os]['family'] == 'RedHat'
+      if facts[:os]['family'] == 'RedHat'
         package_name = 'cronie'
         service_name = 'crond'
       elsif facts[:os]['family'] == 'Gentoo'
