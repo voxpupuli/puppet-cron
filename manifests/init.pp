@@ -35,6 +35,8 @@ class cron (
   Array[Cron::User]    $users_deny              = [],
   Boolean              $manage_users_allow      = false,
   Boolean              $manage_users_deny       = false,
+  Cron::Mode           $allow_deny_mode         = '0644',
+  Enum['deep', 'first', 'hash', 'unique'] $merge = 'hash',
   Boolean              $manage_crontab          = false,
   Stdlib::Absolutepath $crontab_shell           = '/bin/bash',
   String[1]            $crontab_path            = '/sbin:/bin:/usr/sbin:/usr/bin',
