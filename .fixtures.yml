@@ -1,4 +1,4 @@
+---
 fixtures:
-  forge_modules:
-    stdlib:
-      repo: puppetlabs/stdlib
+  repositories:
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
