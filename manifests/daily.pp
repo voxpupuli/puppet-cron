@@ -7,7 +7,8 @@
 # @param user The user the cron job should be executed as.
 # @param mode The mode to set on the created job file.
 # @param description Optional short description, which will be included in the cron job file.
-# @example
+#
+# @example create a daily cron job with custom PATH environment variable
 #  cron::daily { 'mysql_backup':
 #    minute      => '1',
 #    hour        => '3',

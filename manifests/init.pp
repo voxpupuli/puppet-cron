@@ -17,9 +17,11 @@
 # @param crontab_mailto The value for MAILTO in /etc/crontab
 # @param crontab_home The value for HOME in /etc/crontab
 # @param crontab_run_parts Define sadditional cron::run_parts resources
-# @example
+#
+# @example simply include the module
 #  include cron
-# @example
+#
+# @example include it but don't manage the cron package
 #  class { 'cron':
 #    manage_package => false,
 #  }

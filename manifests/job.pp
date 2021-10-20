@@ -11,7 +11,8 @@
 # @param user The user the cron job should be executed as.
 # @param mode The mode to set on the created job file.
 # @param description Optional short description, which will be included in the cron job file.
-# @example
+#
+# @example create a cron job
 #  cron::job { 'generate_puppetdoc':
 #    minute      => '01',
 #    environment => [ 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"' ],

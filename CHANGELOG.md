@@ -4,6 +4,42 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.0.0](https://github.com/voxpupuli/puppet-cron/tree/v3.0.0) (2021-10-20)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v2.0.0...v3.0.0)
+
+**Breaking changes:**
+
+- Drop support for RedHat/CentOS/Scientific 6, Debian 8, FreeBSD 11 \(EOL\) [\#98](https://github.com/voxpupuli/puppet-cron/pull/98) ([smortex](https://github.com/smortex))
+- metadata: update Puppet requirement to \>= 6.1.0 \< 8.0.0; drop puppet 5 support [\#92](https://github.com/voxpupuli/puppet-cron/pull/92) ([kenyon](https://github.com/kenyon))
+
+**Implemented enhancements:**
+
+- Add support for latest RedHat, CentOS, Scientific, Debian, SLES and FreeBSD [\#99](https://github.com/voxpupuli/puppet-cron/pull/99) ([smortex](https://github.com/smortex))
+- fix file group: use 0 instead of 'root' [\#87](https://github.com/voxpupuli/puppet-cron/pull/87) ([igalic](https://github.com/igalic))
+- add merge option [\#74](https://github.com/voxpupuli/puppet-cron/pull/74) ([ghost](https://github.com/ghost))
+- Allow management of /etc/crontab and adding custom run-parts [\#35](https://github.com/voxpupuli/puppet-cron/pull/35) ([treydock](https://github.com/treydock))
+
+**Fixed bugs:**
+
+- Adjust cron.allow / cron.deny permissions [\#80](https://github.com/voxpupuli/puppet-cron/pull/80) ([noqqe](https://github.com/noqqe))
+
+**Closed issues:**
+
+- Test and enable for Puppet 7 [\#91](https://github.com/voxpupuli/puppet-cron/issues/91)
+- Fails on FreeBSD because gid 0 is wheel, not root [\#86](https://github.com/voxpupuli/puppet-cron/issues/86)
+- Can't get weekday options to work as an array of days [\#84](https://github.com/voxpupuli/puppet-cron/issues/84)
+- Implement CIS Benchmark requirements [\#65](https://github.com/voxpupuli/puppet-cron/issues/65)
+- Special to support @startup [\#51](https://github.com/voxpupuli/puppet-cron/issues/51)
+
+**Merged pull requests:**
+
+- Make the mode a parameter [\#95](https://github.com/voxpupuli/puppet-cron/pull/95) ([daisukixci](https://github.com/daisukixci))
+- Allow values lower than 3 for skip hours [\#94](https://github.com/voxpupuli/puppet-cron/pull/94) ([scorillo](https://github.com/scorillo))
+- Add puppet-strings docs [\#88](https://github.com/voxpupuli/puppet-cron/pull/88) ([baurmatt](https://github.com/baurmatt))
+- Resolve puppet-lint notices [\#85](https://github.com/voxpupuli/puppet-cron/pull/85) ([jcpunk](https://github.com/jcpunk))
+- modulesync 3.0.0 & puppet-lint updates [\#83](https://github.com/voxpupuli/puppet-cron/pull/83) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v2.0.0](https://github.com/voxpupuli/puppet-cron/tree/v2.0.0) (2020-01-13)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v1.3.1...v2.0.0)
