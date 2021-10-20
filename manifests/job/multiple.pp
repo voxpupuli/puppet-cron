@@ -3,7 +3,8 @@
 # @param ensure The state to ensure this resource exists in. Can be absent, present.
 # @param environment An array of environment variable settings.
 # @param mode The mode to set on the created job file.
-# @example
+#
+# @example create multiple cron jobs at once
 #  cron::job::multiple { 'test':
 #    jobs => [
 #      {

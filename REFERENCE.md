@@ -34,6 +34,7 @@
 * [`Cron::Package_ensure`](#cronpackage_ensure): Valid $service_ensure parameter to Cron.
 * [`Cron::Package_state`](#cronpackage_state): Valid $ensure parameter to Package resource. Excludes version numbers.
 * [`Cron::Rpm_version`](#cronrpm_version): Valid .rpm version string. See http://www.perlmonks.org/?node_id=237724
+* [`Cron::Run_parts`](#cronrun_parts): Valid element of $crontab_run_parts parameter to Class['cron'].
 * [`Cron::Second`](#cronsecond): Valid $second parameter to Cron::Job.
 * [`Cron::Service_Enable`](#cronservice_enable): Valid $service_enable parameter to Cron.
 * [`Cron::Service_ensure`](#cronservice_ensure): Valid $service_ensure parameter to Cron.
@@ -50,13 +51,13 @@ This class wraps *cron::install* for ease of use
 
 #### Examples
 
-#####
+##### simply include the module
 
 ```puppet
 include cron
 ```
 
-#####
+##### include it but don't manage the cron package
 
 ```puppet
 class { 'cron':
@@ -80,6 +81,12 @@ The following parameters are available in the `cron` class:
 * [`manage_users_deny`](#manage_users_deny)
 * [`allow_deny_mode`](#allow_deny_mode)
 * [`merge`](#merge)
+* [`manage_crontab`](#manage_crontab)
+* [`crontab_shell`](#crontab_shell)
+* [`crontab_path`](#crontab_path)
+* [`crontab_mailto`](#crontab_mailto)
+* [`crontab_home`](#crontab_home)
+* [`crontab_run_parts`](#crontab_run_parts)
 * [`package_ensure`](#package_ensure)
 
 ##### <a name="service_name"></a>`service_name`
@@ -162,9 +169,9 @@ Default value: ``false``
 
 Data type: `Cron::Mode`
 
-Specify the cron.allow/deny file mode
+Specify the cron.allow/deny file mode.
 
-Default value: ``0644``
+Default value: `'0644'`
 
 ##### <a name="merge"></a>`merge`
 
@@ -173,6 +180,54 @@ Data type: `Enum['deep', 'first', 'hash', 'unique']`
 The `lookup()` merge method to use with cron job hiera lookups.
 
 Default value: `'hash'`
+
+##### <a name="manage_crontab"></a>`manage_crontab`
+
+Data type: `Boolean`
+
+Whether to manage /etc/crontab
+
+Default value: ``false``
+
+##### <a name="crontab_shell"></a>`crontab_shell`
+
+Data type: `Stdlib::Absolutepath`
+
+The value for SHELL in /etc/crontab
+
+Default value: `'/bin/bash'`
+
+##### <a name="crontab_path"></a>`crontab_path`
+
+Data type: `String[1]`
+
+The value for PATH in /etc/crontab
+
+Default value: `'/sbin:/bin:/usr/sbin:/usr/bin'`
+
+##### <a name="crontab_mailto"></a>`crontab_mailto`
+
+Data type: `String[1]`
+
+The value for MAILTO in /etc/crontab
+
+Default value: `'root'`
+
+##### <a name="crontab_home"></a>`crontab_home`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+The value for HOME in /etc/crontab
+
+Default value: ``undef``
+
+##### <a name="crontab_run_parts"></a>`crontab_run_parts`
+
+Data type: `Cron::Run_parts`
+
+Define sadditional cron::run_parts resources
+
+Default value: `{}`
 
 ##### <a name="package_ensure"></a>`package_ensure`
 
@@ -198,7 +253,7 @@ This type creates a daily cron job via a file in /etc/cron.d
 
 #### Examples
 
-#####
+##### create a daily cron job with custom PATH environment variable
 
 ```puppet
 cron::daily { 'mysql_backup':
@@ -292,7 +347,7 @@ This type creates an hourly cron job via a file in /etc/cron.d
 
 #### Examples
 
-#####
+##### create a daily cron job with custom PATH environment variable
 
 ```puppet
 cron::hourly { 'generate_puppetdoc':
@@ -376,7 +431,7 @@ This type creates a cron job via a file in /etc/cron.d
 
 #### Examples
 
-#####
+##### create a cron job
 
 ```puppet
 cron::job { 'generate_puppetdoc':
@@ -505,7 +560,7 @@ This type creates multiple cron jobs via a single file in /etc/cron.d/
 
 #### Examples
 
-#####
+##### create multiple cron jobs at once
 
 ```puppet
 cron::job::multiple { 'test':
@@ -587,7 +642,7 @@ This type creates a monthly cron job via a file in /etc/cron.d
 
 #### Examples
 
-#####
+##### create a cron job that runs monthly on a 28. day at 7 am and 1 minute
 
 ```puppet
 cron::monthly { 'delete_old_log_files':
@@ -691,7 +746,7 @@ This type creates a cron job via a file in /etc/cron.d
 
 #### Examples
 
-#####
+##### create a weekly cron that runs on the 7th day at 4 am and 1 minute
 
 ```puppet
 cron::weekly { 'delete_old_temp_files':
@@ -834,9 +889,9 @@ Alias of
 
 ```puppet
 Variant[Integer[0,23], Pattern[/(?x)\A(
-    \* ( \/ ( 1?[0-9]|2[0-3]|[3-9] ) )?
-    |       ( 1?[0-9]|2[0-3] ) ( - ( 1?[0-9]|2[0-3] ) ( \/ ( 1[0-9]|2[0-3]|[3-9] ) )? )?
-        ( , ( 1?[0-9]|2[0-3] ) ( - ( 1?[0-9]|2[0-3] ) ( \/ ( 1[0-9]|2[0-3]|[3-9] ) )? )? )*
+    \* ( \/ ( 1[0-9]|2[0-3]|[1-9] ) )?
+    |       ( 1?[0-9]|2[0-3] ) ( - ( 1?[0-9]|2[0-3] ) ( \/ ( 1[0-9]|2[0-3]|[1-9] ) )? )?
+        ( , ( 1?[0-9]|2[0-3] ) ( - ( 1?[0-9]|2[0-3] ) ( \/ ( 1[0-9]|2[0-3]|[1-9] ) )? )? )*
   )\z/]]
 ```
 
@@ -948,6 +1003,23 @@ Alias of
 
 ```puppet
 Pattern[/\A[^-]+(-[^-])?\z/]
+```
+
+### <a name="cronrun_parts"></a>`Cron::Run_parts`
+
+Valid element of $crontab_run_parts parameter to Class['cron'].
+
+Alias of
+
+```puppet
+Hash[Cron::Jobname, Struct[{
+    NotUndef['user']       => Cron::User,
+    Optional['minute']     => Cron::Minute,
+    Optional['hour']       => Cron::Hour,
+    Optional['dayofmonth'] => Cron::Date,
+    Optional['month']      => Cron::Month,
+    Optional['dayofweek']  => Cron::Weekday,
+  }]]
 ```
 
 ### <a name="cronsecond"></a>`Cron::Second`

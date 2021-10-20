@@ -1,6 +1,6 @@
 {
   "name": "puppet-cron",
-  "version": "2.0.1-rc0",
+  "version": "3.0.0",
   "author": "Vox Pupuli",
   "summary": "Module to manage cron jobs via /etc/cron.d/",
   "license": "Apache-2.0",

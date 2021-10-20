@@ -8,7 +8,8 @@
 # @param mode The mode to set on the created job file.
 # @param environment An array of environment variable settings.
 # @param description Optional short description, which will be included in the cron job file.
-# @example
+#
+# @example create a weekly cron that runs on the 7th day at 4 am and 1 minute
 #  cron::weekly { 'delete_old_temp_files':
 #    minute      => '1',
 #    hour        => '4',

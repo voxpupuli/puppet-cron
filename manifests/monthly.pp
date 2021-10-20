@@ -8,7 +8,8 @@
 # @param user The user the cron job should be executed as.
 # @param mode The mode to set on the created job file.
 # @param description Optional short description, which will be included in the cron job file.
-# @example
+#
+# @example create a cron job that runs monthly on a 28. day at 7 am and 1 minute
 #  cron::monthly { 'delete_old_log_files':
 #    minute      => '1',
 #    hour        => '7',
