@@ -54,7 +54,7 @@ define cron::job::multiple (
       file { "job_${title}":
         ensure  => $ensure,
         owner   => 'root',
-        group   => 'root',
+        group   => 0,
         mode    => $mode,
         path    => "/etc/cron.d/${title}",
         content => template('cron/multiple.erb'),
