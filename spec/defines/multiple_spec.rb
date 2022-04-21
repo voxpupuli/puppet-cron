@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'cron::job::multiple' do
@@ -9,13 +11,13 @@ describe 'cron::job::multiple' do
         environment: ['MAILTO="root"', 'PATH="/usr/sbin:/usr/bin:/sbin:/bin"'],
         jobs: [
           {
-            'minute'     => '45',
-            'hour'       => '7',
-            'date'       => '12',
-            'month'      => '7',
-            'weekday'    => '*',
-            'user'       => 'admin',
-            'command'    => 'mysqldump -u root test_db >some_file'
+            'minute' => '45',
+            'hour' => '7',
+            'date' => '12',
+            'month' => '7',
+            'weekday' => '*',
+            'user' => 'admin',
+            'command' => 'mysqldump -u root test_db >some_file'
           },
           {
             'command' => '/bin/true'
@@ -28,8 +30,8 @@ describe 'cron::job::multiple' do
 
     it do
       is_expected.to contain_file("job_#{title}").with(
-        'owner'   => 'root',
-        'mode'    => params[:mode]
+        'owner' => 'root',
+        'mode' => params[:mode]
       ).with_content(
         %r{\n#{params[:environment].join('\n')}\n}
       ).with_content(

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'cron::install' do
@@ -30,6 +32,7 @@ describe 'cron::install' do
     end
 
     it { is_expected.to contain_class('cron::install') }
+
     it {
       is_expected.to contain_package('cron').with(
         'name' => 'vixie-cron'
@@ -50,6 +53,7 @@ describe 'cron::install' do
     end
 
     it { is_expected.to contain_class('cron::install') }
+
     it {
       is_expected.to contain_package('cron').with(
         'name' => 'cronie'
@@ -65,6 +69,7 @@ describe 'cron::install' do
     end
 
     it { is_expected.to contain_class('cron::install') }
+
     it {
       is_expected.to contain_package('cron').with(
         'name' => 'virtual/cron'
@@ -80,6 +85,7 @@ describe 'cron::install' do
     end
 
     it { is_expected.to contain_class('cron::install') }
+
     it {
       is_expected.to contain_package('cron').with(
         'name' => 'cron'
