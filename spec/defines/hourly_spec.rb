@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'cron::hourly' do
@@ -11,15 +13,15 @@ describe 'cron::hourly' do
 
   it do
     is_expected.to contain_cron__job(title).with(
-      'minute'      => params[:minute],
-      'hour'        => '*',
-      'date'        => '*',
-      'month'       => '*',
-      'weekday'     => '*',
-      'user'        => params[:user] || 'root',
+      'minute' => params[:minute],
+      'hour' => '*',
+      'date' => '*',
+      'month' => '*',
+      'weekday' => '*',
+      'user' => params[:user] || 'root',
       'environment' => params[:environment] || [],
-      'mode'        => params[:mode] || '0600',
-      'command'     => params[:command]
+      'mode' => params[:mode] || '0600',
+      'command' => params[:command]
     )
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'cron::job' do
@@ -73,11 +75,11 @@ describe 'cron::job' do
 
     it do
       is_expected.to contain_file("job_#{title}").with(
-        'ensure'  => 'file',
-        'owner'   => 'root',
-        'group'   => 0,
-        'mode'    => '0600',
-        'path'    => "/etc/cron.d/#{title}"
+        'ensure' => 'file',
+        'owner' => 'root',
+        'group' => 0,
+        'mode' => '0600',
+        'path' => "/etc/cron.d/#{title}"
       ).with_content(
         %r{\n#{cron_timestamp}\s+}
       ).with_content(
@@ -105,8 +107,8 @@ describe 'cron::job' do
 
     it do
       is_expected.to contain_file("job_#{title}").with(
-        'owner'   => 'root',
-        'mode'    => params[:mode]
+        'owner' => 'root',
+        'mode' => params[:mode]
       ).with_content(
         %r{\n#{params[:environment].join('\n')}\n}
       ).with_content(
@@ -136,7 +138,7 @@ describe 'cron::job' do
   # Multiple test cases for variations on time field values
   params_cases.each do |desc, p|
     context "job with #{desc}" do
-      let(:params) { p.reject { |k, _v| k == :should_accept } .update(command: '/bin/true') }
+      let(:params) { p.reject { |k, _v| k == :should_accept }.update(command: '/bin/true') }
       let(:cron_timestamp) { get_timestamp(params) }
 
       if p[:should_accept]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'cron' do
@@ -7,10 +9,11 @@ describe 'cron' do
         facts
       end
 
-      if facts[:os]['family'] == 'RedHat'
+      case facts[:os]['family']
+      when 'RedHat'
         package_name = 'cronie'
         service_name = 'crond'
-      elsif facts[:os]['family'] == 'Gentoo'
+      when 'Gentoo'
         package_name = 'virtual/cron'
         service_name = 'cron'
       else
@@ -49,9 +52,10 @@ describe 'cron' do
         end
 
         it { is_expected.to contain_class('cron::install') }
+
         it {
           is_expected.to contain_package('cron').with(
-            'name'   => package_name,
+            'name' => package_name,
             'ensure' => 'absent'
           )
         }
@@ -61,9 +65,10 @@ describe 'cron' do
         let(:params) { { package_name: 'sys-process/cronie' } }
 
         it { is_expected.to contain_class('cron::install') }
+
         it {
           is_expected.to contain_package('cron').with(
-            'name'   => 'sys-process/cronie',
+            'name' => 'sys-process/cronie',
             'ensure' => 'installed'
           )
         }
@@ -83,33 +88,39 @@ describe 'cron' do
         it { is_expected.to contain_service(service_name) }
       end
 
-      context 'service_ensure => stopped' do
+      context 'service_ensure => stopped and manage_service => true' do
         let(:params) do
-          { manage_service: true,
-            service_ensure: 'stopped' }
+          {
+            manage_service: true,
+            service_ensure: 'stopped'
+          }
         end
 
         it { is_expected.to contain_class('cron::service') }
+
         it {
           is_expected.to contain_service(service_name).with(
-            'name'   => service_name,
+            'name' => service_name,
             'ensure' => 'stopped',
             'enable' => true
           )
         }
       end
 
-      context 'service_ensure => stopped' do
+      context 'service_ensure => stopped and manage_service =>true and service_enable => false' do
         let(:params) do
-          { manage_service: true,
+          {
+            manage_service: true,
             service_ensure: 'stopped',
-            service_enable: false }
+            service_enable: false
+          }
         end
 
         it { is_expected.to contain_class('cron::service') }
+
         it {
           is_expected.to contain_service(service_name).with(
-            'name'   => service_name,
+            'name' => service_name,
             'ensure' => 'stopped',
             'enable' => false
           )
@@ -126,9 +137,9 @@ describe 'cron' do
         it {
           is_expected.to contain_file('/etc/crontab').with(
             'ensure' => 'file',
-            'owner'  => 'root',
-            'group'  => '0',
-            'mode'   => '0644'
+            'owner' => 'root',
+            'group' => '0',
+            'mode' => '0644'
           )
         }
 
@@ -179,18 +190,18 @@ describe 'cron' do
           it {
             is_expected.to contain_file('/etc/cron.5min').with(
               'ensure' => 'directory',
-              'owner'  => 'root',
-              'group'  => '0',
-              'mode'   => '0755'
+              'owner' => 'root',
+              'group' => '0',
+              'mode' => '0755'
             )
           }
 
           it {
             is_expected.to contain_file('/etc/cron.30min').with(
               'ensure' => 'directory',
-              'owner'  => 'root',
-              'group'  => '0',
-              'mode'   => '0755'
+              'owner' => 'root',
+              'group' => '0',
+              'mode' => '0755'
             )
           }
         end

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 def get_timestamp(params = {})
   stamp = ''
-  [:minute, :hour, :date, :month, :weekday].each do |k|
-    stamp << "#{params[k] || '*'} "
+  %i[minute hour date month weekday].each do |k|
+    stamp += "#{params[k] || '*'} "
   end
   stamp.strip
 end
