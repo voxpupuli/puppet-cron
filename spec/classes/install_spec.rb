@@ -7,89 +7,31 @@ describe 'cron::install' do
     'include ::cron'
   end
 
-  context 'default' do
-    let :facts do
-      {
-        operatingsystem: 'Unsupported'
-      }
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let :facts do
+        os_facts
+      end
+
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_class('cron') }
+      it { is_expected.to contain_class('cron::service') }
+
+      context 'RedHat', if: os_facts[:os]['family'] == 'RedHat' do
+        it { is_expected.to contain_package('cron').with('ensure' => 'installed', 'name' => 'cronie') }
+      end
+
+      context 'Gentoo', if: os_facts[:os]['name'] == 'Gentoo' do
+        it { is_expected.to contain_class('cron::install') }
+
+        it { is_expected.to contain_package('cron').with('name' => 'virtual/cron') }
+      end
+
+      context 'Debian', if: os_facts[:os]['family'] == 'Debian' do
+        it { is_expected.to contain_class('cron::install') }
+
+        it { is_expected.to contain_package('cron').with('name' => 'cron') }
+      end
     end
-
-    it do
-      is_expected.to contain_package('cron').with('ensure' => 'installed', 'name' => 'cron')
-    end
-  end
-
-  context 'CentOS 5' do
-    let :facts do
-      {
-        os: {
-          family: 'RedHat',
-          release: {
-            major: '5'
-          }
-        }
-      }
-    end
-
-    it { is_expected.to contain_class('cron::install') }
-
-    it {
-      is_expected.to contain_package('cron').with(
-        'name' => 'vixie-cron'
-      )
-    }
-  end
-
-  context 'CentOS 6' do
-    let :facts do
-      {
-        os: {
-          family: 'RedHat',
-          release: {
-            major: '6'
-          }
-        }
-      }
-    end
-
-    it { is_expected.to contain_class('cron::install') }
-
-    it {
-      is_expected.to contain_package('cron').with(
-        'name' => 'cronie'
-      )
-    }
-  end
-
-  context 'Gentoo' do
-    let :facts do
-      {
-        os: { family: 'Gentoo' }
-      }
-    end
-
-    it { is_expected.to contain_class('cron::install') }
-
-    it {
-      is_expected.to contain_package('cron').with(
-        'name' => 'virtual/cron'
-      )
-    }
-  end
-
-  context 'Debian' do
-    let :facts do
-      {
-        os: { family: 'debian' }
-      }
-    end
-
-    it { is_expected.to contain_class('cron::install') }
-
-    it {
-      is_expected.to contain_package('cron').with(
-        'name' => 'cron'
-      )
-    }
   end
 end
