@@ -45,7 +45,7 @@ class cron (
   String[1]            $crontab_mailto          = 'root',
   Optional[Stdlib::Absolutepath] $crontab_home  = undef,
   Cron::Run_parts      $crontab_run_parts       = {},
-  Cron::User           $crontab_owner           = 'root',
+  Cron::User           $crontab_owner,
   Cron::Group          $crontab_group,
   Cron::Mode           $crontab_mode,
 
