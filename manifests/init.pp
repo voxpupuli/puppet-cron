@@ -46,8 +46,8 @@ class cron (
   Optional[Stdlib::Absolutepath] $crontab_home  = undef,
   Cron::Run_parts      $crontab_run_parts       = {},
   Cron::User           $crontab_owner           = 'root',
-  Cron::Group          $crontab_group           = 'root',
-  Cron::Mode           $crontab_mode            = '0644',
+  Cron::Group          $crontab_group,
+  Cron::Mode           $crontab_mode,
 
 ) {
   contain 'cron::install'

@@ -2,6 +2,8 @@
 
 cron::package_name: cron
 cron::service_name: cron
+cron::crontab_owner: root
+cron::crontab_group: root
 
 lookup_options:
   cron::users_allow:
