@@ -45,6 +45,8 @@ class cron (
   String[1]            $crontab_mailto          = 'root',
   Optional[Stdlib::Absolutepath] $crontab_home  = undef,
   Cron::Run_parts      $crontab_run_parts       = {},
+  Cron::Mode           $crontab_file_mode       = '0644',
+  Cron::Mode           $crontab_dir_mode        = '0755',
 ) {
   contain 'cron::install'
   contain 'cron::service'
@@ -83,7 +85,7 @@ class cron (
       ensure  => file,
       owner   => 'root',
       group   => 0,
-      mode    => '0644',
+      mode    => $crontab_file_mode,
       content => epp('cron/crontab.epp'),
     }
 
@@ -92,7 +94,7 @@ class cron (
         ensure => directory,
         owner  => 'root',
         group  => 0,
-        mode   => '0755',
+        mode   => $crontab_dir_mode,
         before => File['/etc/crontab'],
       }
     }
