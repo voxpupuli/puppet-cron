@@ -35,7 +35,6 @@ define cron::job::multiple (
         Optional['month']       => Cron::Month,
         Optional['weekday']     => Cron::Weekday,
         Optional['special']     => Cron::Special,
-        Optional['environment'] => Cron::Environment,
         Optional['user']        => Cron::User,
         Optional['description'] => String,
   }]]               $jobs,
@@ -57,7 +56,11 @@ define cron::job::multiple (
         group   => 'root',
         mode    => $mode,
         path    => "/etc/cron.d/${title}",
-        content => template('cron/multiple.erb'),
+        content => epp('cron/multiple.epp', {
+            name        => $name,
+            environment => $environment,
+            jobs        => $jobs,
+        }),
       }
     }
   }
