@@ -135,6 +135,20 @@ describe 'cron::job' do
     end
   end
 
+  context 'job with sensitive environment' do
+    let(:params) do
+      {
+        command: '/bin/true',
+        environment: [sensitive('KEY=value')]
+      }
+    end
+
+    it do
+      is_expected.to compile
+      is_expected.to contain_file("job_#{title}").with_content('Sensitive [value redacted]')
+    end
+  end
+
   # Multiple test cases for variations on time field values
   params_cases.each do |desc, p|
     context "job with #{desc}" do
