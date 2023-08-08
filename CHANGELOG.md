@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-cron/tree/v4.1.0) (2023-08-08)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- cron::job: make file group configureable [\#121](https://github.com/voxpupuli/puppet-cron/pull/121) ([bastelfreak](https://github.com/bastelfreak))
+- Replace Cron::Mode type with Stdlib::Filemode [\#120](https://github.com/voxpupuli/puppet-cron/pull/120) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-cron/tree/v4.0.0) (2023-07-31)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v3.0.0...v4.0.0)
