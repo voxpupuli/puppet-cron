@@ -9,6 +9,7 @@
 # @param special A crontab specific keyword like 'reboot'.
 # @param environment An array of environment variable settings.
 # @param user The user the cron job should be executed as.
+# @param group the group the cron job file should by owned by.
 # @param mode The mode to set on the created job file.
 # @param description Optional short description, which will be included in the cron job file.
 #
@@ -29,6 +30,7 @@ define cron::job (
   Cron::Special       $special     = undef,
   Cron::Environment   $environment = [],
   Cron::User          $user        = 'root',
+  Variant[String[1],Integer[0]] $group = 0,
   Stdlib::Filemode    $mode        = '0600',
   Optional[String]    $description = undef,
 ) {
@@ -45,7 +47,7 @@ define cron::job (
       file { "job_${title}":
         ensure  => 'file',
         owner   => 'root',
-        group   => 0,
+        group   => $group,
         mode    => $mode,
         path    => "/etc/cron.d/${title}",
         content => template('cron/job.erb'),
