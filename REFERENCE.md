@@ -454,6 +454,7 @@ The following parameters are available in the `cron::job` defined type:
 * [`special`](#-cron--job--special)
 * [`environment`](#-cron--job--environment)
 * [`user`](#-cron--job--user)
+* [`group`](#-cron--job--group)
 * [`mode`](#-cron--job--mode)
 * [`description`](#-cron--job--description)
 
@@ -536,6 +537,14 @@ Data type: `Cron::User`
 The user the cron job should be executed as.
 
 Default value: `'root'`
+
+##### <a name="-cron--job--group"></a>`group`
+
+Data type: `Variant[String[1],Integer[0]]`
+
+the group the cron job file should by owned by.
+
+Default value: `0`
 
 ##### <a name="-cron--job--mode"></a>`mode`
 
