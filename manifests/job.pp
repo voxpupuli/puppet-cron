@@ -29,7 +29,7 @@ define cron::job (
   Cron::Special       $special     = undef,
   Cron::Environment   $environment = [],
   Cron::User          $user        = 'root',
-  Cron::Mode          $mode        = '0600',
+  Stdlib::Filemode    $mode        = '0600',
   Optional[String]    $description = undef,
 ) {
   assert_type(Cron::Jobname, $title)

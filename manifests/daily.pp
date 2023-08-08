@@ -22,7 +22,7 @@ define cron::daily (
   Cron::Hour          $hour        = 0,
   Cron::Environment   $environment = [],
   Cron::User          $user        = 'root',
-  Cron::Mode          $mode        = '0600',
+  Stdlib::Filemode    $mode        = '0600',
   Optional[String]    $description = undef,
 ) {
   cron::job { $title:

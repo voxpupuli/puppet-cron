@@ -24,7 +24,7 @@ define cron::weekly (
   Cron::Hour          $hour        = 0,
   Cron::Weekday       $weekday     = 0,
   Cron::User          $user        = 'root',
-  Cron::Mode          $mode        = '0600',
+  Stdlib::Filemode    $mode        = '0600',
   Cron::Environment   $environment = [],
   Optional[String]    $description = undef,
 ) {

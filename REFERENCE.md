@@ -28,7 +28,6 @@
 * [`Cron::Job_ensure`](#Cron--Job_ensure): Valid $ensure parameter to Cron::Job.
 * [`Cron::Jobname`](#Cron--Jobname): Valid $title parameter to Cron::Job. This is the name of the /etc/cron.d/ file. The Ubuntu run-parts manpage specifies (^[a-zA-Z0-9_-]+$). Fo
 * [`Cron::Minute`](#Cron--Minute): Valid $minute parameter to Cron::Job.
-* [`Cron::Mode`](#Cron--Mode): Valid $mode parameter to Cron::Job.
 * [`Cron::Month`](#Cron--Month): Valid $month parameter to Cron::Job.
 * [`Cron::Monthname`](#Cron--Monthname): Short-names for each month.
 * [`Cron::Package_ensure`](#Cron--Package_ensure): Valid $service_ensure parameter to Cron.
@@ -167,7 +166,7 @@ Default value: `false`
 
 ##### <a name="-cron--allow_deny_mode"></a>`allow_deny_mode`
 
-Data type: `Cron::Mode`
+Data type: `Stdlib::Filemode`
 
 Specify the cron.allow/deny file mode.
 
@@ -327,7 +326,7 @@ Default value: `'root'`
 
 ##### <a name="-cron--daily--mode"></a>`mode`
 
-Data type: `Cron::Mode`
+Data type: `Stdlib::Filemode`
 
 The mode to set on the created job file.
 
@@ -411,7 +410,7 @@ Default value: `'root'`
 
 ##### <a name="-cron--hourly--mode"></a>`mode`
 
-Data type: `Cron::Mode`
+Data type: `Stdlib::Filemode`
 
 The mode to set on the created job file.
 
@@ -540,7 +539,7 @@ Default value: `'root'`
 
 ##### <a name="-cron--job--mode"></a>`mode`
 
-Data type: `Cron::Mode`
+Data type: `Stdlib::Filemode`
 
 The mode to set on the created job file.
 
@@ -634,7 +633,7 @@ Default value: `[]`
 
 ##### <a name="-cron--job--multiple--mode"></a>`mode`
 
-Data type: `Cron::Mode`
+Data type: `Stdlib::Filemode`
 
 The mode to set on the created job file.
 
@@ -730,7 +729,7 @@ Default value: `'root'`
 
 ##### <a name="-cron--monthly--mode"></a>`mode`
 
-Data type: `Cron::Mode`
+Data type: `Stdlib::Filemode`
 
 The mode to set on the created job file.
 
@@ -826,7 +825,7 @@ Default value: `'root'`
 
 ##### <a name="-cron--weekly--mode"></a>`mode`
 
-Data type: `Cron::Mode`
+Data type: `Stdlib::Filemode`
 
 The mode to set on the created job file.
 
@@ -927,12 +926,6 @@ Variant[Integer[0,59], Pattern[/(?x)\A(
         ( ,   [1-5]?[0-9] ( - [1-5]?[0-9] ( \/ ( [1-5][0-9]?|[6-9] ) )? )? )*
   )\z/]]
 ```
-
-### <a name="Cron--Mode"></a>`Cron::Mode`
-
-Valid $mode parameter to Cron::Job.
-
-Alias of `Pattern[/\A[0-7]{4}\z/]`
 
 ### <a name="Cron--Month"></a>`Cron::Month`
 
