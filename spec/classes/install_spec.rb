@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'cron::install' do
   let(:pre_condition) do
-    'include ::cron'
+    'include cron'
   end
 
   on_supported_os.each do |os, os_facts|
