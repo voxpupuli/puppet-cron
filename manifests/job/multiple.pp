@@ -41,7 +41,7 @@ define cron::job::multiple (
   }]]               $jobs,
   Cron::Job_ensure  $ensure      = 'present',
   Cron::Environment $environment = [],
-  Cron::Mode        $mode        = '0600',
+  Stdlib::Filemode  $mode        = '0600',
 ) {
   case $ensure {
     'absent': {
