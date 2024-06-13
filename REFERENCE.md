@@ -86,6 +86,8 @@ The following parameters are available in the `cron` class:
 * [`crontab_mailto`](#-cron--crontab_mailto)
 * [`crontab_home`](#-cron--crontab_home)
 * [`crontab_run_parts`](#-cron--crontab_run_parts)
+* [`crontab_file_mode`](#-cron--crontab_file_mode)
+* [`crontab_dir_mode`](#-cron--crontab_dir_mode)
 * [`package_ensure`](#-cron--package_ensure)
 
 ##### <a name="-cron--service_name"></a>`service_name`
@@ -227,6 +229,22 @@ Data type: `Cron::Run_parts`
 Define sadditional cron::run_parts resources
 
 Default value: `{}`
+
+##### <a name="-cron--crontab_file_mode"></a>`crontab_file_mode`
+
+Data type: `Stdlib::Filemode`
+
+The file mode for the system crontab file
+
+Default value: `'0644'`
+
+##### <a name="-cron--crontab_dir_mode"></a>`crontab_dir_mode`
+
+Data type: `Stdlib::Filemode`
+
+The file mode for the cron directories
+
+Default value: `'0755'`
 
 ##### <a name="-cron--package_ensure"></a>`package_ensure`
 
