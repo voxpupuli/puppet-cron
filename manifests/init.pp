@@ -17,8 +17,8 @@
 # @param crontab_mailto The value for MAILTO in /etc/crontab
 # @param crontab_home The value for HOME in /etc/crontab
 # @param crontab_run_parts Define sadditional cron::run_parts resources
-# @param crontab_file_mode The file mode for the system crontab file
-# @param crontab_dir_mode The file mode for the cron directories
+# @param file_mode The file mode for the system crontab file
+# @param dir_mode The file mode for the cron directories
 #
 # @example simply include the module
 #  include cron
@@ -47,8 +47,8 @@ class cron (
   String[1]            $crontab_mailto          = 'root',
   Optional[Stdlib::Absolutepath] $crontab_home  = undef,
   Cron::Run_parts      $crontab_run_parts       = {},
-  Stdlib::Filemode     $crontab_file_mode       = '0644',
-  Stdlib::Filemode     $crontab_dir_mode        = '0755',
+  Stdlib::Filemode     $file_mode       = '0644',
+  Stdlib::Filemode     $dir_mode        = '0755',
 ) {
   contain 'cron::install'
   contain 'cron::service'
@@ -87,7 +87,7 @@ class cron (
       ensure  => file,
       owner   => 'root',
       group   => 0,
-      mode    => $crontab_file_mode,
+      mode    => $file_mode,
       content => epp('cron/crontab.epp'),
     }
 
@@ -96,7 +96,7 @@ class cron (
         ensure => directory,
         owner  => 'root',
         group  => 0,
-        mode   => $crontab_dir_mode,
+        mode   => $dir_mode,
         before => File['/etc/crontab'],
       }
     }
