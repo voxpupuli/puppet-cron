@@ -634,7 +634,6 @@ Array[Struct[{
         Optional['month']       => Cron::Month,
         Optional['weekday']     => Cron::Weekday,
         Optional['special']     => Cron::Special,
-        Optional['environment'] => Cron::Environment,
         Optional['user']        => Cron::User,
         Optional['description'] => String,
   }]]
@@ -901,7 +900,7 @@ Alias of `Pattern[/(?i:\A(((0|[1-9][0-9]*):)?[0-9]([a-z0-9.+-~]*|[a-z0-9.+~]*-[a
 
 Valid $environment parameter to Cron::Job.
 
-Alias of `Array[Pattern[/(?i:\A[a-z_][a-z0-9_]*=[^\0]*\z)/]]`
+Alias of `Array[Variant[Pattern[/(?i:\A[a-z_][a-z0-9_]*=[^\0]*\z)/],Sensitive[Pattern[/(?i:\A[a-z_][a-z0-9_]*=[^\0]*\z)/]]]]`
 
 ### <a name="Cron--Hour"></a>`Cron::Hour`
 
