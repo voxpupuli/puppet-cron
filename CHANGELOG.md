@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.2.0](https://github.com/voxpupuli/puppet-cron/tree/v4.2.0) (2024-07-10)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v4.1.0...v4.2.0)
+
+**Implemented enhancements:**
+
+- Add support for FreeBSD 14 [\#136](https://github.com/voxpupuli/puppet-cron/pull/136) ([smortex](https://github.com/smortex))
+- Add parameters for file/directory modes [\#134](https://github.com/voxpupuli/puppet-cron/pull/134) ([ludovicus3](https://github.com/ludovicus3))
+
+**Merged pull requests:**
+
+- refactor: define job template as epp instead of erb [\#138](https://github.com/voxpupuli/puppet-cron/pull/138) ([bastelfreak](https://github.com/bastelfreak))
+- Remove legacy top-scope syntax [\#125](https://github.com/voxpupuli/puppet-cron/pull/125) ([smortex](https://github.com/smortex))
+
 ## [v4.1.0](https://github.com/voxpupuli/puppet-cron/tree/v4.1.0) (2023-08-08)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v4.0.0...v4.1.0)

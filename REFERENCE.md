@@ -634,7 +634,6 @@ Array[Struct[{
         Optional['month']       => Cron::Month,
         Optional['weekday']     => Cron::Weekday,
         Optional['special']     => Cron::Special,
-        Optional['environment'] => Cron::Environment,
         Optional['user']        => Cron::User,
         Optional['description'] => String,
   }]]
