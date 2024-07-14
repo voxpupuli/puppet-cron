@@ -18,4 +18,3 @@
 <%  } else { -%>
 <%= $minute %> <%= $hour %> <%= $date %> <%= $month %> <%= $weekday %>  <%= $user %>  <%= $command %>
 <%  } -%>
-
