@@ -19,6 +19,7 @@
 # @param crontab_run_parts Define sadditional cron::run_parts resources
 # @param file_mode The file mode for the system crontab file
 # @param dir_mode The file mode for the cron directories
+# @param cron_users_deny_ensure The state of the cron.deny file when $manage_users_deny is true.
 #
 # @example simply include the module
 #  include cron
@@ -49,6 +50,7 @@ class cron (
   Cron::Run_parts      $crontab_run_parts       = {},
   Stdlib::Filemode     $file_mode       = '0644',
   Stdlib::Filemode     $dir_mode        = '0755',
+  Enum['file', 'absent'] $cron_users_deny_ensure = 'file',
 ) {
   contain 'cron::install'
   contain 'cron::service'
@@ -68,7 +70,7 @@ class cron (
 
   if $manage_users_deny {
     file { '/etc/cron.deny':
-      ensure  => file,
+      ensure  => $cron_users_deny_ensure,
       mode    => $allow_deny_mode,
       owner   => 'root',
       group   => 0,
