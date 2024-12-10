@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-cron/tree/v5.0.0) (2024-12-10)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v4.2.0...v5.0.0)
+
+**Breaking changes:**
+
+- Drop support for EL7 as it is end of life [\#151](https://github.com/voxpupuli/puppet-cron/pull/151) ([ghoneycutt](https://github.com/ghoneycutt))
+- Support for sensitive environment variables [\#111](https://github.com/voxpupuli/puppet-cron/pull/111) ([teluq-pbrideau](https://github.com/teluq-pbrideau))
+
+**Implemented enhancements:**
+
+- Add EL9 support [\#141](https://github.com/voxpupuli/puppet-cron/pull/141) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- remove superfluous empty line from job template [\#144](https://github.com/voxpupuli/puppet-cron/pull/144) ([vchepkov](https://github.com/vchepkov))
+- cleanup remnants of RHEL5 [\#143](https://github.com/voxpupuli/puppet-cron/pull/143) ([vchepkov](https://github.com/vchepkov))
+
 ## [v4.2.0](https://github.com/voxpupuli/puppet-cron/tree/v4.2.0) (2024-07-10)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-cron/compare/v4.1.0...v4.2.0)
@@ -15,6 +33,7 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
+- refactor: define job::multiple template as epp instead of erb [\#139](https://github.com/voxpupuli/puppet-cron/pull/139) ([bastelfreak](https://github.com/bastelfreak))
 - refactor: define job template as epp instead of erb [\#138](https://github.com/voxpupuli/puppet-cron/pull/138) ([bastelfreak](https://github.com/bastelfreak))
 - Remove legacy top-scope syntax [\#125](https://github.com/voxpupuli/puppet-cron/pull/125) ([smortex](https://github.com/smortex))
 
