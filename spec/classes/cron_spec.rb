@@ -153,21 +153,6 @@ describe 'cron' do
                           ])
         }
 
-        if facts[:os]['family'] == 'RedHat' && facts[:os]['release']['major'].to_i == 6
-          context 'on rhel 6' do
-            it {
-              verify_contents(catalogue, '/etc/crontab',
-                              [
-                                'SHELL=/bin/bash',
-                                'PATH=/sbin:/bin:/usr/sbin:/usr/bin',
-                                'MAILTO=root',
-                                'HOME=/',
-                                '# For details see man 4 crontabs'
-                              ])
-            }
-          end
-        end
-
         context 'crontab_run_parts defined' do
           let(:params) do
             {
