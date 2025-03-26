@@ -127,6 +127,21 @@ describe 'cron' do
         }
       end
 
+      context 'cron_users_deny_ensure => absent' do
+        let(:params) do
+          {
+            manage_users_deny: true,
+            cron_users_deny_ensure: 'absent'
+          }
+        end
+
+        it {
+          is_expected.to contain_file('/etc/cron.deny').with(
+            'ensure' => 'absent'
+          )
+        }
+      end
+
       context 'manage_crontab => true' do
         let(:params) do
           {
