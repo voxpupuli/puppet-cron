@@ -144,13 +144,11 @@ describe 'cron' do
         }
 
         it {
-          verify_contents(catalogue, '/etc/crontab',
-                          [
-                            'SHELL=/bin/bash',
-                            'PATH=/sbin:/bin:/usr/sbin:/usr/bin',
-                            'MAILTO=root',
-                            '# For details see man 4 crontabs'
-                          ])
+          is_expected.to contain_file('/etc/crontab').
+            with_content(%r{SHELL=/bin/bash}).
+            with_content(%r{PATH=/sbin:/bin:/usr/sbin:/usr/bin}).
+            with_content(%r{MAILTO=root}).
+            with_content(%r{# For details see man 4 crontab})
         }
 
         context 'crontab_run_parts defined' do
@@ -165,11 +163,9 @@ describe 'cron' do
           end
 
           it {
-            verify_contents(catalogue, '/etc/crontab',
-                            [
-                              '*/5 * * * * root run-parts /etc/cron.5min',
-                              '*/30 * * * * root run-parts /etc/cron.30min'
-                            ])
+            is_expected.to contain_file('/etc/crontab').
+              with_content(%r{\*/5 \* \* \* \* root run-parts /etc/cron.5min}).
+              with_content(%r{\*/30 \* \* \* \* root run-parts /etc/cron.30min})
           }
 
           it {
