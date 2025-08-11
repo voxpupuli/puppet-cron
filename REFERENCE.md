@@ -88,6 +88,7 @@ The following parameters are available in the `cron` class:
 * [`crontab_run_parts`](#-cron--crontab_run_parts)
 * [`file_mode`](#-cron--file_mode)
 * [`dir_mode`](#-cron--dir_mode)
+* [`cron_users_deny_ensure`](#-cron--cron_users_deny_ensure)
 * [`package_ensure`](#-cron--package_ensure)
 
 ##### <a name="-cron--service_name"></a>`service_name`
@@ -245,6 +246,14 @@ Data type: `Stdlib::Filemode`
 The file mode for the cron directories
 
 Default value: `'0755'`
+
+##### <a name="-cron--cron_users_deny_ensure"></a>`cron_users_deny_ensure`
+
+Data type: `Enum['file', 'absent']`
+
+The state of the cron.deny file when $manage_users_deny is true.
+
+Default value: `'file'`
 
 ##### <a name="-cron--package_ensure"></a>`package_ensure`
 
