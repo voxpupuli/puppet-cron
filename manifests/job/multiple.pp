@@ -28,15 +28,15 @@
 #  }
 define cron::job::multiple (
   Array[Struct[{
-        Optional['command']     => String[1],
-        Optional['minute']      => Cron::Minute,
-        Optional['hour']        => Cron::Hour,
-        Optional['date']        => Cron::Date,
-        Optional['month']       => Cron::Month,
-        Optional['weekday']     => Cron::Weekday,
-        Optional['special']     => Cron::Special,
-        Optional['user']        => Cron::User,
-        Optional['description'] => String,
+    Optional['command']     => String[1],
+    Optional['minute']      => Cron::Minute,
+    Optional['hour']        => Cron::Hour,
+    Optional['date']        => Cron::Date,
+    Optional['month']       => Cron::Month,
+    Optional['weekday']     => Cron::Weekday,
+    Optional['special']     => Cron::Special,
+    Optional['user']        => Cron::User,
+    Optional['description'] => String,
   }]]               $jobs,
   Cron::Job_ensure  $ensure      = 'present',
   Cron::Environment $environment = [],
@@ -57,9 +57,9 @@ define cron::job::multiple (
         mode    => $mode,
         path    => "/etc/cron.d/${title}",
         content => epp('cron/multiple.epp', {
-            name        => $name,
-            environment => $environment,
-            jobs        => $jobs,
+          name        => $name,
+          environment => $environment,
+          jobs        => $jobs,
         }),
       }
     }
