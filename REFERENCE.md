@@ -627,15 +627,15 @@ Data type:
 
 ```puppet
 Array[Struct[{
-        Optional['command']     => String[1],
-        Optional['minute']      => Cron::Minute,
-        Optional['hour']        => Cron::Hour,
-        Optional['date']        => Cron::Date,
-        Optional['month']       => Cron::Month,
-        Optional['weekday']     => Cron::Weekday,
-        Optional['special']     => Cron::Special,
-        Optional['user']        => Cron::User,
-        Optional['description'] => String,
+    Optional['command']     => String[1],
+    Optional['minute']      => Cron::Minute,
+    Optional['hour']        => Cron::Hour,
+    Optional['date']        => Cron::Date,
+    Optional['month']       => Cron::Month,
+    Optional['weekday']     => Cron::Weekday,
+    Optional['special']     => Cron::Special,
+    Optional['user']        => Cron::User,
+    Optional['description'] => String,
   }]]
 ```
 
@@ -1000,12 +1000,12 @@ Alias of
 
 ```puppet
 Hash[Cron::Jobname, Struct[{
-      NotUndef['user']       => Cron::User,
-      Optional['minute']     => Cron::Minute,
-      Optional['hour']       => Cron::Hour,
-      Optional['dayofmonth'] => Cron::Date,
-      Optional['month']      => Cron::Month,
-      Optional['dayofweek']  => Cron::Weekday,
+    NotUndef['user']       => Cron::User,
+    Optional['minute']     => Cron::Minute,
+    Optional['hour']       => Cron::Hour,
+    Optional['dayofmonth'] => Cron::Date,
+    Optional['month']      => Cron::Month,
+    Optional['dayofweek']  => Cron::Weekday,
   }]]
 ```
 
