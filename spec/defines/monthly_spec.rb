@@ -9,7 +9,7 @@ describe 'cron::monthly' do
       minute: '59',
       hour: '1',
       date: '20',
-      command: 'mysqldump -u root test_db >some_file'
+      command: 'mysqldump -u root test_db >some_file',
     }
   end
 
@@ -23,15 +23,15 @@ describe 'cron::monthly' do
       'user' => params[:user] || 'root',
       'environment' => params[:environment] || [],
       'mode' => params[:mode] || '0600',
-      'command' => params[:command]
+      'command' => params[:command],
     )
   end
 
   it do
     is_expected.to contain_file("job_#{title}").with(
-      'owner' => 'root'
+      'owner' => 'root',
     ).with_content(
-      %r{\s+59 1 20 \* \*  root  mysqldump -u root test_db >some_file\n}
+      %r{\s+59 1 20 \* \*  root  mysqldump -u root test_db >some_file\n},
     )
   end
 end
