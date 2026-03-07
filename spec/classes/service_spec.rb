@@ -24,7 +24,7 @@ describe 'cron::service' do
       context 'CentOS 6', if: os_facts[:os]['family'] == 'RedHat' do
         it {
           is_expected.to contain_service('crond').with(
-            'name' => 'crond'
+            'name' => 'crond',
           )
         }
       end
@@ -32,7 +32,7 @@ describe 'cron::service' do
       context 'Gentoo', if: os_facts[:os]['name'] == 'Gentoo' do
         it {
           is_expected.to contain_service('cron').with(
-            'name' => 'cron'
+            'name' => 'cron',
           )
         }
       end
@@ -42,7 +42,7 @@ describe 'cron::service' do
           is_expected.to contain_service('cron').with(
             'name' => 'cron',
             'ensure' => 'running',
-            'enable' => 'true'
+            'enable' => 'true',
           )
         }
       end

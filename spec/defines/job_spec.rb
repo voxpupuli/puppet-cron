@@ -65,7 +65,7 @@ describe 'cron::job' do
     'day name in range' => { weekday: 'Mon-Fri', should_accept: false },
     'user with dots in name' => { user: 'admin.master', minute: '*', should_accept: true },
     'user with slash in name' => { user: 'admin/master', minute: '*', should_accept: false },
-    'user with backslash in name' => { user: 'admin\master', minute: '*', should_accept: false }
+    'user with backslash in name' => { user: 'admin\master', minute: '*', should_accept: false },
   }
   let(:title) { 'mysql_backup' }
 
@@ -79,11 +79,11 @@ describe 'cron::job' do
         'owner' => 'root',
         'group' => 0,
         'mode' => '0600',
-        'path' => "/etc/cron.d/#{title}"
+        'path' => "/etc/cron.d/#{title}",
       ).with_content(
-        %r{\n#{cron_timestamp}\s+}
+        %r{\n#{cron_timestamp}\s+},
       ).with_content(
-        %r{\s+#{params[:command]}\n}
+        %r{\s+#{params[:command]}\n},
       )
     end
   end
@@ -100,7 +100,7 @@ describe 'cron::job' do
         user: 'admin',
         mode: '0600',
         description: 'Mysql backup',
-        command: 'mysqldump -u root test_db >some_file'
+        command: 'mysqldump -u root test_db >some_file',
       }
     end
     let(:cron_timestamp) { get_timestamp(params) }
@@ -108,17 +108,17 @@ describe 'cron::job' do
     it do
       is_expected.to contain_file("job_#{title}").with(
         'owner' => 'root',
-        'mode' => params[:mode]
+        'mode' => params[:mode],
       ).with_content(
-        %r{\n#{params[:environment].join('\n')}\n}
+        %r{\n#{params[:environment].join('\n')}\n},
       ).with_content(
-        %r{\n#{cron_timestamp}\s+}
+        %r{\n#{cron_timestamp}\s+},
       ).with_content(
-        %r{\s+#{params[:user]}\s+}
+        %r{\s+#{params[:user]}\s+},
       ).with_content(
-        %r{\s+#{params[:command]}\n}
+        %r{\s+#{params[:command]}\n},
       ).with_content(
-        %r{\n# #{params[:description]}\n}
+        %r{\n# #{params[:description]}\n},
       )
     end
   end
@@ -126,7 +126,7 @@ describe 'cron::job' do
   context 'job with ensure set to absent' do
     let(:params) do
       {
-        ensure: 'absent'
+        ensure: 'absent',
       }
     end
 
@@ -156,7 +156,7 @@ describe 'cron::job' do
     let(:params) do
       {
         command: '/usr/bin/sleep 10',
-        special: 'reboot'
+        special: 'reboot',
       }
     end
 

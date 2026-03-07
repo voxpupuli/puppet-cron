@@ -28,7 +28,7 @@ describe 'cron' do
       context 'manage_package => false' do
         let(:params) do
           { manage_package: false,
-            package_ensure: 'cron' }
+            package_ensure: 'cron', }
         end
 
         it { is_expected.to contain_class('cron::install') }
@@ -38,7 +38,7 @@ describe 'cron' do
       context 'manage_package => true' do
         let(:params) do
           { manage_package: true,
-            package_ensure: 'installed' }
+            package_ensure: 'installed', }
         end
 
         it { is_expected.to contain_class('cron::install') }
@@ -48,7 +48,7 @@ describe 'cron' do
       context 'package_ensure => absent' do
         let(:params) do
           { manage_package: true,
-            package_ensure: 'absent' }
+            package_ensure: 'absent', }
         end
 
         it { is_expected.to contain_class('cron::install') }
@@ -56,7 +56,7 @@ describe 'cron' do
         it {
           is_expected.to contain_package('cron').with(
             'name' => package_name,
-            'ensure' => 'absent'
+            'ensure' => 'absent',
           )
         }
       end
@@ -69,7 +69,7 @@ describe 'cron' do
         it {
           is_expected.to contain_package('cron').with(
             'name' => 'sys-process/cronie',
-            'ensure' => 'installed'
+            'ensure' => 'installed',
           )
         }
       end
@@ -92,7 +92,7 @@ describe 'cron' do
         let(:params) do
           {
             manage_service: true,
-            service_ensure: 'stopped'
+            service_ensure: 'stopped',
           }
         end
 
@@ -102,7 +102,7 @@ describe 'cron' do
           is_expected.to contain_service(service_name).with(
             'name' => service_name,
             'ensure' => 'stopped',
-            'enable' => true
+            'enable' => true,
           )
         }
       end
@@ -112,7 +112,7 @@ describe 'cron' do
           {
             manage_service: true,
             service_ensure: 'stopped',
-            service_enable: false
+            service_enable: false,
           }
         end
 
@@ -122,7 +122,7 @@ describe 'cron' do
           is_expected.to contain_service(service_name).with(
             'name' => service_name,
             'ensure' => 'stopped',
-            'enable' => false
+            'enable' => false,
           )
         }
       end
@@ -130,7 +130,7 @@ describe 'cron' do
       context 'manage_crontab => true' do
         let(:params) do
           {
-            manage_crontab: true
+            manage_crontab: true,
           }
         end
 
@@ -139,16 +139,16 @@ describe 'cron' do
             'ensure' => 'file',
             'owner' => 'root',
             'group' => '0',
-            'mode' => '0644'
+            'mode' => '0644',
           )
         }
 
         it {
-          is_expected.to contain_file('/etc/crontab').
-            with_content(%r{SHELL=/bin/bash}).
-            with_content(%r{PATH=/sbin:/bin:/usr/sbin:/usr/bin}).
-            with_content(%r{MAILTO=root}).
-            with_content(%r{# For details see man 4 crontab})
+          is_expected.to contain_file('/etc/crontab')
+            .with_content(%r{SHELL=/bin/bash})
+            .with_content(%r{PATH=/sbin:/bin:/usr/sbin:/usr/bin})
+            .with_content(%r{MAILTO=root})
+            .with_content(%r{# For details see man 4 crontab})
         }
 
         context 'crontab_run_parts defined' do
@@ -157,15 +157,15 @@ describe 'cron' do
               manage_crontab: true,
               crontab_run_parts: {
                 '5min' => { 'user' => 'root', 'minute' => '*/5', 'hour' => '*' },
-                '30min' => { 'user' => 'root', 'minute' => '*/30', 'hour' => '*' }
-              }
+                '30min' => { 'user' => 'root', 'minute' => '*/30', 'hour' => '*' },
+              },
             }
           end
 
           it {
-            is_expected.to contain_file('/etc/crontab').
-              with_content(%r{\*/5 \* \* \* \* root run-parts /etc/cron.5min}).
-              with_content(%r{\*/30 \* \* \* \* root run-parts /etc/cron.30min})
+            is_expected.to contain_file('/etc/crontab')
+              .with_content(%r{\*/5 \* \* \* \* root run-parts /etc/cron.5min})
+              .with_content(%r{\*/30 \* \* \* \* root run-parts /etc/cron.30min})
           }
 
           it {
@@ -173,7 +173,7 @@ describe 'cron' do
               'ensure' => 'directory',
               'owner' => 'root',
               'group' => '0',
-              'mode' => '0755'
+              'mode' => '0755',
             )
           }
 
@@ -182,7 +182,7 @@ describe 'cron' do
               'ensure' => 'directory',
               'owner' => 'root',
               'group' => '0',
-              'mode' => '0755'
+              'mode' => '0755',
             )
           }
         end

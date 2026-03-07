@@ -96,11 +96,15 @@ Data type: `String[1]`
 
 Can be set to define a different cron service name.
 
+Default value: `'cron'`
+
 ##### <a name="-cron--package_name"></a>`package_name`
 
 Data type: `String[1]`
 
 Can be set to install a different cron package.
+
+Default value: `'cron'`
 
 ##### <a name="-cron--manage_package"></a>`manage_package`
 
