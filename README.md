@@ -9,7 +9,7 @@
 ## Notes
 
 This module manages cronjobs by placing files in `/etc/cron.d`.
-rmueller-cron was a detached fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron)
+rmueller-cron was a detached fork of [torrancew/puppet-cron](https://github.com/torrancew/puppet-cron).
 After v1.0.0, the module was migrated to Vox Pupuli where it is now maintained and released under the [puppet](https://forge.puppet.com/puppet) namespace.
 
 The current version (starting with v1.0.0) of this module requires Puppet 4.9.1 or greater.
